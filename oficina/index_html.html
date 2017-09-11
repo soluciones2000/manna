@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<html>
+   <head> 
+      <style> 
+         td.left {
+            width: 15%;
+         }
+         td.center {
+            width: 70%;
+         }
+         td.right {
+            width: 15%;
+         }
+         td.body {
+            height: 100%;
+         }
+         h5.mision {
+            font-style: italic;
+            margin-top: 1px;
+            margin-bottom: 3px;
+            color: red;
+            text-align: center;
+         }
+
+         .vertical-menu {
+            width: 80%;
+            padding-left: 10%;
+            padding-right: 10%;
+            font-family: arial;
+            text-transform: uppercase;
+         }
+
+         .vertical-menu a {
+            background-color: orange;
+            color: white;
+            display: block;
+            padding: 5px;
+            margin-bottom: 5px;
+            text-decoration: none;
+         }
+
+         .vertical-menu a:hover {
+            background-color: gray;
+         }
+
+         .vertical-menu a.active {
+            background-color: red;
+            color: white;
+         }
+/*
+         ul.menu {
+            font-family: arial;
+            float: left;
+            list-style-type: none;
+            text-align: center;
+            padding: 0;
+            width: 100%;
+         }
+         li.opciones {
+            display: block;
+            background-color: orange;
+            margin-left: 10%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            width: 80%;
+            text-align: center;
+         }
+         a.enlaces {
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            width: 100%;
+            line-height: 130%;
+         }
+         a:hoover {
+            background-color: red;
+         }
+*/
+         div.container {
+            width: 100%;
+            height: 500%;
+         }
+         div.logo {
+            float: left;
+            text-align: center;
+            display: inline;
+         }  
+         img.logo {
+            width: 90%;
+            height: 90%;
+         }
+         div.header {
+            text-align: center;
+         }
+         div.user {
+            float: right;
+         }
+         div.left {
+            text-align: center;
+            clear: both;
+            float: left;
+         }
+         div.content {
+            height: 100%;
+         }
+         div.right {
+            float: right;
+         }
+         div.footer {
+            font-family: arial;
+            font-size: 8;
+            color: white;
+			   text-align: right;
+            background-color: orange;
+   			top: 100%;
+         }
+      </style>
+
+   <title>SGC Consultores C.A. - Consultoría, Tecnología y Aprendizaje</title>
+   <link rel="icon" type="image/png" href="sgc_ico.png" />
+   </head>
+   <body>
+	  <?php include_once("analyticstracking.php") ?>
+      <div class="container">
+         <table border="1">
+            <tr>
+               <td class="left">
+                  <div class="logo">
+                     <img class="logo" src="img/sgc.jpg" alt="SGC CONSULTORES C.A." /><br>
+                  </div>
+               </td>
+               <td class="center">
+                  <div class="header">
+                     <h3>Próximo evento de formación:</h3>
+                     <p><b>EL PODER GENERATIVO DEL LENGUAJE</b><br>
+                        Con su participación activa los socios de aprendizaje obtendrán herramientas para ser mejores comunicadores mejorar su efectividad personal<br><br>
+                        Para más información visita el siguiente enlace: <a href="http://www.psicoexpresate.com.ve">www.psicoexpresate.com.ve</a>
+                     </p>
+                  </div>
+               </td>
+               <td class="center">
+                  <div class="header">
+					<a href="mailto:info@sgc-consultores.com.ve" target="_blank">info@sgc-consultores.com.ve</a><br>
+					+58-414-4802725
+				  </div>
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <div class="left">
+                     <h5 class="mision">
+                        Existimos para incrementar la capacidad productiva y competitiva de nuestros clientes, mejorando sus procesos, su tecnología y su gente.
+                     </h5>
+                     <br>
+                     <div id="menu" class="vertical-menu">
+                        <a id="inicio" class="" href="#" onclick="refresca(this,'inicio')">Inicio</a>
+                        <a id="nosotros" class="" href="#" onclick="refresca(this,'nosotros')">Nosotros</a>
+                        <a id="productos" class="" href="#" onclick="refresca(this,'productos')">Productos</a>
+                        <a id="clientes" class="" href="#" onclick="refresca(this,'clientes')">Clientes</a>
+                        <a id="recursos" class="" href="#" onclick="refresca(this,'recursos')">Recursos</a>
+                        <a id="contacto" class="" href="#" onclick="refresca(this,'contacto')">Contacto</a>
+                        <a id="pagos" class="" href="#" onclick="refresca(this,'pagos')">Pagos</a>
+                     </div>
+                  </div>
+				   <div align="center">
+					<a href="https://www.cylex.com.ve/valencia/sgc+consultores+c.a-11165416.html" target="_blank">
+						<img src="http://admin.cylex.com.ve/cylex_logo4_11165416.png" alt="CYLEX" style="height:60px;width:120px" title="SGC Consultores C.A." />
+					</a>
+				   </div>
+               </td>
+               <td class="body">
+                  <div class="content" align="center">
+					 <br>
+                     <iframe id="marco" width="99%" height="400px" src="inicio.html">
+                        <p>Tu navegador no soporta Frames.</p>
+                     </iframe>
+                  </div>
+               </td>
+               <td>
+                  <div class="right" align="center">
+<!--
+      					<div id="clxSmallWidget">
+      						<script src="http://admin.cylex.com.ve/js/widget/smallWidget.js"></script>
+      						<script>
+      							new clxRateWidget({
+      								name: 'Qué opina Usted acerca de SGC Consultores C.A. ? Comparta su opinión en Cylex!',
+      								fir_nr: 11165416,
+      								language: 'es-VE',
+      								size: 'small',
+      								backgroundColor: '#f1592a',
+      								textColor: '#ffffff',
+      								linkColor: '#000000',
+      								domain: 'http://admin.cylex.com.ve',
+      								profileUrl: 'https://www.cylex.com.ve/valencia/sgc+consultores+c.a-11165416.html',
+      								siteUrl: 'http://www.cylex.com.ve'
+      							});
+      						</script>
+                        <br>
+                     </div>
+-->
+                     <img class="logo" src="img/MyAPM.jpg" alt="My Automatic Process Manager" align="middle" /><br>
+                     <br><br>
+                     <img class="logo" src="img/NextSoft.jpg" alt="Software Administrativo y contable Nextsoft" align="middle" /><br>
+                  </div>
+               </td>
+            </tr>
+         </table>
+      </div>
+      <div class="footer">Chatea con nosotros por <a href="https://m.me/sgcvzla" target="_blank">FACEBOOK</a> o por <a href="https://api.whatsapp.com/send?phone=584144802725" target="_blank">WHATSAPP</a>. </div>
+      <script>
+         function refresca(id,enlace) {
+            document.getElementById("inicio").className = "";
+            document.getElementById("nosotros").className = "";
+            document.getElementById("productos").className = "";
+            document.getElementById("clientes").className = "";
+            document.getElementById("recursos").className = "";
+            document.getElementById("contacto").className = "";
+            document.getElementById("pagos").className = "";
+
+            id.className = "active";
+
+            document.getElementById("marco").src = enlace+".html";
+            document.getElementById("marco").reload();
+         }
+      </script>
+   </body>
+</html>

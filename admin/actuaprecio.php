@@ -1,0 +1,8 @@
+<?php 
+include_once("conexion.php");
+$fecha = date("Y")."-".date("m")."-".sprintf("%'02d",(date("d")-1));
+$query = "UPDATE empresa SET pvp_premium_hogar =".$_POST['pvp_premium_hogar'].", premium_hogar=".$_POST['premium_hogar'].", mp_premium_hogar=".$_POST['mp_premium_hogar'].", pvp_premium_lq=".$_POST['pvp_premium_lq'].", premium_lq=".$_POST['premium_lq'].", mp_premium_lq=".$_POST['mp_premium_lq'].", pvp_premium_teatro=".$_POST['pvp_premium_teatro'].", premium_teatro=".$_POST['premium_teatro'].", mp_premium_teatro=".$_POST['mp_premium_teatro'].", pvp_premium_todas=".$_POST['pvp_premium_todas'].", premium_todas=".$_POST['premium_todas'].", mp_premium_todas=".$_POST['mp_premium_todas'].", pvp_vip_hogar=".$_POST['pvp_vip_hogar'].", vip_hogar=".$_POST['vip_hogar'].", mp_vip_hogar=".$_POST['mp_vip_hogar'].", pvp_vip_lq=".$_POST['pvp_vip_lq'].", vip_lq=".$_POST['vip_lq'].", mp_vip_lq=".$_POST['mp_vip_lq'].", pvp_vip_teatro=".$_POST['pvp_vip_teatro'].", vip_teatro=".$_POST['vip_teatro'].", mp_vip_teatro=".$_POST['mp_vip_teatro'].", pvp_vip_todas=".$_POST['pvp_vip_todas'].", vip_todas=".$_POST['vip_todas'].", mp_vip_todas=".$_POST['mp_vip_todas'].", pvp_oro_hogar=".$_POST['pvp_oro_hogar'].", oro_hogar=".$_POST['oro_hogar'].", mp_oro_hogar=".$_POST['mp_oro_hogar'].", pvp_oro_lq=".$_POST['pvp_oro_lq'].", oro_lq=".$_POST['oro_lq'].", mp_oro_lq=".$_POST['mp_oro_lq'].", pvp_oro_teatro=".$_POST['pvp_oro_teatro'].", oro_teatro=".$_POST['oro_teatro'].", mp_oro_teatro=".$_POST['mp_oro_teatro'].", pvp_oro_todas=".$_POST['pvp_oro_todas'].", oro_todas=".$_POST['oro_todas'].", mp_oro_todas=".$_POST['mp_oro_todas'];
+$result = mysql_query($query,$link);
+$cadena = 'Location: index.php'; 
+header($cadena);
+?>
