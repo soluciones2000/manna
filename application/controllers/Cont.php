@@ -11,7 +11,7 @@ class Cont extends CI_Controller {
 	public function contacto(){
 		$data = new stdClass();
 
-		$data->title = "Pasarela de pagos";
+		$data->title = "MANNA - La Provisión que cambiará tu vida";
 		$data->contenido = "apl/cont/form"; //aqui es la dirección física del controlador
 		$data->panel_title = "Formulario de contacto";
 		$data->active = "contacto";
@@ -52,7 +52,8 @@ class Cont extends CI_Controller {
 
 		$data = new stdClass();
 
-		$data->title = "Pasarela de pagos";
+		$data->title = "MANNA - La Provisión que cambiará tu vida";
+		$data->logo = $_SESSION['emp_logo'];
 		$data->contenido = "holamundo/hola";
 //    	$data->emp_nombre = $_SESSION['emp_nombre'];
 		

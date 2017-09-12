@@ -6,60 +6,48 @@ $result = mysql_query($query,$link);
 $quer2 = "select * from afiliados order by id";
 $resul2 = mysql_query($quer2,$link);
 
-$tabla = "";
-$file = fopen(date('Ymd').".txt", "w");
+//$tabla = "";
+//$file = fopen(date('Ymd').".txt", "w");
 
-$first = true;
 $campos = array();
 while($row = mysql_fetch_array($result)) {
-	if ($first) {
-		$tabla .= '';
-		$first = false;
-	} else {
-		$tabla .= ',';		
-		fwrite($file, ",");
-	}
 	$indice = $row["COLUMN_NAME"];
 	$tabla .= $indice;
-	fwrite($file, $indice);
 	$campos[] = $indice;
 }
-$tabla .= '<br>';
-fwrite($file,  PHP_EOL);
 
+$tabla = "{";
 while($ro2 = mysql_fetch_array($resul2)) {
 	$first = true;
 	foreach ($campos as $key => $value) {
 		if ($first) {
-			$tabla .= '';
+			$tabla .= '{';
 			$first = false;
 		} else {
 			$tabla .= ',';		
-		fwrite($file, ",");
 		}
-		$tabla .= $ro2[$campos[$key]];
-		fwrite($file, $ro2[$campos[$key]]);
+		$tabla .= '"'.$campos[$key].'":"'.$ro2[$campos[$key]].'"';
 	}
-	$tabla .= '<br>';
-	fwrite($file,  PHP_EOL);
+	$tabla .= '}';
 }
+$tabla .= "}";
+
+$file = fopen(date('Ymd').".json", "w");
+fwrite($file,$tabla);
 fclose($file);
-echo $tabla;
+$archivo = dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".json";
+echo $archivo;
 echo '<br>';
-echo dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".txt";
+echo $tabla;
+var_dump($file);
 
-$asunto = "Tabla de afiliados al : ".date('d/m/Y');
-$mensaje = $tabla.PHP_EOL;
-$cabeceras = 'Content-type: text/html;'.PHP_EOL;
-
-$archivo = file_get_contents(dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".txt");
+$asunto = "Tabla de afiliados al : ".date('d-m-Y');
+$mensaje = $tabla;
 
 //$attachment = chunk_split(base64_encode($archivo));
 
-//$cabeceras .= "Content-Type: application/octet-stream; name=\"".$archivo."\"".PHP_EOL;
-$cabeceras .= "Content-Transfer-Encoding: base64".PHP_EOL;
-$cabeceras .= "Content-Disposition: attachment".PHP_EOL.PHP_EOL;
-//$mensaje .= $attachment.PHP_EOL;
+$cabeceras .= "X-attachments: ".$archivo;
 
-mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
+//Envío el correo
+mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
 ?>

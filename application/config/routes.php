@@ -72,6 +72,8 @@ $route['reset'] = 'general/reset'; //aqui es el controlador y el metodo
 $route['reinicio'] = 'general/reinicio'; //aqui es el controlador y el metodo
 $route['logout'] = 'general/logout'; //aqui es el controlador y el metodo
 
+$route['contacto'] = 'cont/contacto'; //aqui es el controlador y el metodo
+$route['email_contacto'] = 'cont/email_contacto'; //aqui es el controlador y el metodo
 
 $route['opcion'] = 'aliados/opcion'; //aqui es el controlador y el metodo
 $route['registro'] = 'aliados/registro'; //aqui es el controlador y el metodo
