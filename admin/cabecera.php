@@ -4,7 +4,7 @@ session_start();
 <!DOCTYPE html>
 
 <html>
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
 	<title>Corporación MANNA C.A. - Admnistración</title>
 <!--	<link rel="icon" type="image/png" href="psicoexpresate_ico.png" /> -->
 </head>
@@ -62,7 +62,7 @@ $(document).ready(function() {
 					</td>
 					<td width="20%" align="right" style="padding:1%">
 						<?php
-							$nombre = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+							$nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
 							$usuario = isset($_SESSION['user']) ? true : false;
 							if ($usuario) {
 								echo '<label id="user">Buen día: '.trim($nombre).'</label>';

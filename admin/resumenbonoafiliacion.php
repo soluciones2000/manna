@@ -128,7 +128,7 @@ if (isset($mes) and isset($ano)) {
 			$cta = trim($row["banco_numero_cta"]);
 			$cta = substr($cta,strlen($cta)-20,4).'-'.substr($cta,strlen($cta)-16,4).'-'.substr($cta,strlen($cta)-12,2).'-'.substr($cta,strlen($cta)-10,10);
 			$bco = trim($row["banco_nombre_bco"]);
-			$namept = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
+			$namept = utf8_encode(trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]));
 		}
 	    $tit_codigo = $row["tit_codigo"];
 	    $fecha_afiliacion = $row["fecha_afiliacion"]; // del afiliado no del patrocinador

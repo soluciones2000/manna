@@ -124,7 +124,7 @@ if (isset($mes) and isset($ano)) {
 			if($ro6 = mysql_fetch_array($resul6)) {
 				$nom = $ro6["tit_nombres"];
 				$ape = $ro6["tit_apellidos"];
-				$namept = trim($nom)." ".trim($ape);
+				$namept = utf8_encode(trim($nom)." ".trim($ape));
 			} else {
 				$namept = "";
 			}
@@ -141,7 +141,7 @@ if (isset($mes) and isset($ano)) {
 		if($ro6 = mysql_fetch_array($resul6)) {
 			$nom = $ro6["tit_nombres"];
 			$ape = $ro6["tit_apellidos"];
-			$namep2 = trim($nom)." ".trim($ape);
+			$namep2 = utf8_encode(trim($nom)." ".trim($ape));
 		} else {
 			$namep2 = "";
 		}
@@ -168,7 +168,7 @@ if (isset($mes) and isset($ano)) {
 			if($ro3 = mysql_fetch_array($resul3)) {
 				$nom = $ro3["tit_nombres"];
 				$ape = $ro3["tit_apellidos"];
-				$nameaf = trim($nom)." ".trim($ape);
+				$nameaf = utf8_encode(trim($nom)." ".trim($ape));
 				$tx1 = "Nivel: ".$nivel." Afiliado: ".$afiliado." ".$nameaf." ";
 				$d2 = true;
 				$tipo_afiliado = $ro3["tipo_afiliado"];
