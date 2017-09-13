@@ -47,7 +47,8 @@ $tabla .= "]}";
 $file = fopen(date('Ymd').".json", "w");
 fwrite($file,$tabla);
 fclose($file);
-$archivo = dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".json";
+//$archivo = dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".json";
+$archivo = date('Ymd').".json";
 
 $asunto = "Tabla de afiliados al : ".date('d-m-Y');
 
@@ -71,10 +72,13 @@ $c = fread($f, filesize($archivo));
 $adjunto .= chunk_split(base64_encode($c));
 fclose($f);
 
+echo "<pre>";
+var_dump($_FILES);
+
 $mensaje .= $adjunto."\n\n----_Separador-de-mensajes_----\n";
 
 //Envío el correo
-mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
+//mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
 echo 'asunto: '.$asunto;
 echo '<br>';
 echo '<br>';
