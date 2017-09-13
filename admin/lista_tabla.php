@@ -67,7 +67,7 @@ $adjunto .= "Content-Transfer-Encoding: BASE64\n";
 $adjunto .= "Content-disposition: attachment;filename=\"".$archivo."\"\n\n";
  
 $f = fopen($archivo, 'r');
-$contenido = fread($f, filesize($archivo));
+$c = fread($f, filesize($archivo));
 $adjunto .= chunk_split(base64_encode($c));
 fclose($f);
 
