@@ -52,30 +52,38 @@ $archivo = date('Ymd').".json";
 
 $asunto = "Tabla de afiliados al : ".date('d-m-Y');
 
+$uid = "_".md5(uniqid(time())); 
+
 $cabeceras .= "MIME-version: 1.0\n";
 $cabeceras .= "Content-type: multipart/mixed;";
-$cabeceras .= "boundary=\"--_Separador-de-mensajes_--\"\n";
+$cabeceras .= "boundary=\"--_".$uid."--\"\n";
 
-$cabeceratexto = "----_Separador-de-mensajes_--\n";
-$cabeceratexto .= "Content-type: text/plain;charset=iso-8859-1\n";
-$cabeceratexto .= "Content-transfer-encoding: 7BIT\n";
- 
+$cabeceratexto = "-".$uid."\n";
+//$cabeceratexto .= "Content-type: text/plain;charset=iso-8859-1\n";
+//$cabeceratexto .= "Content-transfer-encoding: 7BIT\n";
+
+
 $mensaje = $cabeceratexto.$tabla;
 
-$adjunto = "\n\n----_Separador-de-mensajes_--\n";
+$file_str = file_get_contents($archivo);
+$filename = basename($archivo);
+$file_type = mime_content_type($archivo);
+$chunks = chunk_split(base64_encode($file_str));
+$mensaje .= "--".$uid."\n";
+$mensaje .= "Content-type:".$file_type.";"."\n".chr(9)." name=\"".$archivo."\""."\n";
+$mensaje .= "Content-Transfer-Encoding: base64"."\n";
+$mensaje .= "Content-Disposition: ".$dispo.";".chr(9)."filename=\"".$archivo."\""."\n"."\n";
+$mensaje .= $chunks;
+$mensaje .= "\n"."\n";
+
+
+$adjunto = "\n\n--".$uid."\n";
 $adjunto .= "Content-type: ".filetype($archivo).";name=\"".$archivo."\"\n";;
 $adjunto .= "Content-Transfer-Encoding: BASE64\n";
 $adjunto .= "Content-disposition: attachment;filename=\"".$archivo."\"\n\n";
  
-$f = fopen($archivo, 'r');
-$c = fread($f, filesize($archivo));
-$adjunto .= chunk_split(base64_encode($c));
-fclose($f);
 
-echo "<pre>";
-var_dump($_FILES);
-
-$mensaje .= $adjunto."\n\n----_Separador-de-mensajes_----\n";
+$mensaje .= $adjunto."\n\n----".$uid."----\n";
 
 //Envío el correo
 //mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
