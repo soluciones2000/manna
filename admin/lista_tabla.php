@@ -74,7 +74,7 @@ fclose($f);
 $mensaje .= $adjunto."\n\n----_Separador-de-mensajes_----\n";
 
 //Envío el correo
-//mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
+mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
 echo 'asunto: '.$asunto;
 echo '<br>';
 echo '<br>';
@@ -84,6 +84,6 @@ echo '<br>';
 echo "cabeceras: ".$cabeceras;
 echo '<br>';
 echo '<br>';
-var_dump($file);
+//var_dump($file);
 ?>
 
