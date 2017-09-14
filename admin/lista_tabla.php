@@ -86,7 +86,7 @@ $adjunto .= "Content-disposition: attachment;filename=\"".$archivo."\"\n\n";
 $mensaje .= $adjunto."\n\n----".$uid."----\n";
 
 //Envío el correo
-//mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
+mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
 echo 'asunto: '.$asunto;
 echo '<br>';
 echo '<br>';
