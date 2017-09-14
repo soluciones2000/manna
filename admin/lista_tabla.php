@@ -48,7 +48,8 @@ $file = fopen(date('Ymd').".json", "w");
 fwrite($file,$tabla);
 fclose($file);
 //$archivo = dirname($_SERVER["SCRIPT_FILENAME"]).'/'.date('Ymd').".json";
-$archivo = date('Ymd').".json";
+//$archivo = date('Ymd').".json";
+$archivo = "afiliados.json";
 
 $asunto = "Tabla de afiliados al : ".date('d-m-Y');
 
@@ -64,7 +65,7 @@ $cabeceratexto .= "Content-type: text/plain;charset=utf-8\r\n";
 $cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
 $cabeceratexto .= "\r\n";
 
-$mensaje = $cabeceratexto.$tabla;
+$mensaje = $cabeceratexto."En el adjunto lo indicado.";
 $mensaje .= "\r\n";
 
 // Segunda parte del mensaje, archivo adjunto
@@ -87,15 +88,5 @@ $mensaje .= "--".$uid."--\r\n";
 
 //Envío el correo
 mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
-echo 'asunto: '.$asunto;
-echo '<br>';
-echo '<br>';
-echo "mensaje: ".$mensaje;
-echo '<br>';
-echo '<br>';
-echo "cabeceras: ".$cabeceras;
-echo '<br>';
-echo '<br>';
-//var_dump($file);
 ?>
 
