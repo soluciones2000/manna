@@ -54,36 +54,36 @@ $asunto = "Tabla de afiliados al : ".date('d-m-Y');
 
 $uid = "_".md5(uniqid(time())); 
 
-$cabeceras .= "MIME-version: 1.0\n";
+$cabeceras .= "MIME-version: 1.0\r\n";
 $cabeceras .= "Content-type: multipart/mixed;";
-$cabeceras .= "boundary=\"--_".$uid."--\"\n";
+$cabeceras .= "boundary=".$uid."\r\n";
 
-$cabeceratexto = "-".$uid."\n";
-//$cabeceratexto .= "Content-type: text/plain;charset=iso-8859-1\n";
-//$cabeceratexto .= "Content-transfer-encoding: 7BIT\n";
-
+// Pimera parte del mensaje: cuerpo del mensaje
+$cabeceratexto = "--".$uid."\r\n";
+$cabeceratexto .= "Content-type: text/plain;charset=utf-8\r\n";
+$cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
+$cabeceratexto .= "\r\n";
 
 $mensaje = $cabeceratexto.$tabla;
+$mensaje .= "\r\n";
 
-$file_str = file_get_contents($archivo);
-$filename = basename($archivo);
-$file_type = mime_content_type($archivo);
-$chunks = chunk_split(base64_encode($file_str));
-$mensaje .= "--".$uid."\n";
-$mensaje .= "Content-type:".$file_type.";"."\n".chr(9)." name=\"".$archivo."\""."\n";
-$mensaje .= "Content-Transfer-Encoding: base64"."\n";
-$mensaje .= "Content-Disposition: ".$dispo.";".chr(9)."filename=\"".$archivo."\""."\n"."\n";
-$mensaje .= $chunks;
-$mensaje .= "\n"."\n";
+// Segunda parte del mensaje, archivo adjunto
+$mensaje .= "--".$uid."\r\n";
+$mensaje .= "Content-type: application/octet-stream;";
+$mensaje .= "name: ".$archivo."\r\n";
+$mensaje .= "Content-Transfer-Encoding: base64"."\r\n";
+$mensaje .= "Content-Disposition: attachment; ";
+$mensaje .= "filename=".$archivo."\r\n";
+$mensaje .= "\r\n";
 
-
-$adjunto = "\n\n--".$uid."\n";
-$adjunto .= "Content-type: ".filetype($archivo).";name=\"".$archivo."\"\n";;
-$adjunto .= "Content-Transfer-Encoding: BASE64\n";
-$adjunto .= "Content-disposition: attachment;filename=\"".$archivo."\"\n\n";
- 
-
-$mensaje .= $adjunto."\n\n----".$uid."----\n";
+// Codificar el archivo
+$f = fopen($archivo, "rb");
+$file = fread($f,filesize($archivo));
+fclose($f);
+$file = chunk_split(base64_encode($file));
+$mensaje .= "$file\r\n";
+$mensaje .= "\r\n";
+$mensaje = "--".$uid."--\r\n";
 
 //Envío el correo
 mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
