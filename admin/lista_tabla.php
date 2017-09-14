@@ -83,7 +83,7 @@ fclose($f);
 $file = chunk_split(base64_encode($file));
 $mensaje .= $file."\r\n";
 $mensaje .= "\r\n";
-$mensaje = "--".$uid."--\r\n";
+$mensaje .= "--".$uid."--\r\n";
 
 //Envío el correo
 mail("soluciones2000@gmail.com", $asunto, $mensaje, $cabeceras);
