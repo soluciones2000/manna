@@ -81,7 +81,7 @@ $f = fopen($archivo, "rb");
 $file = fread($f,filesize($archivo));
 fclose($f);
 $file = chunk_split(base64_encode($file));
-$mensaje .= "$file\r\n";
+$mensaje .= $file."\r\n";
 $mensaje .= "\r\n";
 $mensaje = "--".$uid."--\r\n";
 
