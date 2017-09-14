@@ -6,7 +6,7 @@ include_once("menu.php");
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>REPORTE DE COMISIONES</h3>
+		<h3>REIMPRIMIR CERTFICADOS</h3>
 	</div>
 	<div>
 		<table border="1" align="center" width="27%">
