@@ -280,12 +280,41 @@ if (isset($_POST['tit_codigo'])){
 				</p>
 			';
 		}
-		if ($correo) {
-			$asunto = utf8_decode('CORPORACIÓN MANNA - Certificado de Afiliado: ').trim($tit_codigo_largo);
-			$cabeceras = "Content-type: text/html; From: '.trim($emp_nombre).' <'.trim($emp_email).'>";
-			mail($email,$asunto,utf8_decode($mensaje),$cabeceras);
-		}
 		$pdf->Writehtml($texto, true, false, true, false, '');
+		if ($correo) {
+//			$pdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'I');
+
+			$archivo = 'Certificado_'.trim($tit_codigo_largo).'.pdf';
+
+			$asunto = 'CORPORACIÓN MANNA - Certificado de Afiliado: '.trim($tit_codigo_largo);
+
+			$uid = "_".md5(uniqid(time())); 
+
+			$cabeceras .= "MIME-version: 1.0\r\n";
+			$cabeceras .= "Content-type: multipart/mixed;";
+			$cabeceras .= "boundary=".$uid."\r\n";
+
+			// Pimera parte del mensaje: cuerpo del mensaje
+			$cabeceratexto = "--".$uid."\r\n";
+			$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
+			$cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
+			$cabeceratexto .= "\r\n";
+
+			$mensaje = $cabeceratexto.$mensaje;
+			$mensaje .= "\r\n";
+
+			// Segunda parte del mensaje, archivo adjunto
+			$mensaje .= "--".$uid."\r\n";
+
+			// Codificar el archivo
+			$mensaje .= $pdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'E');
+
+			$mensaje .= "\r\n";
+			$mensaje .= "\r\n";
+			$mensaje .= "--".$uid."--\r\n";
+
+			mail($email,$asunto,$mensaje,$cabeceras);
+		}
 		$pdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'I');
 	}
 }
