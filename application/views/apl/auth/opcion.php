@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 			<div class="panel-body">
 				<div class="row">
-					<p align="center"><b>Los cambpos marcados con <font color="red">(*)</font> son obligatorios</b></p>
+					<p align="center"><b>Los campos marcados con <font color="red">(*)</font> son obligatorios</b></p>
 				</div>
 				<!--<form action="<?php echo base_url(); ?>entrar" method="POST">-->
 				<?php if(validation_errors()){ echo '<div class="alert alert-danger" role="alert">' . validation_errors() . '</div>'; } ?>

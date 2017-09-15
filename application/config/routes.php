@@ -79,6 +79,8 @@ $route['opcion'] = 'aliados/opcion'; //aqui es el controlador y el metodo
 $route['registro'] = 'aliados/registro'; //aqui es el controlador y el metodo
 $route['crea_user'] = 'aliados/crea_user'; //aqui es el controlador y el metodo
 $route['contrato'] = 'aliados/contrato'; //aqui es el controlador y el metodo
+$route['upgrade'] = 'aliados/upgrade'; //aqui es el controlador y el metodo
+$route['cambionivel'] = 'aliados/cambionivel'; //aqui es el controlador y el metodo
 
 
 $route['medico'] = 'especialistas/medico'; //aqui es el controlador y el metodo

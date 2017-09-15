@@ -419,6 +419,73 @@ class Aliados extends CI_Controller {
 		}
 	}
 
+//*** Prepara las variables y llama a la vista registro ***
+	public function upgrade(){
+		$data = new stdClass();
+		$data->title = "MANNA - La Provisión que cambiará tu vida";
+		$data->contenido = "apl/auth/upgrade"; //aqui es la dirección física del controlador
+		$data->panel_title = "Solicitud de mejorar el tipo de afiliado";
+		$data->active = "registro";
+		$this->load->view('menu',$data);
+	}
+
+//*** Prepara las variables y llama a la vista registro ***
+	public function cambionivel(){
+		$this->form_validation->set_rules('codigo', 'Código del asociado', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo');
+		$this->form_validation->set_rules('fechapago', 'Fecha de pago', 'required|exact_length[10]');
+		$this->form_validation->set_rules('numcomprobante', 'Número de comprobante', 'required|exact_length[10]');
+		$this->form_validation->set_rules('monto', 'Monto depositado', 'required');
+
+		$this->form_validation->set_message('required', 'El campo {field} es obligatorio, pulse atrás para corregir');
+		$this->form_validation->set_message('max_length', 'El campo {field} no debe exceder de {param} caracteres, pulse atrás para corregir');
+		$this->form_validation->set_message('min_length', 'El campo {field} debe tener al menos {param} caracteres, pulse atrás para corregir');
+		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código (Sólo números y letras mayúsculas), pulse atrás para corregir');
+		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
+
+		if ($this->form_validation->run() == FALSE){
+            $this->upgrade();
+        } else {
+			$data = new stdClass();
+           	$codigo = strtoupper($this->input->post('codigo'));
+           	$tipo_afiliado = $this->input->post('tipo_afiliado');
+           	$fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+           	$numcomprobante = $this->input->post('numcomprobante');
+           	$bancoorigen = $this->input->post('bancoorigen');
+           	$monto = $this->input->post('monto');
+			$registro = array(
+	          	'codigo' => $codigo,
+	          	'tipo_afiliado' => $tipo_afiliado,
+	          	'fechapago' => $fechapago,
+	        	'numcomprobante' => $numcomprobante,
+	           	'bancoorigen' => $bancoorigen,
+	           	'monto' => $monto
+           	);
+			if($this->Auth_model->upgrade($registro)){
+				if (strpos(base_url(),'localhost')==FALSE) {	           	
+					$config = array(
+						'mailtype' => 'html',
+						'charset' => 'utf-8'
+					);
+					$this->email->initialize($config);
+					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
+					$this->email->to('baudetguerra@gmail.com,soluciones2000@gmail.com');
+					$this->email->subject('CORPORACIÓN MANNA - Solicitud de upgrade código: '.trim($registro['codigo']));
+					$this->email->message("El código ".trim($registro['codigo'])." ha solicitado upgrade, por favor revise y apruebe en el portal administrativo");
+					$this->email->send();
+				}
+	           	$this->session->set_flashdata("mensaje_success","Solicitud registrada exitosamente, recibirá una comunicación al ser procesada");
+    	    	redirect(base_url() . 'menu');
+			} else {
+	           	$this->session->set_flashdata("mensaje_error","Ocurrió un error, inténtelo más tarde o comuniquese con soporte ");
+    	    	redirect(base_url() . 'upgrade');
+			}
+		}
+
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//      HASTA AQUI LLEGAN LOS CONTROLADORES, DE AQUI EN ADELANTE SON FUNCIONES DE APOYO
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Comentario
 	function reg_pdf($registro){
 		$this->load->library('pdf');
