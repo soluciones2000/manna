@@ -372,21 +372,29 @@ class Aliados extends CI_Controller {
 
 				if (strpos(base_url(),'localhost')==FALSE) {	           	
 					// envía voucher por email
+/*
 					$config = array(
 						'mailtype' => 'html',
 						'charset' => 'utf-8'
 					);
 					$this->email->initialize($config);
+*/
+					$uid = "_".md5(uniqid(time())); 
+
+					$this->email->set_header('MIME-version','1.0');
+					$this->email->set_header('Content-type','multipart/mixed;');
+					$this->email->set_header('boundary',$uid);
+
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 					$this->email->to($_SESSION['email']);
 					$this->email->subject('CORPORACIÓN MANNA - Certificado de Afiliado: '.trim($registro['tit_codigo_largo']));
-					$this->email->message($this->mensaje($registro));
+					$this->email->message($this->mensaje($registro,$uid));
 					if ($this->email->send()) {
 						$this->session->set_flashdata("mensaje_success","Se ha enviado el certificado al email: " . $_SESSION['email']);
 					} else {
 						echo $this->email->print_debugger();
 					}
-					$this->email->initialize($config);
+//					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 //					$this->email->to('soluciones2000@gmail.com,baudetguerra@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');
@@ -505,7 +513,13 @@ class Aliados extends CI_Controller {
 	}
 
 // Comentario
-	function mensaje($registro){
+	function mensaje($registro,$uid){
+		// Pimera parte del mensaje: cuerpo del mensaje
+		$cabeceratexto = "--".$uid."\r\n";
+		$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
+		$cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
+		$cabeceratexto .= "\r\n";
+
 		$texto = '
 			<br>
 			<h3 align="center">BIENVENIDO</h3>
@@ -553,7 +567,21 @@ class Aliados extends CI_Controller {
 				<br>
 			</p>
 		';
-		return $texto;
+
+		$mensaje = $cabeceratexto.$texto;
+		$mensaje .= "\r\n";
+
+		// Segunda parte del mensaje, archivo adjunto
+		$mensaje .= "--".$uid."\r\n";
+
+		// Codificar el archivo
+		$mensaje .= $pdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'E');
+
+		$mensaje .= $file."\r\n";
+		$mensaje .= "\r\n";
+		$mensaje .= "--".$uid."--\r\n";
+
+		return $mensaje;
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////

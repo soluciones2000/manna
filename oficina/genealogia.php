@@ -1,5 +1,6 @@
 <?php 
 include_once("conexion.php");
+$codigo = isset($_GET['c']) ? $_GET['c'] : '';
 
 /*
 // Rellenar la tabla para el reporte
@@ -105,8 +106,7 @@ while($row = mysql_fetch_array($result)) {
     $expandedIcon = 'folder-expanded.gif';
 
     $menu  = new HTML_TreeMenu();
-
-	$query = "SELECT * FROM genealogia order by padre,hijo";
+	$query = "SELECT * FROM v_genealogia where padre>='".$codigo."' order by padre,hijo";
 	if ($result = mysql_query($query,$link)) {
 		$padre = '';
 		$hijo = '';
@@ -117,29 +117,64 @@ while($row = mysql_fetch_array($result)) {
 			if ($first) {
 				$padre = $row["padre"];
 				$hijo = $row["hijo"];
-				$quer2 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo=".trim($padre);
-				$resul2 = mysql_query($quer2,$link);
-				$ro2 = mysql_fetch_array($resul2);
-				$nombre = trim($ro2["tit_nombres"])." ".trim($ro2["tit_apellidos"]);
+				$nombre_padre = trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]);
+				$arbol = trim($nombre_padre);
+				$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
+				$tipo_afiliado = $row["tipo_afiliado"];
+				$icon = 'padre.gif';
+			    $expandedIcon = 'padre.gif';
 //				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_padre, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 				$first = false;
 			}
 			if ($padre<>$row["padre"]) {
 				$padre = $row["padre"];
 				$hijo = $row["hijo"];
-				$quer2 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo='".trim($padre)."'";
-				$resul2 = mysql_query($quer2,$link);
-				$ro2 = mysql_fetch_array($resul2);
-				$nombre = trim($ro2["tit_nombres"])." ".trim($ro2["tit_apellidos"]);
+				$nombre_padre = trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]);
+				$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
+				$tipo_afiliado = $row["tipo_afiliado"];
+				switch ($tipo_afiliado) {
+					case 'Premium':
+					    $icon         = 'premium.gif';
+					    $expandedIcon = 'premium.gif';
+						break;
+					case 'VIP':
+					    $icon         = 'vip.gif';
+					    $expandedIcon = 'vip.gif';
+						break;
+					case 'Oro':
+					    $icon         = 'oro.gif';
+					    $expandedIcon = 'oro.gif';
+						break;
+					default:
+					    $icon         = 'folder.gif';
+					    $expandedIcon = 'folder-expanded.gif';
+						break;
+				}
 			}
 			$hijo = $row["hijo"];
-			$quer3 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo='".trim($hijo)."'";
-			$resul3 = mysql_query($quer3,$link);
-			$ro3 = mysql_fetch_array($resul3);
-			$nombr2 = trim($ro3["tit_nombres"])." ".trim($ro3["tit_apellidos"]);
+			$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
+			$tipo_afiliado = $row["tipo_afiliado"];
+			switch ($tipo_afiliado) {
+				case 'Premium':
+				    $icon         = 'premium.gif';
+				    $expandedIcon = 'premium.gif';
+					break;
+				case 'VIP':
+				    $icon         = 'vip.gif';
+				    $expandedIcon = 'vip.gif';
+					break;
+				case 'Oro':
+				    $icon         = 'oro.gif';
+				    $expandedIcon = 'oro.gif';
+					break;
+				default:
+				    $icon         = 'folder.gif';
+				    $expandedIcon = 'folder-expanded.gif';
+					break;
+			}
 //			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 		}
 	}
 
@@ -147,7 +182,6 @@ while($row = mysql_fetch_array($result)) {
     $treeMenu = &new HTML_TreeMenu_DHTML($menu, array('images' => 'html_tree_menu/images', 'defaultClass' => 'treeMenuDefault'));
     $listBox  = &new HTML_TreeMenu_Listbox($menu, array('linkTarget' => '_self'));
     //$treeMenuStatic = &new HTML_TreeMenu_staticHTML($menu, array('images' => '../images', 'defaultClass' => 'treeMenuDefault', 'noTopLevelImages' => true));
-
 ?>
 <html>
 <head>
@@ -170,7 +204,8 @@ while($row = mysql_fetch_array($result)) {
 </head>
 <body>
 
-<h3>GENEALOGÍA PARA 00000</h3>
+<h3><u>Genealogía de <?php echo $arbol; ?></u></h3>
+<p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p>
 <!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
 

@@ -1,7 +1,8 @@
 <?php 
 include_once("conexion.php");
+$codigo = isset($_GET['c']) ? $_GET['c'] : '';
 
-
+/*
 // Rellenar la tabla para el reporte
 $quer0 = "DELETE FROM repbonoafiliacion WHERE 1";
 $resul0 = mysql_query($quer0,$link);
@@ -53,7 +54,7 @@ while($row = mysql_fetch_array($result)) {
 				}
 				$comision = $monto*($porcentaje/100);
 				if ($monto<>0.00) {
-					$quer6 = "INSERT INTO repbonoafiliacion VALUES ('".$patroc_codigo."','".$tit_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_afiliado."','".$fectr."',".$monto.",".$porcentaje.",".$comision.",'','');";
+					$quer6 = "INSERT INTO repbonoafiliacion VALUES ('".$patroc_codigo."','".$tit_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_afiliado."','".$fectr."',".$monto.",".$porcentaje.",".$comision.");";
 					$resul6 = mysql_query($quer6,$link);
 				}
 			}
@@ -61,7 +62,7 @@ while($row = mysql_fetch_array($result)) {
 	}
 }
 // Hasta aqui rellena la tabla para el reporte
-
+*/
 
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2005, Richard Heyes, Harald Radi                   |
@@ -105,42 +106,34 @@ while($row = mysql_fetch_array($result)) {
     $expandedIcon = 'folder-expanded.gif';
 
     $menu  = new HTML_TreeMenu();
-
-	$query = "SELECT * FROM repbonoafiliacion order by patroc_codigo,tit_codigo,nivel,afiliado";
+	$query = "SELECT * FROM v_patrocinio where patroc_codigo>='".$codigo."' and tit_codigo<>'".$codigo."' order by patroc_codigo,tit_codigo";
 	if ($result = mysql_query($query,$link)) {
-		$patroc_codigo = '';
-		$tit_codigo = '';
+		$padre = '';
+		$hijo = '';
 		$first = true;
 		$second = true;
 		$nodos = array();
 		while($row = mysql_fetch_array($result)) {
 			if ($first) {
-				$patroc_codigo = $row["patroc_codigo"];
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => 'patroc_codigo1 '.$patroc_codigo.'*'.$tit_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo1 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$padre = $row["patroc_codigo"];
+				$hijo = $row["tit_codigo"];
+				$nombre_patroc = trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]);
+				$arbol = trim($nombre_patroc);
+				$nombre_hijo = trim($row["nombres"]).' '.trim($row["apellidos"]);
+//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 				$first = false;
 			}
-			if ($patroc_codigo<>$row["patroc_codigo"]) {
-				$patroc_codigo = $row["patroc_codigo"];
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => 'patroc_codigo2 '.$patroc_codigo.'*'.$tit_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo2 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			if ($padre<>$row["patroc_codigo"]) {
+				$padre = $row["patroc_codigo"];
+				$hijo = $row["tit_codigo"];
+				$nombre_patroc = trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]);
+				$nombre_hijo = trim($row["nombres"]).' '.trim($row["apellidos"]);
 			}
-			if ($tit_codigo<>$row["tit_codigo"]) {
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo3 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-			}
-			$fecha_afiliacion = $row["fecha_afiliacion"];
-			$fecha_fin_bono = $row["fecha_fin_bono"];
-			$nivel = $row["nivel"];
-			$afiliado = $row["afiliado"];
-			$tipo_afiliado = $row["tipo_afiliado"];
-			$fectr = $row["fectr"];
-			$monto = $row["monto"];
-			$porcentaje = $row["porcentaje"];
-			$comision = $row["comision"];
-			$nodos[$tit_codigo]->addItem(new HTML_TreeNode(array('text' => 'Nivel: '.$nivel." Afiliado: ".$afiliado.' Tipo: '.$tipo_afiliado.' Fecha transacción: '.$fectr. " Monto: ".trim(number_format($monto,2,',','.'))." - ".number_format($porcentaje,0,',','.')."% - Comisión: ".trim(number_format($comision,2,',','.')).' - '.$tit_codigo.' - '.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			$hijo = $row["tit_codigo"];
+			$nombre_hijo = trim($row["nombres"]).' '.trim($row["apellidos"]);
+//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 		}
 	}
 
@@ -148,7 +141,6 @@ while($row = mysql_fetch_array($result)) {
     $treeMenu = &new HTML_TreeMenu_DHTML($menu, array('images' => 'html_tree_menu/images', 'defaultClass' => 'treeMenuDefault'));
     $listBox  = &new HTML_TreeMenu_Listbox($menu, array('linkTarget' => '_self'));
     //$treeMenuStatic = &new HTML_TreeMenu_staticHTML($menu, array('images' => '../images', 'defaultClass' => 'treeMenuDefault', 'noTopLevelImages' => true));
-
 ?>
 <html>
 <head>
@@ -171,8 +163,18 @@ while($row = mysql_fetch_array($result)) {
 </head>
 <body>
 
+<h3><u>Patrocinios de <?php echo $arbol; ?></u></h3>
+<!--<p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p>-->
+<!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
-<?$listBox->printMenu()?>
 
+
+<script type="text/javascript">
+	function aviso(){
+		alert('PM: XXXX\nPMO: YYY');		
+	}
+</script>
+<!--
 </body>
 </html>
+-->

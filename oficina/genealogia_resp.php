@@ -1,7 +1,7 @@
 <?php 
 include_once("conexion.php");
 
-
+/*
 // Rellenar la tabla para el reporte
 $quer0 = "DELETE FROM repbonoafiliacion WHERE 1";
 $resul0 = mysql_query($quer0,$link);
@@ -53,7 +53,7 @@ while($row = mysql_fetch_array($result)) {
 				}
 				$comision = $monto*($porcentaje/100);
 				if ($monto<>0.00) {
-					$quer6 = "INSERT INTO repbonoafiliacion VALUES ('".$patroc_codigo."','".$tit_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_afiliado."','".$fectr."',".$monto.",".$porcentaje.",".$comision.",'','');";
+					$quer6 = "INSERT INTO repbonoafiliacion VALUES ('".$patroc_codigo."','".$tit_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_afiliado."','".$fectr."',".$monto.",".$porcentaje.",".$comision.");";
 					$resul6 = mysql_query($quer6,$link);
 				}
 			}
@@ -61,7 +61,7 @@ while($row = mysql_fetch_array($result)) {
 	}
 }
 // Hasta aqui rellena la tabla para el reporte
-
+*/
 
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2005, Richard Heyes, Harald Radi                   |
@@ -106,41 +106,40 @@ while($row = mysql_fetch_array($result)) {
 
     $menu  = new HTML_TreeMenu();
 
-	$query = "SELECT * FROM repbonoafiliacion order by patroc_codigo,tit_codigo,nivel,afiliado";
+	$query = "SELECT * FROM genealogia order by padre,hijo";
 	if ($result = mysql_query($query,$link)) {
-		$patroc_codigo = '';
-		$tit_codigo = '';
+		$padre = '';
+		$hijo = '';
 		$first = true;
 		$second = true;
 		$nodos = array();
 		while($row = mysql_fetch_array($result)) {
 			if ($first) {
-				$patroc_codigo = $row["patroc_codigo"];
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => 'patroc_codigo1 '.$patroc_codigo.'*'.$tit_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo1 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$padre = $row["padre"];
+				$hijo = $row["hijo"];
+				$quer2 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo=".trim($padre);
+				$resul2 = mysql_query($quer2,$link);
+				$ro2 = mysql_fetch_array($resul2);
+				$nombre = trim($ro2["tit_nombres"])." ".trim($ro2["tit_apellidos"]);
+//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 				$first = false;
 			}
-			if ($patroc_codigo<>$row["patroc_codigo"]) {
-				$patroc_codigo = $row["patroc_codigo"];
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => 'patroc_codigo2 '.$patroc_codigo.'*'.$tit_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo2 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			if ($padre<>$row["padre"]) {
+				$padre = $row["padre"];
+				$hijo = $row["hijo"];
+				$quer2 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo='".trim($padre)."'";
+				$resul2 = mysql_query($quer2,$link);
+				$ro2 = mysql_fetch_array($resul2);
+				$nombre = trim($ro2["tit_nombres"])." ".trim($ro2["tit_apellidos"]);
 			}
-			if ($tit_codigo<>$row["tit_codigo"]) {
-				$tit_codigo = $row["tit_codigo"];
-				$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => 'tit_codigo3 '.$tit_codigo.'*'.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-			}
-			$fecha_afiliacion = $row["fecha_afiliacion"];
-			$fecha_fin_bono = $row["fecha_fin_bono"];
-			$nivel = $row["nivel"];
-			$afiliado = $row["afiliado"];
-			$tipo_afiliado = $row["tipo_afiliado"];
-			$fectr = $row["fectr"];
-			$monto = $row["monto"];
-			$porcentaje = $row["porcentaje"];
-			$comision = $row["comision"];
-			$nodos[$tit_codigo]->addItem(new HTML_TreeNode(array('text' => 'Nivel: '.$nivel." Afiliado: ".$afiliado.' Tipo: '.$tipo_afiliado.' Fecha transacción: '.$fectr. " Monto: ".trim(number_format($monto,2,',','.'))." - ".number_format($porcentaje,0,',','.')."% - Comisión: ".trim(number_format($comision,2,',','.')).' - '.$tit_codigo.' - '.$patroc_codigo, 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			$hijo = $row["hijo"];
+			$quer3 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo='".trim($hijo)."'";
+			$resul3 = mysql_query($quer3,$link);
+			$ro3 = mysql_fetch_array($resul3);
+			$nombr2 = trim($ro3["tit_nombres"])." ".trim($ro3["tit_apellidos"]);
+//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 		}
 	}
 
@@ -171,8 +170,16 @@ while($row = mysql_fetch_array($result)) {
 </head>
 <body>
 
+<h3>GENEALOGÍA PARA 00000</h3>
+<!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
-<?$listBox->printMenu()?>
+
+
+<script type="text/javascript">
+	function aviso(){
+		alert('PM: XXXX\nPMO: YYY');		
+	}
+</script>
 
 </body>
 </html>

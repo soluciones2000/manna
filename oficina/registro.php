@@ -1,31 +1,45 @@
 <?php 
 include_once("conexion.php");
-$usuario = false;
 include_once("cabecera.php");
 $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
+$codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
+$password = isset($_POST['password']) ? $_POST['password'] : '';
+$password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
+$pregunta = isset($_POST['pregunta']) ? $_POST['pregunta'] : '';
+$respuesta = isset($_POST['respuesta']) ? $_POST['respuesta'] : '';
 ?>
                <td class="body" colspan="3">
 <!-- Esta parte del código va en la celda -->
                   <div id="cuerpo">
                      <br>
                      <div style="text-align:center">
-                        <h3>ACCESO AL SISTEMA</h3>
+                        <h3>CREACIÓN DE PASSWORD</h3>
                      </div>
                      <?php
                         switch ($mensaje) {
-                           case 'ok':
+                           case 'cvc':
                               echo '<div style="text-align:center">';
-                                 echo '<p><b><font color="blue">PASSWORD CREADO CORECTAMENTE,PUEDE INGRESAR AL SISTEMA.</font></b></p>';
+                                 echo '<p><b><font color="red">NO PUEDE DEJAR CAMPOS VACÍOS.</font></b></p>';
                               echo '</div>';
                               break;
-                           case 'ci':
+                           case 'cin':
                               echo '<div style="text-align:center">';
-                                 echo '<p><b><font color="red">CÓDIGO Y/O PASSWORD INCORRECTO.</font></b></p>';
+                                 echo '<p><b><font color="red">DEBE INTRODUCIR UN CÓDIGO VÁLIDO.</font></b></p>';
                               echo '</div>';
                               break;
-                           case 'cb':
+                           case 'pnc':
                               echo '<div style="text-align:center">';
-                                 echo '<p><b><font color="red">NO PUEDE DEJAR CAMPOS EN BLANCO.</font></b></p>';
+                                 echo '<p><b><font color="red">CONFIRMACIÓN DEL PASSWORD NO COINCIDE.</font></b></p>';
+                              echo '</div>';
+                              break;
+                           case 'irb':
+                              echo '<div style="text-align:center">';
+                                 echo '<p><b><font color="red">OCURRIÓ UN ERROR INTERNO, INTENTE MÁS TARDE O CONUNIQUESE CON SOPORTE.</font></b></p>';
+                              echo '</div>';
+                              break;
+                           case 'upb':
+                              echo '<div style="text-align:center">';
+                                 echo '<p><b><font color="red">OCURRIÓ UN ERROR INTERNO, INTENTE MÁS TARDE O CONUNIQUESE CON SOPORTE.</font></b></p>';
                               echo '</div>';
                               break;
                         }
@@ -37,24 +51,33 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
                                  <br>
                                  <div style="vertical-align:top;">
                                     <div style="margin: 0% 15% 0% 15%">
-                                         <form name="admin" method="post" action="acceso.php">
+                                         <form name="admin" method="post" action="validapass.php">
                                              <table border="0">
                                                 <tr>
                                                    <td>Código de asociado:</td>
-                                                   <td><INPUT type="tect" name="codigo" maxlength="5" size="5" style="text-align: center;"></td>
+                                                   <td><INPUT type="text" name="codigo" maxlength="5" size="5" style="text-align: center;"></td>
                                                 </tr>
                                                 <tr>
                                                    <td>Password:</td>
                                                    <td><INPUT type="password" name="password" maxlength="20" size="20"></td>
                                                 </tr>
                                                 <tr>
+                                                   <td>Confirme el Password:</td>
+                                                   <td><INPUT type="password" name="password1" maxlength="20" size="20"></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Pregunta de seguridad:</td>
+                                                   <td><INPUT type="text" name="pregunta" maxlength="50" size="20"></td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Respuesta:</td>
+                                                   <td><INPUT type="password" name="respuesta" maxlength="50" size="20"></td>
+                                                </tr>
+                                                <tr>
                                                    <td colspan="2" align="center">
                                                       <br>
                                                       <INPUT type="submit" value="Enviar">
                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                   <td colspan="2" align="center"><br><a href="registro.php">Si no tiene password, créelo aquí</a></td>
                                                 </tr>
                                              </table>
                                        </form>
