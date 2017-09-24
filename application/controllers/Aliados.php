@@ -652,7 +652,7 @@ class Aliados extends CI_Controller {
 		// Codificar el archivo
 		$mensaje .= $oPdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'E');
 
-		$mensaje .= $file."\r\n";
+		$mensaje .= 'Certificado_'.trim($registro['tit_codigo_largo']).'.pdf'."\r\n";
 		$mensaje .= "\r\n";
 		$mensaje .= "--".$uid."--\r\n";
 
