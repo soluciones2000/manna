@@ -393,7 +393,7 @@ class Aliados extends CI_Controller {
 
 					$oPdf = $this->crea_pdf($registro); 
 
-					$this->email->message($this->mensaje($registro,$uid,$oPdf));
+					$this->email->message($this->mensaje($registro,$uid,$oPdf,$tit_codigo_largo));
 					if ($this->email->send()) {
 						$this->session->set_flashdata("mensaje_success","Se ha enviado el certificado al email: " . $_SESSION['email']);
 					} else {
@@ -588,7 +588,7 @@ class Aliados extends CI_Controller {
 	}
 
 // Comentario
-	function mensaje($registro,$uid,$oPdf){
+	function mensaje($registro,$uid,$oPdf,$tit_codigo_largo){
 		// Pimera parte del mensaje: cuerpo del mensaje
 		$cabeceratexto = "--".$uid."\r\n";
 		$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
@@ -650,7 +650,7 @@ class Aliados extends CI_Controller {
 		$mensaje .= "--".$uid."\r\n";
 
 		// Codificar el archivo
-		$mensaje .= $oPdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'E');
+		$mensaje .= $oPdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'E');
 
 		$mensaje .= $file."\r\n";
 		$mensaje .= "\r\n";
