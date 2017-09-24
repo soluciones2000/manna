@@ -372,7 +372,7 @@ class Aliados extends CI_Controller {
 				$cadena .= '</table>';
 				$cadena .= '<br>';
 
-				if (strpos(base_url(),'localhost')==FALSE) {	           	
+				if (strpos(base_url(),'localhost')===FALSE) {	           	
 					// envía voucher por email
 /*
 					$config = array(
