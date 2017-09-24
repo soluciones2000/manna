@@ -1,8 +1,6 @@
 <?php 
 include_once("conexion.php");
 include_once("cabecera.php");
-//$menu = "";
-//include_once("menu.php");
 $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
 ?>
 <div id="cuerpo">
@@ -14,6 +12,11 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
 			case 'ci':
 				echo '<div style="text-align:center">';
 					echo '<p><b><font color="red">DEBE INTRODUCIR UN CÓDIGO VÁLIDO.</font></b></p>';
+				echo '</div>';
+				break;
+			case 'nu':
+				echo '<div style="text-align:center">';
+					echo '<p><b><font color="red">USUARIO NO AUTORIZADO.</font></b></p>';
 				echo '</div>';
 				break;
 			case 'cb':

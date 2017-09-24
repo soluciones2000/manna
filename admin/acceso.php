@@ -7,10 +7,17 @@ if ($password<>'') {
 	$query = "SELECT * from usuarios WHERE user_pass='".trim($password)."'";
 	$result = mysql_query($query,$link);
 	if ($row = mysql_fetch_array($result)) {
-		session_start();
-		$_SESSION['user'] = $row["name_user"];
-		$cadena = 'Location: periodo.php'; 
+		$codigo = $row["codigo"];
+		if ($codigo=='00000' or $codigo=='00005') {
+			session_start();
+			$_SESSION['user'] = $row["name_user"];
+			$cadena = 'Location: inicio.php?user='.$row["name_user"]; 
+		} else {
+			session_destroy();
+			$cadena = 'Location: index.php?error=nu'; 
+		}
 	} else {
+		session_destroy();
 		$cadena = 'Location: index.php?error=ci'; 
 	}
 } else {

@@ -4,7 +4,7 @@ $codigo = isset($_POST['c']) ? $_POST['c'] : '';
 $quer7 = "SELECT tit_nombres,tit_apellidos from afiliados where tit_codigo='".$codigo."'";
 $resul7 = mysql_query($quer7,$link);
 if($ro7 = mysql_fetch_array($resul7)) {
-	$name_user = trim($ro7["tit_nombres"])." ".trim($ro7["tit_apellidos"]);
+	$name_user = utf8_encode(trim($ro7["tit_nombres"])." ".trim($ro7["tit_apellidos"]));
 } else {
 	$name_user = "";
 }
@@ -110,7 +110,7 @@ if (isset($mes) and isset($ano)) {
 			if($ro6 = mysql_fetch_array($resul6)) {
 				$nom = $ro6["tit_nombres"];
 				$ape = $ro6["tit_apellidos"];
-				$namept = trim($nom)." ".trim($ape);
+				$namept = utf8_encode(trim($nom)." ".trim($ape));
 			} else {
 				$namept = "";
 			}
@@ -127,7 +127,7 @@ if (isset($mes) and isset($ano)) {
 		if($ro6 = mysql_fetch_array($resul6)) {
 			$nom = $ro6["tit_nombres"];
 			$ape = $ro6["tit_apellidos"];
-			$namep2 = trim($nom)." ".trim($ape);
+			$namep2 = utf8_encode(trim($nom)." ".trim($ape));
 		} else {
 			$namep2 = "";
 		}
@@ -154,13 +154,13 @@ if (isset($mes) and isset($ano)) {
 			if($ro3 = mysql_fetch_array($resul3)) {
 				$nom = $ro3["tit_nombres"];
 				$ape = $ro3["tit_apellidos"];
-				$nameaf = trim($nom)." ".trim($ape);
+				$nameaf = utf8_encode(trim($nom)." ".trim($ape));
 				$tx1 = "Nivel: ".$nivel." Afiliado: ".$afiliado." ".$nameaf." ";
 				$d2 = true;
 				$tipo_afiliado = $ro3["tipo_afiliado"];
 				$tx1 .= "- Tipo: ".$tipo_afiliado." ";
 
-				$quer4 = " SELECT * from transacciones where afiliado='".$afiliado."' and tipo='01' and fecha>='".$fecha_afiliacion."' and fecha<='".$fecha_fin_bono."' and status_comision='Pendiente'";
+				$quer4 = "SELECT * from transacciones where afiliado='".$afiliado."' and tipo='01' and fecha>='".$fecha_afiliacion."' and fecha<='".$fecha_fin_bono."' and status_comision='Pendiente'";
 				$resul4 = mysql_query($quer4,$link);
 				if($ro4 = mysql_fetch_array($resul4)) {
 					$d2 = true;

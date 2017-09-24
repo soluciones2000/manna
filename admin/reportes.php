@@ -7,7 +7,7 @@ include_once("menu.php");
 		<div id="menu">
 			<table border="0" align="center" width="100%" style="background-color:#F5F6CE">
 				<tr>
-					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
  							<?php if ($men2=="resumen"): ?>
 								Resumen de comisiones
@@ -16,7 +16,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($men2=="detalle"): ?>
 								Detalle de comisiones
@@ -25,23 +25,39 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($men2=="planilla"): ?>
 								Impresión de planilla
 							<?php else: ?>
-<!--								<a href="planilla.php">Impresión de planilla</a>-->
 								<a href="codigo.php">Impresión de planilla</a>
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($men2=="datos"): ?>
 								Listado de datos básicos
 							<?php else: ?>
-<!--								<a href="datos.php">Listado de datos básicos</a>-->
 								<a href="rango.php">Listado de datos básicos</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial">
+							<?php if ($men2=="cliente"): ?>
+								Listado de clientes preferenciales
+							<?php else: ?>
+								<a href="rango2.php">Listado de clientes preferenciales</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial">
+							<?php if ($men2=="fecha"): ?>
+								Lista de transacciones<br>por fecha
+							<?php else: ?>
+								<a href="fecha.php">Lista de transacciones<br>por fecha</a>
 							<?php endif; ?>
 						</font>
 					</td>

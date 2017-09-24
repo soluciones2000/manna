@@ -218,6 +218,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<option value="Guasdualito">Guasdualito</option>
 								<option value="Guatire">Guatire</option>
 								<option value="Güigüe">Güigüe</option>
+								<option value="Higuerote">Higuerote</option>
 								<option value="La Concepción">La Concepción</option>
 								<option value="La Victoria">La Victoria</option>
 								<option value="Los Guayos">Los Guayos</option>
@@ -241,6 +242,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<option value="San Cristóbal">San Cristóbal</option>
 								<option value="San Felipe">San Felipe</option>
 								<option value="San Fernando de Apure">San Fernando de Apure</option>
+								<option value="San Joaquin">San Joaquin</option>
 								<option value="San Juan de Los Morros">San Juan de Los Morros</option>
 								<option value="Santa Bárbara del Zulia">Santa Bárbara del Zulia</option>
 								<option value="Santa Lucía">Santa Lucía</option>

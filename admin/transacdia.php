@@ -23,7 +23,7 @@ while($row = mysql_fetch_array($result)) {
 $asunto = "Transacciones del día: ".$fecha;
 $mensaje = $texto;
 $cabeceras = 'Content-type: text/html;';
-mail("soluciones2000@gmail.com,baudetguerra@gmail.com",$asunto,$mensaje,$cabeceras);
+mail("soluciones2000@gmail.com,ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 $cadena = 'Location: index.php'; 
 header($cadena);
 

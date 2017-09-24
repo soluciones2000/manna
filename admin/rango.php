@@ -24,7 +24,7 @@ include_once("reportes.php");
 					            			Desde el afiliado:
 					            		</td>
 					            		<td>
-											<input type="text" style="text-transform:uppercase;text-align:center;" size="5" name="cod_desde" minlength="5" maxlength="5" pattern="[0-9|A-Z|a-z]{5}" title="Este campo sólo puede tener números o letras">            			
+											<input type="text" style="text-transform:uppercase;text-align:center;" size="5" name="cod_desde" minlength="5" maxlength="5" pattern="[0-9|A-Z|a-z]{5}" title="Este campo sólo puede tener números o letras">
 					            		</td>
 					            	</tr>
 					            	<tr>
@@ -32,7 +32,7 @@ include_once("reportes.php");
 					            			Hasta el afiliado:
 					            		</td>
 					            		<td>
-											<input type="text" style="text-transform:uppercase;text-align:center;" size="5" name="cod_hasta" minlength="5" maxlength="5" pattern="[0-9|A-Z|a-z]{5}" title="Este campo sólo puede tener números o letras">            			
+											<input type="text" style="text-transform:uppercase;text-align:center;" size="5" name="cod_hasta" minlength="5" maxlength="5" pattern="[0-9|A-Z|a-z]{5}" title="Este campo sólo puede tener números o letras">			
 					            		</td>
 					            	</tr>
 					            </table>

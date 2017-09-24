@@ -53,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="row">
 						<label for="clte_direccion_envio" class="col-sm-5 control-label">Dirección de envío</label>
 						<div class="col-sm-4">
-							<textarea type="text" name="clte_direccion_envio" value="<?php echo set_value('clte_direccion_envio') ?>" class="form-control" id="clte_direccion_envio" placeholder="(opcional)" maxlength="200" required></textarea>
+							<textarea type="text" name="clte_direccion_envio" value="<?php echo set_value('clte_direccion_envio') ?>" class="form-control" id="clte_direccion_envio" placeholder="(opcional)" maxlength="200"></textarea>
 						</div>
 					</div>
 					<br>

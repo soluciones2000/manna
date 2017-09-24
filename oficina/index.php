@@ -15,7 +15,7 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
                         switch ($mensaje) {
                            case 'ok':
                               echo '<div style="text-align:center">';
-                                 echo '<p><b><font color="blue">PASSWORD CREADO CORECTAMENTE,PUEDE INGRESAR AL SISTEMA.</font></b></p>';
+                                 echo '<p><b><font color="blue">PASSWORD CREADO CORECTAMENTE, PUEDE INGRESAR AL SISTEMA.</font></b></p>';
                               echo '</div>';
                               break;
                            case 'ci':

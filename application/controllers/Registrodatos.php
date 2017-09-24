@@ -285,7 +285,7 @@ class Registrodatos extends CI_Controller {
 			$asunto = "Orden de pedido No.: ".$orden_id;
 			$cabeceras = 'Content-type: text/html;';
 			mail($email,$asunto,$mensaje,$cabeceras);
-			mail("baudetguerra@gmail.com",$asunto,$mensaje,$cabeceras);
+			mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 			mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
 		}
 	}

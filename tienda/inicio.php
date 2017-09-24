@@ -1,0 +1,10 @@
+<?php 
+include_once("conexion.php");
+include_once("cabecera.php");
+include_once("menu.php");
+include_once("catalogo.php");
+include_once("promocion.php");
+?>
+<?php
+include_once("pie.php");
+?>

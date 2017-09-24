@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 if (strpos($_SERVER["SERVER_NAME"],'localhost')!==FALSE) {
 	// local
 	$servidor = "localhost";

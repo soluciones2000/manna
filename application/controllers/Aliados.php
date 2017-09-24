@@ -181,7 +181,8 @@ class Aliados extends CI_Controller {
            	$data->nacionalidad = $this->input->post('nacionalidad');
            	$data->tipo_afiliado = $this->input->post('tipo_afiliado');
            	$data->tipo_kit = $this->input->post('tipo_kit');
-         	$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+         	$data->fechapago = $this->input->post('fechapago');
+//         	$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
            	$data->numcomprobante = $this->input->post('numcomprobante');
            	$data->bancoorigen = $this->input->post('bancoorigen');
            	$data->envio = $this->input->post('envio');           	
@@ -323,7 +324,8 @@ class Aliados extends CI_Controller {
 	           	'tipo_kit' => $tipo_kit,
 	           	'fecha_afiliacion' => date("Y-m-d"),
 	           	'envio' => $sienvia,
-	           	'direccion_envio' => $direccion_envio
+	           	'direccion_envio' => $direccion_envio,
+	           	'status_afiliado' => "Activo"
            	);
            	if ($envio) {
            		$direccion_envio = $direccion_envio;
@@ -388,7 +390,10 @@ class Aliados extends CI_Controller {
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 					$this->email->to($_SESSION['email']);
 					$this->email->subject('CORPORACIÓN MANNA - Certificado de Afiliado: '.trim($registro['tit_codigo_largo']));
-					$this->email->message($this->mensaje($registro,$uid));
+
+					$oPdf = crea_pdf($registro); 
+
+					$this->email->message($this->mensaje($registro,$uid,$oPdf));
 					if ($this->email->send()) {
 						$this->session->set_flashdata("mensaje_success","Se ha enviado el certificado al email: " . $_SESSION['email']);
 					} else {
@@ -396,7 +401,7 @@ class Aliados extends CI_Controller {
 					}
 //					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
-//					$this->email->to('soluciones2000@gmail.com,baudetguerra@gmail.com');
+//					$this->email->to('soluciones2000@gmail.com,ordenesmanna@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');
 					$this->email->subject('Datos de la planilla de nuevo afiliado');
 					$this->email->message($cadena);
@@ -408,7 +413,7 @@ class Aliados extends CI_Controller {
 					// fin envío email
 				}
 
-	           	$this->reg_pdf($registro);
+				$oPdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'I');
 
     	        redirect(base_url() . 'menu');
 
@@ -431,7 +436,7 @@ class Aliados extends CI_Controller {
 
 //*** Prepara las variables y llama a la vista registro ***
 	public function cambionivel(){
-		$this->form_validation->set_rules('codigo', 'Código del asociado', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo');
+		$this->form_validation->set_rules('codigo', 'Código del asociado', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo|callback_clienteactivo');
 		$this->form_validation->set_rules('fechapago', 'Fecha de pago', 'required|exact_length[10]');
 		$this->form_validation->set_rules('numcomprobante', 'Número de comprobante', 'required|exact_length[10]');
 		$this->form_validation->set_rules('monto', 'Monto depositado', 'required');
@@ -441,6 +446,7 @@ class Aliados extends CI_Controller {
 		$this->form_validation->set_message('min_length', 'El campo {field} debe tener al menos {param} caracteres, pulse atrás para corregir');
 		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código (Sólo números y letras mayúsculas), pulse atrás para corregir');
 		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
+		$this->form_validation->set_message('clienteactivo', 'El {field} está inactivo, introduzca un código activo, pulse atrás para corregir');
 
 		if ($this->form_validation->run() == FALSE){
             $this->upgrade();
@@ -458,7 +464,8 @@ class Aliados extends CI_Controller {
 	          	'fechapago' => $fechapago,
 	        	'numcomprobante' => $numcomprobante,
 	           	'bancoorigen' => $bancoorigen,
-	           	'monto' => $monto
+	           	'monto' => $monto,
+	           	'status_upgrade' => 'Pendiente'
            	);
 			if($this->Auth_model->upgrade($registro)){
 				if (strpos(base_url(),'localhost')==FALSE) {	           	
@@ -468,7 +475,7 @@ class Aliados extends CI_Controller {
 					);
 					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
-					$this->email->to('baudetguerra@gmail.com,soluciones2000@gmail.com');
+					$this->email->to('ordenesmanna@gmail.com,soluciones2000@gmail.com');
 					$this->email->subject('CORPORACIÓN MANNA - Solicitud de upgrade código: '.trim($registro['codigo']));
 					$this->email->message("El código ".trim($registro['codigo'])." ha solicitado upgrade, por favor revise y apruebe en el portal administrativo");
 					$this->email->send();
@@ -486,8 +493,9 @@ class Aliados extends CI_Controller {
 //      HASTA AQUI LLEGAN LOS CONTROLADORES, DE AQUI EN ADELANTE SON FUNCIONES DE APOYO
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
 // Comentario
-	function reg_pdf($registro){
+	function crea_pdf($registro){
 		$this->load->library('pdf');
 		$pdf = new PDF('P', 'mm', 'letter', true, 'UTF‐8', false);
 		$pdf->SetTitle('CERTIFICADO DE AFILIACIÓN');
@@ -576,11 +584,11 @@ class Aliados extends CI_Controller {
 				<br>
 			</p>			
 		', true, false, true, false, '');
-		$pdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'I');
+		return $pdf;
 	}
 
 // Comentario
-	function mensaje($registro,$uid){
+	function mensaje($registro,$uid,$oPdf){
 		// Pimera parte del mensaje: cuerpo del mensaje
 		$cabeceratexto = "--".$uid."\r\n";
 		$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
@@ -642,7 +650,7 @@ class Aliados extends CI_Controller {
 		$mensaje .= "--".$uid."\r\n";
 
 		// Codificar el archivo
-		$mensaje .= $pdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'E');
+		$mensaje .= $oPdf->Output('Certificado_'.trim($tit_codigo_largo).'.pdf', 'E');
 
 		$mensaje .= $file."\r\n";
 		$mensaje .= "\r\n";
@@ -697,6 +705,13 @@ class Aliados extends CI_Controller {
 			$valido = false;
 		}
 		return $valido;
+	}
+
+// Comentario
+	public function clienteactivo($numero){
+		$valido = true;
+	    $valido = $this->Auth_model->activo($numero);
+		return isset($valido);
 	}
 
 // Comentario
@@ -873,7 +888,8 @@ class Aliados extends CI_Controller {
 		}
 		// tipo = '01' corresponde al tipo de transacción "Afliación"
 		$registro = array(
-	       	'fecha' => $fechapago,
+	       	'fecha' => substr($fechapago,6,4)."-".substr($fechapago,3,2)."-".substr($fechapago,0,2),
+//	       	'fecha' => $fechapago,
 	       	'afiliado' => $tit_codigo,
 	       	'tipo' => '01',
 	       	'precio' => $precio,
@@ -1025,7 +1041,7 @@ class Aliados extends CI_Controller {
 			$asunto = "Orden de pedido No.: ".$orden_id;
 			$cabeceras = 'Content-type: text/html;';
 			mail($email,$asunto,$mensaje,$cabeceras);
-			mail("baudetguerra@gmail.com",$asunto,$mensaje,$cabeceras);
+			mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 			mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
 		}
 	}

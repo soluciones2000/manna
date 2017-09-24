@@ -83,6 +83,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="row">
 						<label for="fechapago" class="col-sm-5 control-label"><font color="red">(*)</font> Fecha de pago (dd/mm/yyyy)</label>
 						<div class="col-sm-2">
+<!--
+							<input type="date" name="fechapago" class="form-control" id="fechapago" id="datepicker" size="10" />
+-->
 							<input type="date" name="fechapago" class="form-control" id="fechapago" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
 						</div>
 					</div>

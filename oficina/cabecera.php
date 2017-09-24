@@ -1,8 +1,9 @@
 <?php 
+session_start();
 $query = "SELECT * from empresa";
 $result = mysql_query($query,$link);
 if ($row = mysql_fetch_array($result)) {
-   $empresa = $row["emp_nombre"];
+   $empresa = utf8_encode($row["emp_nombre"]);
 } else {
    $empresa = "Error al conectar a la base de datos.";
 }
@@ -118,7 +119,7 @@ if ($row = mysql_fetch_array($result)) {
                <td class="center">
                   <div id="sesion" class="header">
                      <?php
-                        $nombre = isset($_SESSION['user']) ? $_SESSION['user'] : '';
+                        $nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
                         if ($usuario) {
                            echo '<label id="user">Buen día: '.trim($nombre).'</label>';
                         }

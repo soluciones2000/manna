@@ -39,6 +39,13 @@ class Auth_model extends CI_Model {
 		return $query->row();
 	}
 
+	public function activo($tit_codigo){
+		$this->db->where('tit_codigo', $tit_codigo);
+		$this->db->where('status_afiliado', 'Activo');
+		$query = $this->db->get('afiliados');
+		return $query->row();
+	}
+
 	public function genealogia($data){
 		$success = $this->db->insert('genealogia',$data);
 		return $success;

@@ -74,8 +74,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<input type="text" name="tit_profesion" class="form-control" id="tit_profesion" placeholder="Especialidad"  maxlength="150" required>
 						</div>
 					</div>
+<!-- -->
 					<div class="row">
-						<hr width=100% align="center" style="height:1px;background-color:blue">
+						<hr width=100% align="center" style="height:1px;background-color:powderblue">
+					</div>
+					<div class="row">
+						<div class="col-sm-6">
+							<label for="cot_nombres">Nombres del cotitular</label>
+							<input type="text" name="cot_nombres" value="<?php echo set_value('cot_nombres') ?>" class="form-control" id="cot_nombres" placeholder="Nombres del cotitular" maxlength="150">
+						</div>
+						<div class="col-sm-6">
+							<label for="cot_apellidos">Apellidos del cotitular</label>
+							<input type="text" name="cot_apellidos" class="form-control" id="cot_apellidos" placeholder="Apellidos del cotitular" maxlength="150">
+						</div>
+					</div>
+					<div class="row" style="margin-top:1%">
+						<div class="col-sm-3">
+							<label for="cot_cedula">Cédula de dentidad</label>
+							<input type="text" name="cot_cedula" value="<?php echo set_value('cot_cedula') ?>" class="form-control" id="cot_cedula" placeholder="Cédula de identidad" maxlength="9" minlength="6" pattern="[0-9]{6,9}" title="Sólo se aceptan números">
+						</div>
+						<div class="col-sm-3">
+							<label for="cot_rif">RIF (sin guiones)</label>
+							<input type="text" style="text-transform:uppercase;" name="cot_rif" class="form-control" id="cot_rif" placeholder="RIF" maxlength="11" minlength="9" pattern="[J|V|E]{1}[0-9]{8,10}" title="el primer caracter debe ser la letra J, V ó E en Mayúscula">
+						</div>
+						<div class="col-sm-3">
+							<label for="cot_fecha_nac">Fecha de nacimiento (dd/mm/yyyy)</label>
+							<input type="date" name="cot_fecha_nac" value="<?php echo set_value('cot_fecha_nac') ?>" class="form-control" id="cot_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy">
+						</div>
+						<div class="col-sm-3">
+							<label for="cot_edo_civil">Estado Civil</label><br>
+							<select name="cot_edo_civil" value="<?php echo set_value('cot_edo_civil') ?>" class="col-sm-12 form-control">
+								<option value="soltero">Soltero</option>
+								<option value="casado">Casado</option>
+								<option value="divorciado">Divorciado</option>
+								<option value="otro">Otro</option>
+							</select>
+						</div>
+					</div>
+					<div class="row" style="margin-top:1%">
+						<div class="col-sm-3">
+							<label for="cot_sexo">Sexo</label><br>
+							<select name="cot_sexo" value="<?php echo set_value('cot_sexo') ?>" class="col-sm-12 form-control">
+								<option value="masculino">Masculino</option>
+								<option value="femenino">Femenino</option>
+							</select>
+						</div>
+					</div>
+<!-- -->
+					<div class="row">
+						<hr width=100% align="center" style="height:1px;background-color:powderblue">
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
@@ -143,6 +190,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<option value="Guasdualito">Guasdualito</option>
 								<option value="Guatire">Guatire</option>
 								<option value="Güigüe">Güigüe</option>
+								<option value="Higuerote">Higuerote</option>
 								<option value="La Concepción">La Concepción</option>
 								<option value="La Victoria">La Victoria</option>
 								<option value="Los Guayos">Los Guayos</option>
@@ -166,6 +214,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<option value="San Cristóbal">San Cristóbal</option>
 								<option value="San Felipe">San Felipe</option>
 								<option value="San Fernando de Apure">San Fernando de Apure</option>
+								<option value="San Joaquin">San Joaquin</option>
 								<option value="San Juan de Los Morros">San Juan de Los Morros</option>
 								<option value="Santa Bárbara del Zulia">Santa Bárbara del Zulia</option>
 								<option value="Santa Lucía">Santa Lucía</option>
@@ -445,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						A través de este contrato, Corporación Manna C.A. adquiere el derecho de contactar al Titular y/o Cotitular por teléfono, correo postal y/o por comunicaciones electrónicas.<br>
 					</div>
 					<div class="row">
-						<hr width=100% align="center" style="height:1px;background-color:blue">
+						<hr width=100% align="center" style="height:1px;background-color:powderblue">
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
@@ -468,26 +517,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<label id="patroc_nombre_completo"><font color="red"><?php echo $patroc_nombre_completo ?></font></label>
 						</div>
 					</div>
-<!--
-					<div class="row" style="margin-top:1%">
-						<div class="col-sm-offset-2 col-sm-2">
-							<input type="text" style="text-transform:uppercase;" name="enrol_codigo" value="<?php echo set_value('enrol_codigo') ?>" class="form-control" id="enrol_codigo" placeholder="Cód. Enrolador" minlength="5" maxlength="5" pattern="[0-9|A-Z]{5}" title="Este campo sólo puede tener valores numéricos o letras mayúsculas" required>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" name="enrol_nombre_completo" class="form-control" id="enrol_nombre_completo" placeholder="Nombres y Apellidos del enrolador" maxlength="200" required>
-						</div>
-					</div>
-					<div class="row" style="margin-top:1%">
-						<div class="col-sm-offset-2 col-sm-2">
-							<input type="text" style="text-transform:uppercase;" name="patroc_codigo" value="<?php echo set_value('patroc_codigo') ?>" class="form-control" id="patroc_codigo" placeholder="Cód. Patrocinador" minlength="5" maxlength="5" pattern="[0-9|A-Z]{5}" title="Este campo sólo puede tener valores numéricos o letras mayúsculas" required>
-						</div>
-						<div class="col-sm-6">
-							<input type="text" name="patroc_nombre_completo" class="form-control" id="patroc_nombre_completo" placeholder="Nombres y Apellidos del patrocinador" maxlength="200" required>
-						</div>
-					</div>
--->
 					<div class="row">
-						<hr width=100% align="center" style="height:1px;background-color:blue">
+						<hr width=100% align="center" style="height:1px;background-color:powderblue">
 					</div>
 					<div class="row">
 						<div class="col-sm-12">

@@ -27,7 +27,6 @@ class Cliente extends CI_Controller {
 		$this->form_validation->set_rules('clte_telefono', 'Teléfono', 'required|max_length[20]');
 		$this->form_validation->set_rules('clte_email', 'Correo electrónico', 'required|valid_email|min_length[5]|max_length[100]');
 		$this->form_validation->set_rules('clte_direccion', 'Dirección fiscal', 'required|max_length[200]');
-		$this->form_validation->set_rules('clte_direccion_envio', 'Dirección de envío', 'required|max_length[200]');
 		$this->form_validation->set_rules('patroc_codigo', 'Código del patrocinador', 'required|exact_length[5]|callback_codigocero|callback_validacodigo|callback_existecodigo');
 
 		$this->form_validation->set_message('required', 'El campo {field} es obligatorio, pulse atrás para volver');
@@ -66,7 +65,8 @@ class Cliente extends CI_Controller {
 				'clte_direccion' => $clte_direccion,
 				'clte_direccion_envio' => $clte_direccion_envio,
 				'patroc_codigo' => $patroc_codigo,
-				'cod_corto_clte' => $cod_corto_clte
+				'cod_corto_clte' => $cod_corto_clte,
+	           	'status_cliente' => "Activo"
            	);
 			if($this->Auth_model->reg_clte($registro)){
 				$this->registro_club_180($cod_clte,'Cliente preferencial',$patroc_codigo);

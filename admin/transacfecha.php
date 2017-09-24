@@ -1,8 +1,10 @@
 <?php 
 include_once("conexion.php");
 include_once("cabecera.php");
-$menu = "";
+$menu = "reportes";
 include_once("menu.php");
+$men2 = "";
+include_once("reportes.php");
 ?>
 <style>
 .sangria {
@@ -98,7 +100,7 @@ switch (substr($_POST['fecha'],3,3)) {
 $fecha = isset($_POST['fecha']) ? substr($_POST['fecha'],7,4).'-'.$mes.'-'.substr($_POST['fecha'],0,2) : date("Y")."-".date("m")."-".sprintf("%'02d",(date("d")-1));
 $diatr = substr($_POST['fecha'],0,2).'-'.$mes.'-'.substr($_POST['fecha'],7,4);
 
-$query = "SELECT transacciones.fecha,transacciones.afiliado,afiliados.tit_nombres,afiliados.tit_apellidos,transacciones.tipo,transacciones.monto,transacciones.documento,transacciones.bancoorigen FROM transacciones inner join afiliados on transacciones.afiliado=afiliados.tit_codigo where transacciones.fecha='".$fecha."'";
+$query = "SELECT transacciones.fecha,transacciones.afiliado,afiliados.tit_nombres,afiliados.tit_apellidos,transacciones.tipo,transacciones.precio,transacciones.documento,transacciones.bancoorigen FROM transacciones inner join afiliados on transacciones.afiliado=afiliados.tit_codigo where transacciones.fecha='".$fecha."'";
 $result = mysql_query($query,$link);
 echo '<div id="cuerpo">';
 	echo '<div style="text-align:center">';
@@ -124,14 +126,23 @@ echo '<div id="cuerpo">';
 	    $fechapago = $row["fecha"];
 	    $afiliado = $row["afiliado"];
 	    $nombre_completo = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
-	    $monto = $row["monto"];
+	    $monto = $row["precio"];
 	    $documento = $row["documento"];
 	    $bancoorigen = trim($row["bancoorigen"]);
-		if ($row["tipo"]=='01') {
-			$tipo = 'Afiliación';
-		} else {
-			$tipo = 'Consumo';
-		}
+	    switch ($row["tipo"]) {
+	    	case '01':
+				$tipo = 'Afiliación';
+	    		break;
+	    	case '02':
+				$tipo = 'Upgrade';
+	    		break;
+	    	case '03':
+				$tipo = 'Nota de crédito';
+	    		break;
+	    	default:
+				$tipo = 'No identificada';
+	    		break;
+	    }
 			echo '<div class="sangria"></div>';
 			echo '<div class="detalle" style="text-align:center;">'.$fechapago.'</div>';
 			echo '<div class="nombre">'.$afiliado.' '.$nombre_completo.'</div>';

@@ -183,7 +183,8 @@ class Especialistas extends CI_Controller {
            	$data->nacionalidad = $this->input->post('nacionalidad');
            	$data->tipo_afiliado = $this->input->post('tipo_afiliado');
            	$data->tipo_kit = $this->input->post('tipo_kit');
-         	$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+         	$data->fechapago = $this->input->post('fechapago');
+//			$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
            	$data->numcomprobante = $this->input->post('numcomprobante');
            	$data->bancoorigen = $this->input->post('bancoorigen');
            	$data->envio = $this->input->post('envio');           	
@@ -321,7 +322,8 @@ class Especialistas extends CI_Controller {
 	           	'tipo_kit' => $tipo_kit,
 	           	'fecha_afiliacion' => date("Y-m-d"),
 	           	'envio' => $sienvia,
-	           	'direccion_envio' => $direccion_envio
+	           	'direccion_envio' => $direccion_envio,
+	           	'status_afiliado' => "Activo"
            	);
            	if ($envio) {
            		$direccion_envio = $direccion_envio;
@@ -386,7 +388,7 @@ class Especialistas extends CI_Controller {
 					}
 					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
-//					$this->email->to('soluciones2000@gmail.com,baudetguerra@gmail.com');
+//					$this->email->to('soluciones2000@gmail.com,ordenesmanna@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');
 					$this->email->subject('Datos de la planilla de nuevo afiliado');
 					$this->email->message($cadena);
@@ -780,7 +782,8 @@ class Especialistas extends CI_Controller {
 		}
 		// tipo = '01' corresponde al tipo de transacción "Afliación"
 		$registro = array(
-	       	'fecha' => $fechapago,
+	       	'fecha' => substr($fechapago,6,4)."-".substr($fechapago,3,2)."-".substr($fechapago,0,2),
+//	       	'fecha' => $fechapago,
 	       	'afiliado' => $tit_codigo,
 	       	'tipo' => '01',
 	       	'precio' => $precio,
@@ -932,7 +935,7 @@ class Especialistas extends CI_Controller {
 			$asunto = "Orden de pedido No.: ".$orden_id;
 			$cabeceras = 'Content-type: text/html;';
 			mail($email,$asunto,$mensaje,$cabeceras);
-			mail("baudetguerra@gmail.com",$asunto,$mensaje,$cabeceras);
+			mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 			mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
 		}
 	}

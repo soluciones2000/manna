@@ -117,9 +117,29 @@ while($row = mysql_fetch_array($result)) {
 			if ($first) {
 				$padre = $row["padre"];
 				$hijo = $row["hijo"];
-				$nombre_padre = trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]);
+				$nombre_padre = utf8_encode(trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]));
 				$arbol = trim($nombre_padre);
-				$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
+				$nombre_hijo = utf8_encode(trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]));
+//////////////////////
+				$quer2 = "SELECT afiliado,sum(puntos) as puntos FROM transacciones where afiliado='".trim($padre)."' and status_comision='Pendiente' and status_comision<>'No aplica'";
+				$resul2 = mysql_query($quer2,$link);
+				$ro2 = mysql_fetch_array($resul2);
+				$pm = $ro2["puntos"];
+
+//				$nombre_padre = $padre." - ";
+				$nombre_padre .= " (PM: ".number_format($pm,0,',','.').")";
+
+				$quer3 = "SELECT afiliado FROM organizacion where organizacion='".trim($padre)."'";
+				$resul3 = mysql_query($quer3,$link);
+				$pmo = 0;
+				while($ro3 = mysql_fetch_array($resul3)) {
+					$quer4 = "SELECT sum(puntos) as pmo FROM transacciones where afiliado='".trim($ro3["afiliado"])."' and status_comision='Pendiente' and status_comision<>'No aplica'";
+					$resul4 = mysql_query($quer4,$link);
+					$ro4 = mysql_fetch_array($resul4);
+					$pmo += $ro4["pmo"];
+				}
+				$nombre_padre .= " - (PMO: ".number_format($pmo-$pm,0,',','.').")";
+//////////////////////
 				$tipo_afiliado = $row["tipo_afiliado"];
 				$icon = 'padre.gif';
 			    $expandedIcon = 'padre.gif';
@@ -130,8 +150,8 @@ while($row = mysql_fetch_array($result)) {
 			if ($padre<>$row["padre"]) {
 				$padre = $row["padre"];
 				$hijo = $row["hijo"];
-				$nombre_padre = trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]);
-				$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
+				$nombre_padre = utf8_encode(trim($row["nombre_padre"]).' '.trim($row["apellido_padre"]));
+				$nombre_hijo = utf8_encode(trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]));
 				$tipo_afiliado = $row["tipo_afiliado"];
 				switch ($tipo_afiliado) {
 					case 'Premium':
@@ -152,29 +172,51 @@ while($row = mysql_fetch_array($result)) {
 						break;
 				}
 			}
-			$hijo = $row["hijo"];
-			$nombre_hijo = trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]);
-			$tipo_afiliado = $row["tipo_afiliado"];
-			switch ($tipo_afiliado) {
-				case 'Premium':
-				    $icon         = 'premium.gif';
-				    $expandedIcon = 'premium.gif';
-					break;
-				case 'VIP':
-				    $icon         = 'vip.gif';
-				    $expandedIcon = 'vip.gif';
-					break;
-				case 'Oro':
-				    $icon         = 'oro.gif';
-				    $expandedIcon = 'oro.gif';
-					break;
-				default:
-				    $icon         = 'folder.gif';
-				    $expandedIcon = 'folder-expanded.gif';
-					break;
+			if (!is_null($nodos[$padre])) {
+				$hijo = $row["hijo"];
+
+				$quer2 = "SELECT afiliado,sum(puntos) as puntos FROM transacciones where afiliado='".trim($hijo)."' and status_comision='Pendiente' and status_comision<>'No aplica'";
+				$resul2 = mysql_query($quer2,$link);
+				$ro2 = mysql_fetch_array($resul2);
+				$pm = $ro2["puntos"];
+
+//				$nombre_hijo = $hijo." - ";
+				$nombre_hijo = utf8_encode(trim($row["nombre_hijo"]).' '.trim($row["apellido_hijo"]));
+				$nombre_hijo .= " (PM: ".number_format($pm,0,',','.').")";
+
+				$quer3 = "SELECT afiliado FROM organizacion where organizacion='".trim($hijo)."'";
+				$resul3 = mysql_query($quer3,$link);
+				$pmo = 0;
+				while($ro3 = mysql_fetch_array($resul3)) {
+					$quer4 = "SELECT sum(puntos) as pmo FROM transacciones where afiliado='".trim($ro3["afiliado"])."' and status_comision='Pendiente' and status_comision<>'No aplica'";
+					$resul4 = mysql_query($quer4,$link);
+					$ro4 = mysql_fetch_array($resul4);
+					$pmo += $ro4["pmo"];
+				}
+				$nombre_hijo .= " - (PMO: ".number_format($pmo-$pm,0,',','.').")";
+
+				$tipo_afiliado = $row["tipo_afiliado"];
+				switch ($tipo_afiliado) {
+					case 'Premium':
+					    $icon         = 'premium.gif';
+					    $expandedIcon = 'premium.gif';
+						break;
+					case 'VIP':
+					    $icon         = 'vip.gif';
+					    $expandedIcon = 'vip.gif';
+						break;
+					case 'Oro':
+					    $icon         = 'oro.gif';
+					    $expandedIcon = 'oro.gif';
+						break;
+					default:
+					    $icon         = 'folder.gif';
+					    $expandedIcon = 'folder-expanded.gif';
+						break;
+				}
+//				$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 			}
-//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 		}
 	}
 

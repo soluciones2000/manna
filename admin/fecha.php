@@ -1,15 +1,17 @@
 <?php 
 include_once("conexion.php");
 include_once("cabecera.php");
-$menu = "";
+$menu = "reportes";
 include_once("menu.php");
+$men2 = "fecha";
+include_once("reportes.php");
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
 		<h3>TRANSACCIONES DEL DIA</h3>
 	</div>
 	<div>
-		<table border="1" align="center" width="25%">
+		<table border="1" align="center" width="20%">
 			<tr>
 				<td valign="top">
 					<br>
@@ -27,7 +29,9 @@ include_once("menu.php");
 					            	</tr>
 					            </table>
 					            <br>
-					            <INPUT type="submit" value="Enviar">
+					            <div align="center">
+						            <INPUT type="submit" value="Enviar">
+					            </div>
 	        				</form>
 							<br>
 						</div>

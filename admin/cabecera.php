@@ -1,6 +1,8 @@
 <?php 
-session_start();
+$nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
+$usuario = $nombre ? true : false;
 ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -62,8 +64,6 @@ $(document).ready(function() {
 					</td>
 					<td width="20%" align="right" style="padding:1%">
 						<?php
-							$nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
-							$usuario = isset($_SESSION['user']) ? true : false;
 							if ($usuario) {
 								echo '<label id="user">Buen día: '.trim($nombre).'</label>';
 							}

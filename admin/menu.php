@@ -1,7 +1,7 @@
 		<div id="menu">
 			<table border="0" align="center" width="100%" style="background-color:#A9F5A9">
 				<tr>
-					<td align="center" width="16.6%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($menu=="reportes"): ?>
 								Reportes
@@ -10,7 +10,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="16.7%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($menu=="precios"): ?>
 								Actualizar precios
@@ -19,7 +19,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="16.7%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($menu=="upgrade"): ?>
 								Aprobar upgrades
@@ -28,7 +28,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="16.7%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($menu=="certif"): ?>
 								Reimprimir certificados
@@ -37,7 +37,16 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="16.7%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial">
+ 							<?php if ($menu=="inactivar"): ?>
+								Activar/Inactivar códigos
+							<?php else: ?>
+								<a href="inactivarcodigo.php">Activar/Inactivar códigos</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="14.3%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
 							<?php if ($menu=="transac"): ?>
 								Cierre mensual
@@ -46,7 +55,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="16.6%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.2%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial">
  							<?php if ($menu=="login"): ?>
 								Sallir del sistema
