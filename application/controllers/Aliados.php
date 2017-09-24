@@ -391,7 +391,7 @@ class Aliados extends CI_Controller {
 					$this->email->to($_SESSION['email']);
 					$this->email->subject('CORPORACIÓN MANNA - Certificado de Afiliado: '.trim($registro['tit_codigo_largo']));
 
-					$oPdf = crea_pdf($registro); 
+					$oPdf = $this->crea_pdf($registro); 
 
 					$this->email->message($this->mensaje($registro,$uid,$oPdf));
 					if ($this->email->send()) {
