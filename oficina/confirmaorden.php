@@ -71,9 +71,9 @@ if ($error) {
 	$mensaje .= 'Enviar a: '.trim($direccion_envio).'<br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
-			$mensaje .= '<th align="center" width="380px" style="padding:2%">Descripción</th>';
-			$mensaje .= '<th align="center" width="105px">Precio</th>';
+			$mensaje .= '<th align="center" width="380px">Descripción</th>';
 			$mensaje .= '<th align="center" width="100px">Cantidad</th>';
+			$mensaje .= '<th align="center" width="105px">Precio</th>';
 			$mensaje .= '<th align="center" width="120px">A pagar</th>';
 		$mensaje .= '</tr>';
 		$subtotal = 0.00;
@@ -83,29 +83,38 @@ if ($error) {
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
 				$desc_corta = $row["desc_corta"];
-				$precio_pro = $row["precio_pro"];
-				$valor_comisionable_pro = $row["valor_comisionable_pro"];
-				$puntos_pro = $row["puntos_pro"];
+				$precio_pro = $row["pvp_dist"];
+				$valor_comisionable_pro = $row["com_dist"];
+				$puntos_pro = $row["pts_dist"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;
 				$mensaje .= '<tr>';
-					$mensaje .= '<td align="left" width="380px" style="padding:2%">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
-					$mensaje .= '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
+					$mensaje .= '<td align="left" width="380px">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
 					$mensaje .= '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
+					$mensaje .= '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
 					$mensaje .= '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'</td>';
 					$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
 				$mensaje .= '</tr>';
 			}
 		}
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
+//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
+//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal*$_SESSION["iva1"]/100,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
+//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
@@ -119,7 +128,6 @@ if ($error) {
 		$mensaje .= '</tr>';
 	$mensaje .= '</table>';
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
-	$mensaje = $texto;
 	$cabeceras = 'Content-type: text/html;';
 	if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {	           	
 //		mail("soluciones2000@gmail.com,ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);

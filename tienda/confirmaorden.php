@@ -16,6 +16,7 @@ $direccion_envio = $_SESSION["direccion_envio"];
 
 $error = false;
 $query = "INSERT INTO ordenes (codigo, tipo_orden, patroc_codigo, fecha, monto, valor_comisionable, puntos, direccion_envio,id_transaccion,status_orden) VALUES ('".$codigo."','".$tipo_orden."','".$patroc_codigo."','".$fecha."',".$monto.",".$valor_comisionable.",".$puntos.",'".$direccion_envio."',0,'Pendiente')";
+//echo $query.'<br>';
 if ($result = mysql_query($query,$link)) {
 	$mensaje3 = "no falló";
 	$query = "select orden_id from ordenes where codigo='".$codigo."' and fecha='".$fecha."'";
@@ -67,9 +68,9 @@ if ($error) {
 	$mensaje .= 'Enviar a: '.trim($direccion_envio).'<br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
-			$mensaje .= '<th align="center" width="380px" style="padding:2%">Descripción</th>';
-			$mensaje .= '<th align="center" width="105px">Precio</th>';
+			$mensaje .= '<th align="center" width="380px">Descripción</th>';
 			$mensaje .= '<th align="center" width="100px">Cantidad</th>';
+			$mensaje .= '<th align="center" width="105px">Precio</th>';
 			$mensaje .= '<th align="center" width="120px">A pagar</th>';
 		$mensaje .= '</tr>';
 		$subtotal = 0.00;
@@ -84,24 +85,33 @@ if ($error) {
 				$puntos_pro = $row["puntos_pro"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;
 				$mensaje .= '<tr>';
-					$mensaje .= '<td align="left" width="380px" style="padding:2%">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
-					$mensaje .= '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
+					$mensaje .= '<td align="left" width="380px">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
 					$mensaje .= '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
+					$mensaje .= '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
 					$mensaje .= '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'</td>';
 					$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
 				$mensaje .= '</tr>';
 			}
 		}
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right"><b>SUBTOTAL</b></td>';
+//			$mensaje .= '<td colspan="3" align="right"><b>SUBTOTAL</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
+//			$mensaje .= '<td colspan="3" align="right"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal*$_SESSION["iva1"]/100,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td> </td>';
+			$mensaje .= '<td align="right"><b>TOTAL ORDEN</b></td>';
+//			$mensaje .= '<td colspan="3" align="right"><b>TOTAL ORDEN</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
@@ -115,7 +125,6 @@ if ($error) {
 		$mensaje .= '</tr>';
 	$mensaje .= '</table>';
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
-	$mensaje = $texto;
 	$cabeceras = 'Content-type: text/html;';
 	if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {	           	
 //		mail("soluciones2000@gmail.com,ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
@@ -134,5 +143,11 @@ if ($error) {
 	$_SESSION["puntos"] = 0;
 	$cadena = 'Location: exito.php'; 
 }
+/*
+echo 'mensaje3 '.$mensaje3.'<br>';
+echo 'mensaje2 '.$mensaje2.'<br>';
+echo 'mensaje1 '.$mensaje1.'<br>';
+echo 'mensaje '.$mensaje.'<br>';
+*/
 header($cadena);
 ?>

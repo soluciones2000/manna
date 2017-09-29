@@ -26,7 +26,9 @@
 				</td>
 				<td align="center" width="60%">
 					<?php if ($bnr): ?>
-						<img SRC="banner/Frutibal-banner.png" width="60%" height="5%">
+						<a href="agrega.php?prd=FRUTIB">
+							<img SRC="banner/Frutibal-banner.png" width="60%" height="5%" alt="Agregar a la orden" title="Agregar a la orden">
+						</a>
 					<?php else: ?>
 						<?php if ($titulo<>''): ?>
 							<h3><?php echo $titulo ?></h3>

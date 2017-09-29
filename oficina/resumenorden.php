@@ -36,9 +36,9 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					if ($row = mysql_fetch_array($result)) {
 						$id_pro = $row["id_pro"];
 						$desc_corta = $row["desc_corta"];
-						$precio_pro = $row["precio_pro"];
-						$valor_comisionable_pro = $row["valor_comisionable_pro"];
-						$puntos_pro = $row["puntos_pro"];
+						$precio_pro = $row["pvp_dist"];
+						$valor_comisionable_pro = $row["com_dist"];
+						$puntos_pro = $row["pts_dist"];
 						$_SESSION["precio_pro"][$prod] = $precio_pro;
 						$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 						$_SESSION["puntos_pro"][$prod] = $puntos_pro;
