@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Especialistas extends CI_Controller {
+class Aliados extends CI_Controller {
 
 //*** Constructor ***
 	public function __construct()
@@ -11,24 +11,24 @@ class Especialistas extends CI_Controller {
 	}
 
 //*** Prepara las variables y llama a la vista registro ***
-	public function medico(){
+	public function opcion(){
 		$data = new stdClass();
 		$data->title = "MANNA - La Provisión que cambiará tu vida";
-		$data->contenido = "apl/auth/medico"; //aqui es la dirección física del controlador
-		$data->panel_title = "Afiliación de Médicos o profesionales de la salud - Página 1 de 3";
+		$data->contenido = "apl/auth/opcion"; //aqui es la dirección física del controlador
+		$data->panel_title = "Afiliación de aliados comerciales - Página 1 de 3";
 		$data->active = "registro";
 		$this->load->view('menu',$data);
 	}
 
 //*** Prepara las variables y llama a la vista registro ***
-	public function regmedico(){
+	public function registro(){
 		$envio = isset($_POST['envio']) ? $_POST['envio'] : 0;
 
 		$this->form_validation->set_rules('enrol_codigo', 'Código del enrolador', 'required|exact_length[5]|callback_codigocero|callback_validacodigo|callback_existecodigo');
 		$this->form_validation->set_rules('patroc_codigo', 'Código del patrocinador', 'required|exact_length[5]|callback_codigocero|callback_validacodigo|callback_existecodigo');
 
 		$this->form_validation->set_message('codigocero', 'El campo {field} no puede ser 00000, pulse atrás para corregir');
-		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código (Sólo números y/o letras mayúsculas, además debe tener 10 dígitos, rellene con ceros a la izquierda si es necesario), pulse atrás para corregir');
+		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código (Sólo números y letras mayúsculas), pulse atrás para corregir');
 		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
 
 		if ($this->form_validation->run() == FALSE){
@@ -48,15 +48,15 @@ class Especialistas extends CI_Controller {
 
            	$data->envio = $envio;
 			$data->title = "MANNA - La Provisión que cambiará tu vida";
-			$data->contenido = "apl/auth/regmedico"; //aqui es la dirección física del controlador
-			$data->panel_title = "Afiliación de Médicos o profesionales de la salud - Página 2 de 3";
+			$data->contenido = "apl/auth/registro"; //aqui es la dirección física del controlador
+			$data->panel_title = "Afiliación de aliados comerciales - Página 2 de 3";
 			$data->active = "registro";
 			$this->load->view('menu',$data);
 		}
 	}
 
 //*** Se ejecuta al darle submit en la forma registro ***
-	public function crea_medico(){
+	public function crea_user(){
 		if ($this->input->post('tipo_persona')=="Natural") {
 			$nombres = 'Nombres del titular';
 			$apellid = 'Apellidos del titular';
@@ -106,13 +106,13 @@ class Especialistas extends CI_Controller {
 		$this->form_validation->set_rules('tel_local', 'Teléfono Local', 'required|min_length[11]|max_length[50]|callback_validanumero');
 		$this->form_validation->set_rules('tel_celular', 'Teléfono Celular', 'required|min_length[11]|max_length[50]|callback_validanumero');
 		$this->form_validation->set_rules('email', 'Dirección de Correo Electrónico', 'required|max_length[150]|valid_email');
-
+/*
 		$this->form_validation->set_rules('enrol_codigo', 'Código del enrolador', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo');
 		$this->form_validation->set_rules('enrol_nombre_completo', 'Nombres y Apellidos del enrolador', 'required|max_length[200]');
 
 		$this->form_validation->set_rules('patroc_codigo', 'Código del patrocinador', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo');
 		$this->form_validation->set_rules('patroc_nombre_completo', 'Nombres y Apellidos del patrocinador', 'required|max_length[200]');
-
+*/
 		$this->form_validation->set_rules('banco_nombre_cta', 'Nombre del titula de la cuenta', 'required|max_length[200]');
 		$this->form_validation->set_rules('banco_numero_cta', 'Número de cuenta bancaria', 'required|min_length[13]|max_length[20]|callback_validanumero');
 		$this->form_validation->set_rules('banco_nombre_bco', 'Nombre del Banco', 'required|max_length[150]');
@@ -127,16 +127,14 @@ class Especialistas extends CI_Controller {
 		$this->form_validation->set_message('exact_length', 'El campo {field} debe tener {param} caracteres, pulse atrás para corregir');
 		$this->form_validation->set_message('validanumero', 'El campo {field} sólo debe contener números, pulse atrás para corregir');
 		$this->form_validation->set_message('validarif', 'El campo {field} debe contener el formato válido para RIF (1 letra: V, J ó E) y hasta 10 números sin guiones ni puntos, pulse atrás para corregir');
-		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código largo (XXX-YYYYY-ZZZZ), pulse atrás para corregir');
-		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
 
 		if ($this->form_validation->run() == FALSE){
             $this->registro();
         } else {
 			$data = new stdClass();
 			$data->title = "MANNA - La Provisión que cambiará tu vida";
-			$data->contenido = "apl/auth/contmedico"; //aqui es la dirección física del controlador
-			$data->panel_title = "Afiliación de Médicos o profesionales de la salud - Página 3 de 3";
+			$data->contenido = "apl/auth/contrato"; //aqui es la dirección física del controlador
+			$data->panel_title = "Afiliación de aliados comerciales - Página 3 de 3";
 
 			$data->tit_nombres = $this->input->post('tit_nombres');
            	$data->tit_apellidos = $this->input->post('tit_apellidos');
@@ -184,7 +182,7 @@ class Especialistas extends CI_Controller {
            	$data->tipo_afiliado = $this->input->post('tipo_afiliado');
            	$data->tipo_kit = $this->input->post('tipo_kit');
          	$data->fechapago = $this->input->post('fechapago');
-//			$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+//         	$data->fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
            	$data->numcomprobante = $this->input->post('numcomprobante');
            	$data->bancoorigen = $this->input->post('bancoorigen');
            	$data->envio = $this->input->post('envio');           	
@@ -196,7 +194,7 @@ class Especialistas extends CI_Controller {
 	}
 
 //*** Se ejecuta al darle submit en la forma registro ***
-	public function contmedico(){
+	public function contrato(){
        	$tit_nombres = $this->input->post('tit_nombres');
        	$tit_apellidos = $this->input->post('tit_apellidos');
        	$tit_cedula = $this->input->post('tit_cedula');
@@ -251,7 +249,11 @@ class Especialistas extends CI_Controller {
 
        	$user = $this->Auth_model->getUser($email);
 		if (!$user) {
-			$tp = 'E';
+			if ($tipo_persona=='Natural') {
+				$tp = 'N';
+			} else {
+				$tp = 'J';
+			}
 			if ($nacionalidad=='Local') {
 				$nc = 'L';
 			} else {
@@ -370,23 +372,34 @@ class Especialistas extends CI_Controller {
 				$cadena .= '</table>';
 				$cadena .= '<br>';
 
-				if (strpos(base_url(),'localhost')==FALSE) {	           	
+				if (strpos(base_url(),'localhost')===FALSE) {	           	
 					// envía voucher por email
+/*
 					$config = array(
 						'mailtype' => 'html',
 						'charset' => 'utf-8'
 					);
 					$this->email->initialize($config);
+*/
+					$uid = "_".md5(uniqid(time())); 
+
+					$this->email->set_header('MIME-version','1.0');
+					$this->email->set_header('Content-type','multipart/mixed;');
+					$this->email->set_header('boundary',$uid);
+
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 					$this->email->to($_SESSION['email']);
 					$this->email->subject('CORPORACIÓN MANNA - Certificado de Afiliado: '.trim($registro['tit_codigo_largo']));
-					$this->email->message($this->mens_med($registro));
+
+					$oPdf = $this->crea_pdf($registro); 
+
+					$this->email->message($this->mensaje($registro,$uid,$oPdf,$tit_codigo_largo));
 					if ($this->email->send()) {
 						$this->session->set_flashdata("mensaje_success","Se ha enviado el certificado al email: " . $_SESSION['email']);
 					} else {
 						echo $this->email->print_debugger();
 					}
-					$this->email->initialize($config);
+//					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 //					$this->email->to('soluciones2000@gmail.com,ordenesmanna@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');
@@ -400,19 +413,89 @@ class Especialistas extends CI_Controller {
 					// fin envío email
 				}
 
-	           	$this->reg_pdfmed($registro);
+				$oPdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'I');
 
     	        redirect(base_url() . 'menu');
 
 			}
 		} else {
            	$this->session->set_flashdata("mensaje_error","Usuario ya registrado, pulse atrás para volver");
-        	redirect(base_url() . 'medico');
+        	redirect(base_url() . 'opcion');
 		}
 	}
 
-//*** Para generar el pdf ***
-	function reg_pdfmed($registro){
+//*** Prepara las variables y llama a la vista registro ***
+	public function upgrade(){
+		$data = new stdClass();
+		$data->title = "MANNA - La Provisión que cambiará tu vida";
+		$data->contenido = "apl/auth/upgrade"; //aqui es la dirección física del controlador
+		$data->panel_title = "Solicitud de mejorar el tipo de afiliado";
+		$data->active = "registro";
+		$this->load->view('menu',$data);
+	}
+
+//*** Prepara las variables y llama a la vista registro ***
+	public function cambionivel(){
+		$this->form_validation->set_rules('codigo', 'Código del asociado', 'required|exact_length[5]|callback_validacodigo|callback_existecodigo|callback_clienteactivo');
+		$this->form_validation->set_rules('fechapago', 'Fecha de pago', 'required|exact_length[10]');
+		$this->form_validation->set_rules('numcomprobante', 'Número de comprobante', 'required|exact_length[10]');
+		$this->form_validation->set_rules('monto', 'Monto depositado', 'required');
+
+		$this->form_validation->set_message('required', 'El campo {field} es obligatorio, pulse atrás para corregir');
+		$this->form_validation->set_message('max_length', 'El campo {field} no debe exceder de {param} caracteres, pulse atrás para corregir');
+		$this->form_validation->set_message('min_length', 'El campo {field} debe tener al menos {param} caracteres, pulse atrás para corregir');
+		$this->form_validation->set_message('validacodigo', 'El campo {field} debe contener el formato válido para el código (Sólo números y letras mayúsculas), pulse atrás para corregir');
+		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
+		$this->form_validation->set_message('clienteactivo', 'El {field} está inactivo, introduzca un código activo, pulse atrás para corregir');
+
+		if ($this->form_validation->run() == FALSE){
+            $this->upgrade();
+        } else {
+			$data = new stdClass();
+           	$codigo = strtoupper($this->input->post('codigo'));
+           	$tipo_afiliado = $this->input->post('tipo_afiliado');
+           	$fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+           	$numcomprobante = $this->input->post('numcomprobante');
+           	$bancoorigen = $this->input->post('bancoorigen');
+           	$monto = $this->input->post('monto');
+			$registro = array(
+	          	'codigo' => $codigo,
+	          	'tipo_afiliado' => $tipo_afiliado,
+	          	'fechapago' => $fechapago,
+	        	'numcomprobante' => $numcomprobante,
+	           	'bancoorigen' => $bancoorigen,
+	           	'monto' => $monto,
+	           	'status_upgrade' => 'Pendiente'
+           	);
+			if($this->Auth_model->upgrade($registro)){
+				if (strpos(base_url(),'localhost')==FALSE) {	           	
+					$config = array(
+						'mailtype' => 'html',
+						'charset' => 'utf-8'
+					);
+					$this->email->initialize($config);
+					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
+					$this->email->to('ordenesmanna@gmail.com,soluciones2000@gmail.com');
+					$this->email->subject('CORPORACIÓN MANNA - Solicitud de upgrade código: '.trim($registro['codigo']));
+					$this->email->message("El código ".trim($registro['codigo'])." ha solicitado upgrade, por favor revise y apruebe en el portal administrativo");
+					$this->email->send();
+				}
+	           	$this->session->set_flashdata("mensaje_success","Solicitud registrada exitosamente, recibirá una comunicación al ser procesada");
+    	    	redirect(base_url() . 'menu');
+			} else {
+	           	$this->session->set_flashdata("mensaje_error","Ocurrió un error, inténtelo más tarde o comuniquese con soporte ");
+    	    	redirect(base_url() . 'upgrade');
+			}
+		}
+
+	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+//      HASTA AQUI LLEGAN LOS CONTROLADORES, DE AQUI EN ADELANTE SON FUNCIONES DE APOYO
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Comentario
+	function crea_pdf($registro){
 		$this->load->library('pdf');
 		$pdf = new PDF('P', 'mm', 'letter', true, 'UTF‐8', false);
 		$pdf->SetTitle('CERTIFICADO DE AFILIACIÓN');
@@ -499,13 +582,19 @@ class Especialistas extends CI_Controller {
 			<p align="justify">
 				<b>NOTA IMPORTANTE: </b>Este certificado no es un recibo de ingreso, la emisión de este documento significa que el afiliado ha completado exitosamente el proceso de registro y que forma parte de nuestra base de datos, para completar el proceso deberá realizar los trámites administrativos correspondientes.
 				<br>
-			</p>
+			</p>			
 		', true, false, true, false, '');
-		$pdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'I');
+		return $pdf;
 	}
 
 // Comentario
-	function mens_med($registro){
+	function mensaje($registro,$uid,$oPdf,$tit_codigo_largo){
+		// Pimera parte del mensaje: cuerpo del mensaje
+/*		$cabeceratexto = "--".$uid."\r\n";
+		$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
+		$cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
+		$cabeceratexto .= "\r\n";
+*/
 		$texto = '
 			<br>
 			<h3 align="center">BIENVENIDO</h3>
@@ -552,15 +641,25 @@ class Especialistas extends CI_Controller {
 				<b>NOTA IMPORTANTE: </b>Este certificado no es un recibo de ingreso, la emisión de este documento significa que el afiliado ha completado exitosamente el proceso de registro y que forma parte de nuestra base de datos, para completar el proceso deberá realizar los trámites administrativos correspondientes.
 				<br>
 			</p>
-			<br>
-			<br>
-			<p align="justify">
-				<b>DOCUMENTOS: </b>Por favor escanee y envíe sus credenciales profesionales que lo avalen como Médico o profesional de la salud al email <a href="documentos@corporacionmanna.com" target="_blank">documentos@corporacionmanna.com</a>.
-				<br>
-			</p>
 		';
-		return $texto;
+/*
+		$mensaje = $cabeceratexto.$texto;
+		$mensaje .= "\r\n";
+
+		// Segunda parte del mensaje, archivo adjunto
+		$mensaje .= "--".$uid."\r\n";
+
+		// Codificar el archivo
+		$mensaje .= $oPdf->Output('Certificado_'.trim($registro['tit_codigo_largo']).'.pdf', 'E');
+
+		$mensaje .= "\r\n";
+		$mensaje .= "\r\n";
+		$mensaje .= "--".$uid."--\r\n";
+*/
+		$mensaje = $texto;
+		return $mensaje;
 	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function validanumero($numero){
 		$valores = '0123456789';
@@ -610,6 +709,13 @@ class Especialistas extends CI_Controller {
 	}
 
 // Comentario
+	public function clienteactivo($numero){
+		$valido = true;
+	    $valido = $this->Auth_model->activo($numero);
+		return isset($valido);
+	}
+
+// Comentario
 	public function validarif($numero){
 		$valido = true;
 		if (strlen(strval($numero))>0) {
@@ -656,6 +762,7 @@ class Especialistas extends CI_Controller {
 		}		
 		return $newcodigo;
 	}
+
 //****************************************************************************************************
 */
 
@@ -903,9 +1010,7 @@ class Especialistas extends CI_Controller {
 	       	'monto' => $precio,
 	       	'valor_comisionable' => $monto,
 	       	'puntos' => $puntos,
-	       	'direccion_envio' => $direccion_envio,
-	       	'id_transaccion' => 0,
-	       	'status_orden' => 'Cancelada por conciliar'
+	       	'direccion_envio' => $direccion_envio
         );
 		$orden_id =	$this->Auth_model->orden($registro);
 		$detalle = array(

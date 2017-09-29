@@ -41,7 +41,7 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
                                              <table border="0">
                                                 <tr>
                                                    <td>Código de asociado:</td>
-                                                   <td><INPUT type="tect" name="codigo" maxlength="5" size="5" style="text-align: center;"></td>
+                                                   <td><INPUT type="tect" name="codigo" maxlength="5" size="5" style="text-align:center;text-transform:uppercase;"></td>
                                                 </tr>
                                                 <tr>
                                                    <td>Password:</td>

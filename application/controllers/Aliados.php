@@ -590,11 +590,11 @@ class Aliados extends CI_Controller {
 // Comentario
 	function mensaje($registro,$uid,$oPdf,$tit_codigo_largo){
 		// Pimera parte del mensaje: cuerpo del mensaje
-		$cabeceratexto = "--".$uid."\r\n";
+/*		$cabeceratexto = "--".$uid."\r\n";
 		$cabeceratexto .= "Content-type: text/html;charset=utf-8\r\n";
 		$cabeceratexto .= "Content-Transfer-Encoding: 8bit\r\n";
 		$cabeceratexto .= "\r\n";
-
+*/
 		$texto = '
 			<br>
 			<h3 align="center">BIENVENIDO</h3>
@@ -642,7 +642,7 @@ class Aliados extends CI_Controller {
 				<br>
 			</p>
 		';
-
+/*
 		$mensaje = $cabeceratexto.$texto;
 		$mensaje .= "\r\n";
 
@@ -655,7 +655,8 @@ class Aliados extends CI_Controller {
 		$mensaje .= "\r\n";
 		$mensaje .= "\r\n";
 		$mensaje .= "--".$uid."--\r\n";
-
+*/
+		$mensaje = $texto;
 		return $mensaje;
 	}
 
@@ -888,7 +889,7 @@ class Aliados extends CI_Controller {
 		}
 		// tipo = '01' corresponde al tipo de transacción "Afliación"
 		$registro = array(
-	       	'fecha' => substr($fechapago,6,4)."-".substr($fechapago,3,2)."-".substr($fechapago,0,2),
+	       	'fecha' => $fechapago,
 //	       	'fecha' => $fechapago,
 	       	'afiliado' => $tit_codigo,
 	       	'tipo' => '01',
@@ -1005,11 +1006,15 @@ class Aliados extends CI_Controller {
 		$fechaorden  = date('Y-m-d H:i:s');
 		$registro = array(
 	       	'codigo' => $tit_codigo,
+	       	'tipo_orden' => 'Afiliado',
+	       	'patroc_codigo' => '',
 	       	'fecha' => $fechaorden,
 	       	'monto' => $precio,
 	       	'valor_comisionable' => $monto,
 	       	'puntos' => $puntos,
-	       	'direccion_envio' => $direccion_envio
+	       	'direccion_envio' => $direccion_envio,
+	       	'id_transaccion' => 0,
+	       	'status_orden' => 'Cancelada por conciliar'
         );
 		$orden_id =	$this->Auth_model->orden($registro);
 		$detalle = array(

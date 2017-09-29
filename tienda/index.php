@@ -35,7 +35,7 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
 					            			Número de tienda:
 					            		</td>
 					            		<td>
-								            <INPUT type="text" name="codigo" maxlength="5" size="5" style="text-align:center;">            			
+								            <INPUT type="text" name="codigo" maxlength="5" size="5" style="text-align:center;text-transform:uppercase;">            			
 					            		</td>
 					            	</tr>
 					            </table>

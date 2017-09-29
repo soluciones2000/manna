@@ -18,7 +18,7 @@
 									echo trim($id_pro).'<br>';
 									echo trim($desc_corta).'<br>';
 									echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
-									echo '<a href="#">Agregar a la orden</a>';
+									echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
 								echo '</td>';
 								if ($contador==4) {
 									echo '</tr>';
@@ -27,62 +27,12 @@
 								$contador++;
 							}
 						 ?>
-<!--
-						<tr>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/Frutibal.jpg" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/crecer.jpg" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/kat-hogar.jpg" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/LQ.jpg" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-						</tr>
-						<tr>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/Plat-hogar.jpg" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-							<td align="center" width="25%" style="padding:2%">
-								<img SRC="img/teatro.png" width="150px" height="150px"><br>
-								Nombre<br>
-								Descripcion corta<br>
-								Precio Bs. 999.999,99<br>
-								<a href="#">Agregar a la orden</a>
-							</td>
-							<td>
-								
-							</td>
-						</tr>
--->
 					</table>					
 				</td>
 			</tr>
 		</table>
 	</div>
+
 <!--
 	<div id="paginas">
 		<table border="0" align="center" width="100%">

@@ -115,35 +115,42 @@ while($row = mysql_fetch_array($result)) {
 		$nodos = array();
 		while($row = mysql_fetch_array($result)) {
 			if ($first) {
-				$padre = $row["patroc_codigo"];
+				if ($row["patroc_codigo"]==$codigo) {
+					$padre = $row["patroc_codigo"];
+					$hijo = $row["tit_codigo"];
+					$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
+					$arbol = trim($nombre_patroc);
+					$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
+	//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$first = false;
+					$continuar = true;
+				} else {
+					$continuar = false;
+				}
+			}
+			if ($continuar) {
+				if ($padre<>$row["patroc_codigo"]) {
+					$padre = $row["patroc_codigo"];
+					$hijo = $row["tit_codigo"];
+					$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
+					$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
+				}
 				$hijo = $row["tit_codigo"];
-				$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
-				$arbol = trim($nombre_patroc);
 				$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				$first = false;
-			}
-			if ($padre<>$row["patroc_codigo"]) {
-				$padre = $row["patroc_codigo"];
-				$hijo = $row["tit_codigo"];
-				$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
-				$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-			}
-			$hijo = $row["tit_codigo"];
-			$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-			$fecha_fin_bono = $row["fecha_fin_bono"];
-			if ($fecha_fin_bono<date('Y-m-d')) {
-			    $icon         = 'no-calif.gif';
-			    $expandedIcon = 'no-calif.gif';
-			} else {
-			    $icon         = 'calif.gif';
-			    $expandedIcon = 'calif.gif';
-			}
-//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-			if (!is_null($nodos[$padre])) {
+				$fecha_fin_bono = $row["fecha_fin_bono"];
+				if ($fecha_fin_bono<date('Y-m-d')) {
+				    $icon         = 'no-calif.gif';
+				    $expandedIcon = 'no-calif.gif';
+				} else {
+				    $icon         = 'calif.gif';
+				    $expandedIcon = 'calif.gif';
+				}
+	//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				if (!is_null($nodos[$padre])) {
 
-				$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+				}
 			}
 		}
 	}
@@ -174,7 +181,7 @@ while($row = mysql_fetch_array($result)) {
 </head>
 <body>
 
-<h3><u>Patrocinios de <?php echo $arbol; ?></u></h3>
+<h3><u>Patrocinios de <?php echo utf8_encode($_SESSION['user']); ?></u></h3>
 <p>Leyenda: <img src="html_tree_menu/images/calif.gif" style="vertical-align:-55%;"> Califica para bono | <img src="html_tree_menu/images/no-calif.gif" style="vertical-align:-50%;"> No califica para bono</p>
 <!--<p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p>-->
 <!--<?$listBox->printMenu()?>-->

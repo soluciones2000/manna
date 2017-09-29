@@ -1,7 +1,7 @@
 <?php 
 include_once("conexion.php");
 
-$codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
+$codigo = isset($_POST['codigo']) ? strtoupper($_POST['codigo']) : '';
 
 if ($codigo<>"") {
 	$query = "SELECT * from afiliados WHERE tit_codigo='".trim($codigo)."'";
@@ -10,6 +10,11 @@ if ($codigo<>"") {
 		session_start();
 		$_SESSION['user'] = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
 		$_SESSION['codigo'] = $codigo;
+		unset($_SESSION["orden"]);
+		unset($_SESSION["precio_pro"]);
+		unset($_SESSION["valor_comisionable_pro"]);
+		unset($_SESSION["puntos_pro"]);
+		$_SESSION['cantidad'] = 0;
 		$cadena = 'Location: inicio.php'; 
 	} else {
 		session_destroy();

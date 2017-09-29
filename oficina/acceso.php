@@ -1,7 +1,7 @@
 <?php 
 include_once("conexion.php");
 
-$codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
+$codigo = isset($_POST['codigo']) ? strtoupper($_POST['codigo']) : '';
 $password = isset($_POST['password']) ? $_POST['password'] : '';
 
 if ($codigo<>'') {

@@ -9,8 +9,45 @@ $usuario = $nombre ? true : false;
 <head>
 	<title>Corporación MANNA C.A. - Tienda virtual</title>
 <!--	<link rel="icon" type="image/png" href="psicoexpresate_ico.png" /> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
 </head>
-<body>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+jQuery(function($){
+	$.datepicker.regional['es'] = {
+		closeText: 'Cerrar',
+		prevText: '&#x3c;Ant',
+		nextText: 'Sig&#x3e;',
+		currentText: 'Hoy',
+		monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+		'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+		monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+		'Jul','Ago','Sep','Oct','Nov','Dic'],
+		dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+		dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+		dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+		weekHeader: 'Sm',
+		dateFormat: 'dd-M-yy',
+		firstDay: 1,
+		isRTL: false,
+		showMonthAfterYear: false,
+		yearSuffix: ''};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$.datepicker.setDefaults({
+	  showOn: "both"
+	});
+});
+
+$(document).ready(function() {
+   $("#datepicker").datepicker();
+});
+</script>
+
+<body  ng-app="">
 	<div id="container">
 		<table border="0" align="center" width="100%" height="10%" style="background-color:#0404B4;">
 			<tr>
@@ -31,9 +68,23 @@ $usuario = $nombre ? true : false;
 					<font face="arial" size="3" color="#FFFFFF"><?php echo $nombre; ?></font>
 				</td>
 				<td width="20%" align="right" style="padding:0.5%">
+					<?php 
+						if ($codigo<>'') {
+							if (file_exists("photos/".trim($codigo).".jpg")) {
+								echo '<img SRC="photos/'.trim($codigo).'.jpg" width="30%" height="30%">';
+							}
+						}
+					?>
+<!--
 					<?php if ($codigo<>''): ?>
+						<?php if (file_exists("photos/".trim($codigo).".jpg")): ?>
+							existe
+						<?php else: ?>
+							no existe
+						<?php endif; ?>
 						<img SRC=<?php echo "photos/".trim($codigo).".jpg" ?> width="30%" height="30%">
 					<?php endif; ?>
+-->
 				</td>
 			</tr>
 		</table>
