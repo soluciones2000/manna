@@ -68,7 +68,7 @@ if ($precio<$precio_orden) {
 	$monto = 0.00;
 	$puntos = 0;
 	$status_comision = "No aplica";
-	$status_orden = "Parcialmente Cancelada";
+	$status_orden = "Parcialmente cancelada";
 }
 
 $query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fecha."','".$afiliado."','".$cliente."','".$cliente_pref."','".$tipo."',".$precio.",".$monto.",".$puntos.",'".$documento."','".$bancoorigen."','".$status_comision."',".$orden_id.")";
