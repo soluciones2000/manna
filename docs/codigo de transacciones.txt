@@ -1,0 +1,9 @@
+codigos de transacciones
+01 -> afiliacion
+02 -> upgrade
+03 -> Nota de crédito
+04 -> Pago pedidos aliados
+
+14 -> Pago pedidos clientes
+
+24 -> Pago pedidos clientes preferenciales

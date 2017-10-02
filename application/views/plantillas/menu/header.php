@@ -39,10 +39,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <li><a href="<?php echo base_url(); ?>cliente_pref">Cliente preferencial</a></li>
             </ul>
           <?php else: ?>
-<!--
               <li><a href="<?php echo base_url(); ?>medico">Médico o profesional de la salud</a></li>
               <li><a href="<?php echo base_url(); ?>opcion">Aliados comerciales independientes</a></li>
--->
               <li><a href="<?php echo base_url(); ?>upgrade">Mejorar membresía</a></li>
               <li><a href="<?php echo base_url(); ?>cliente_pref">Cliente preferencial</a></li>
           <?php endif; ?>

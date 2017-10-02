@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<div class="row">
 						<div class="form_group">
-							<label for="tipo_afiliado" class="col-sm-5 control-label">Paquete de afiliación</label>
+							<label for="tipo_afiliado" class="col-sm-5 control-label">kit de afiliación</label>
 							<div class="radio-inline col-sm-6" >
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Premium" checked>Premium
@@ -43,6 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro">Oro
 								</div>
 							</div>
+<!--
 							<label for="tipo_afiliado" class="col-sm-5 control-label">Kit de inicio</label>
 							<div class="radio-inline col-sm-6" >
 								<div class="col-sm-3">
@@ -58,6 +59,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas" checked>Todas las líneas
 								</div>
 							</div>
+-->
+							<input type="hidden" name="tipo_kit" id="tipo_kit" value="Todas">
 						</div>
 					</div>
 					<br>

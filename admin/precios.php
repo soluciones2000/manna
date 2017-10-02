@@ -59,64 +59,8 @@ $mp_oro_todas = $row["mp_oro_todas"];
 					        <form name="admin" method="post" action="actuaprecio.php">
 					            <table border="0">
 					            	<tr>
-					            		<th width="auto" height="25px" valign="center" align="center" colspan="4">
-					            			LÍNEA HOGAR
-					            		</th>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Premium
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_premium_hogar" value="<?php echo $pvp_premium_hogar ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="premium_hogar" value="<?php echo $premium_hogar ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_premium_hogar" value="<?php echo $mp_premium_hogar ?>" size="10" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			VIP
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_vip_hogar" value="<?php echo $pvp_vip_hogar ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="vip_hogar" value="<?php echo $vip_hogar ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_vip_hogar" value="<?php echo $mp_vip_hogar ?>" size="10" align="right" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Oro
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_oro_hogar" value="<?php echo $pvp_oro_hogar ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="oro_hogar" value="<?php echo $oro_hogar ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_oro_hogar" value="<?php echo $mp_oro_hogar ?>" size="10" />
-					            		</td>
-					            	</tr>
-					            	<tr>
 					            		<th width="auto" height="40px" valign="bottom" align="center" colspan="4">
-					            			LÍNEA LQ
+					            			KITS DE AFILIACIÓN
 					            		</th>
 					            	</tr>
 					            	<tr>
@@ -125,15 +69,15 @@ $mp_oro_todas = $row["mp_oro_todas"];
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>PVP </label>
-											<input type="currency" name="pvp_premium_lq" value="<?php echo $pvp_premium_lq ?>" size="10" />
+											<input type="currency" name="pvp_premium_todas" value="<?php echo $pvp_premium_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Valor comisionable </label>
-											<input type="currency" name="premium_lq" value="<?php echo $premium_lq ?>" size="10" />
+											<input type="currency" name="premium_todas" value="<?php echo $premium_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Puntos </label>
-											<input type="currency" name="mp_premium_lq" value="<?php echo $mp_premium_lq ?>" size="10" />
+											<input type="currency" name="mp_premium_todas" value="<?php echo $mp_premium_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            	</tr>
 					            	<tr>
@@ -142,15 +86,15 @@ $mp_oro_todas = $row["mp_oro_todas"];
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>PVP </label>
-											<input type="currency" name="pvp_vip_lq" value="<?php echo $pvp_vip_lq ?>" size="10" align="right" />
+											<input type="currency" name="pvp_vip_todas" value="<?php echo $pvp_vip_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Valor comisionable </label>
-											<input type="currency" name="vip_lq" value="<?php echo $vip_lq ?>" size="10" align="right" />
+											<input type="currency" name="vip_todas" value="<?php echo $vip_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Puntos </label>
-											<input type="currency" name="mp_vip_lq" value="<?php echo $mp_vip_lq ?>" size="10" align="right" />
+											<input type="currency" name="mp_vip_todas" value="<?php echo $mp_vip_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            	</tr>
 					            	<tr>
@@ -159,133 +103,22 @@ $mp_oro_todas = $row["mp_oro_todas"];
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>PVP </label>
-											<input type="currency" name="pvp_oro_lq" value="<?php echo $pvp_oro_lq ?>" size="10" />
+											<input type="currency" name="pvp_oro_todas" value="<?php echo $pvp_oro_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Valor comisionable </label>
-											<input type="currency" name="oro_lq" value="<?php echo $oro_lq ?>" size="10" />
+											<input type="currency" name="oro_todas" value="<?php echo $oro_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            		<td width="25%" height="70px" valign="bottom" align="center">
 											<label>Puntos </label>
-											<input type="currency" name="mp_oro_lq" value="<?php echo $mp_oro_lq ?>" size="10" />
-					            		</td>
-					            	</tr>
-
-					            	<tr>
-					            		<th width="auto" height="40px" valign="bottom" align="center" colspan="4">
-					            			LÍNEA TEATRO
-					            		</th>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Premium
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_premium_teatro" value="<?php echo $pvp_premium_teatro ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="premium_teatro" value="<?php echo $premium_teatro ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_premium_teatro" value="<?php echo $mp_premium_teatro ?>" size="10" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			VIP
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_vip_teatro" value="<?php echo $pvp_vip_teatro ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="vip_teatro" value="<?php echo $vip_teatro ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_vip_teatro" value="<?php echo $mp_vip_teatro ?>" size="10" align="right" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Oro
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_oro_teatro" value="<?php echo $pvp_oro_teatro ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="oro_teatro" value="<?php echo $oro_teatro ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_oro_teatro" value="<?php echo $mp_oro_teatro ?>" size="10" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<th width="auto" height="40px" valign="bottom" align="center" colspan="4">
-					            			TODAS LAS LINEAS
-					            		</th>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Premium
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_premium_todas" value="<?php echo $pvp_premium_todas ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="premium_todas" value="<?php echo $premium_todas ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_premium_todas" value="<?php echo $mp_premium_todas ?>" size="10" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			VIP
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_vip_todas" value="<?php echo $pvp_vip_todas ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="vip_todas" value="<?php echo $vip_todas ?>" size="10" align="right" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_vip_todas" value="<?php echo $mp_vip_todas ?>" size="10" align="right" />
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-					            			Oro
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>PVP </label>
-											<input type="currency" name="pvp_oro_todas" value="<?php echo $pvp_oro_todas ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Valor comisionable </label>
-											<input type="currency" name="oro_todas" value="<?php echo $oro_todas ?>" size="10" />
-					            		</td>
-					            		<td width="25%" height="70px" valign="bottom" align="center">
-											<label>Puntos </label>
-											<input type="currency" name="mp_oro_todas" value="<?php echo $mp_oro_todas ?>" size="10" />
+											<input type="currency" name="mp_oro_todas" value="<?php echo $mp_oro_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            	</tr>
 					            </table>
 					            <br>
-					            <INPUT type="submit" value="Enviar">
+					            <div align="center">
+						            <INPUT type="submit" value="Enviar">
+					            </div>
 	        				</form>
 							<br>
 						</div>
