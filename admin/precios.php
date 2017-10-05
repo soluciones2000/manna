@@ -114,6 +114,66 @@ $mp_oro_todas = $row["mp_oro_todas"];
 											<input type="currency" name="mp_oro_todas" value="<?php echo $mp_oro_todas ?>" size="10" style="text-align:right;" />
 					            		</td>
 					            	</tr>
+
+					            	<tr>
+					            		<th width="auto" height="40px" valign="bottom" align="center" colspan="4">
+					            			LINEA LQ
+					            		</th>
+					            	</tr>
+					            	<tr>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+					            			Premium LQ
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>PVP </label>
+											<input type="currency" name="pvp_premium_lq" value="<?php echo $pvp_premium_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Valor comisionable </label>
+											<input type="currency" name="premium_lq" value="<?php echo $premium_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Puntos </label>
+											<input type="currency" name="mp_premium_lq" value="<?php echo $mp_premium_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            	</tr>
+					            	<tr>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+					            			VIP LQ
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>PVP </label>
+											<input type="currency" name="pvp_vip_lq" value="<?php echo $pvp_vip_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Valor comisionable </label>
+											<input type="currency" name="vip_lq" value="<?php echo $vip_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Puntos </label>
+											<input type="currency" name="mp_vip_lq" value="<?php echo $mp_vip_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            	</tr>
+					            	<tr>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+					            			Oro LQ
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>PVP </label>
+											<input type="currency" name="pvp_oro_lq" value="<?php echo $pvp_oro_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Valor comisionable </label>
+											<input type="currency" name="oro_lq" value="<?php echo $oro_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            		<td width="25%" height="70px" valign="bottom" align="center">
+											<label>Puntos </label>
+											<input type="currency" name="mp_oro_lq" value="<?php echo $mp_oro_lq ?>" size="10" style="text-align:right;" />
+					            		</td>
+					            	</tr>
+
+
+
 					            </table>
 					            <br>
 					            <div align="center">

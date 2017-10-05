@@ -43,24 +43,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro">Oro
 								</div>
 							</div>
-<!--
-							<label for="tipo_afiliado" class="col-sm-5 control-label">Kit de inicio</label>
+
+							<label for="tipo_afiliado" class="col-sm-5 control-label">Tipo de Kit</label>
 							<div class="radio-inline col-sm-6" >
+							<!--
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Hogar">Hogar
 								</div>
+							-->
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Lq">Línea LQ
 								</div>
+							<!--
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Teatro">Teatro
 								</div>
+							-->
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas" checked>Todas las líneas
 								</div>
 							</div>
--->
-							<input type="hidden" name="tipo_kit" id="tipo_kit" value="Todas">
+<!--							<input type="hidden" name="tipo_kit" id="tipo_kit" value="Todas">-->
 						</div>
 					</div>
 					<br>
