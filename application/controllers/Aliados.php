@@ -374,13 +374,7 @@ class Aliados extends CI_Controller {
 
 				if (strpos(base_url(),'localhost')===FALSE) {	           	
 					// envía voucher por email
-/*
-					$config = array(
-						'mailtype' => 'html',
-						'charset' => 'utf-8'
-					);
-					$this->email->initialize($config);
-*/
+
 					$uid = "_".md5(uniqid(time())); 
 
 					$this->email->set_header('MIME-version','1.0');
@@ -399,7 +393,11 @@ class Aliados extends CI_Controller {
 					} else {
 						echo $this->email->print_debugger();
 					}
-//					$this->email->initialize($config);
+					$config = array(
+						'mailtype' => 'html',
+						'charset' => 'utf-8'
+					);
+					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
 //					$this->email->to('soluciones2000@gmail.com,ordenesmanna@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');

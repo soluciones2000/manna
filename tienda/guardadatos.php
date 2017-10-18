@@ -43,7 +43,7 @@ $patroc_codigo = $_SESSION["codigo"];
 $cod_corto_clte = asignacodigo();
 $cod_clte = $_SESSION["codigo"]."@".$cod_corto_clte;
 
-$query = "INSERT INTO clientes (email, nombre, cedula, telefono, direccion, direccion_envio, patroc_codigo, cod_clte, cod_corto_clte, status_cliente) VALUES ('".trim($email)."','".trim($nombre)."','".trim($cedula)."','".trim($telefono)."','".trim($direccion)."','".trim($direccion_envio)."','".trim($patroc_codigo)."','".trim($cod_clte)."','".trim($cod_corto_clte)."','Activo')";
+$query = "INSERT INTO clientes (email, nombre, cedula, telefono, direccion, direccion_envio, patroc_codigo, cod_clte, cod_corto_clte, status_cliente, referido) VALUES ('".trim($email)."','".trim($nombre)."','".trim($cedula)."','".trim($telefono)."','".trim($direccion)."','".trim($direccion_envio)."','".trim($patroc_codigo)."','".trim($cod_clte)."','".trim($cod_corto_clte)."','Activo','".$_SESSION['referido']."')";
 if ($result = mysql_query($query,$link)) {
 	if ($_SESSION["ruta"]=="orden") {
 		$cadena = 'Location: resumen.php'; 

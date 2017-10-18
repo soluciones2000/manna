@@ -65,6 +65,7 @@ if ($error) {
 	$mensaje .= 'Cliente: '.trim($cliente).' C.I. '.number_format($cedula,0,',','.').'<br>';
 	$mensaje .= 'Teléfono: '.trim($telefono).'<br>';
 	$mensaje .= 'Dirección: '.trim($direccion).'<br>';
+	$mensaje .= 'Regerido por: '.trim($_SESSION['referido']).'<br>';
 	$mensaje .= 'Enviar a: '.trim($direccion_envio).'<br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';

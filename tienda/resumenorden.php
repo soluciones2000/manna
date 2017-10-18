@@ -10,10 +10,10 @@
 							$direccion = $row["direccion"];
 							$direccion_envio = $row["direccion_envio"];
 							$_SESSION["direccion_envio"] = $direccion_envio;
-							echo 'Cliente: '.trim($cliente).' C.I. '.number_format($cedula,0,',','.').'<br>';
+							echo 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
 							echo 'Teléfono: '.trim($telefono).'<br>';
-							echo 'Dirección: '.trim($direccion).'<br>';
-							echo 'Enviar a: '.trim($direccion_envio).'<br>';
+							echo 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
+							echo 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
 						}
 					?>
 					<table border="1" width="auto" align="center">
@@ -43,7 +43,7 @@
 								$result = mysql_query($query,$link);
 								if ($row = mysql_fetch_array($result)) {
 									$id_pro = $row["id_pro"];
-									$desc_corta = $row["desc_corta"];
+									$desc_corta = utf8_encode($row["desc_corta"]);
 									$precio_pro = $row["precio_pro"];
 									$valor_comisionable_pro = $row["valor_comisionable_pro"];
 									$puntos_pro = $row["puntos_pro"];

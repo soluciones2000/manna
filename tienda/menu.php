@@ -15,6 +15,8 @@
 					<font face="arial">
 						<?php if ($ant=="pago"): ?>
 							<a href="logincliente.php?ruta=pago" id="anterior">Reportar pago</a>
+							<br>
+							<a href="logincliente.php?ruta=tracking" id="tracking">Seguimiento de órdenes</a>
 						<?php endif ?>
 						<?php if ($ant=="catalogo"): ?>
 							<a href="inicio.php" id="anterior">Volver al Catálogo</a>
@@ -25,15 +27,25 @@
 					</font>
 				</td>
 				<td align="center" width="60%">
-					<?php if ($bnr): ?>
-						<a href="agrega.php?prd=FRUTIB">
-							<img SRC="banner/Frutibal-banner.png" width="60%" height="5%" alt="Agregar a la orden" title="Agregar a la orden">
-						</a>
-					<?php else: ?>
-						<?php if ($titulo<>''): ?>
-							<h3><?php echo $titulo ?></h3>
-						<?php endif ?>
-					<?php endif ?>
+					<?php
+						if ($bnr) {
+							$query = "SELECT * FROM banners where activa='1'";
+							$result = mysql_query($query,$link);
+							while ($row = mysql_fetch_array($result)) {
+								if ($row["orden"]) {
+									echo '<a href="agrega.php?prd='.$row["id_pro"].'">';
+										echo '<img SRC="banners/'.trim($row["banner"]).'" width="60%" height="5%" alt="Agregar a la orden" title="Agregar a la orden">';
+									echo '</a>';
+								} else {
+									echo '<img SRC="banners/'.trim($row["banner"]).'" width="60%" height="5%">';
+								}
+							}
+						} else {
+							if ($titulo<>'') {
+								echo '<h3>'.trim($titulo).'</h3>';
+							}
+						}
+					?>
 				</td>
 				<td align="right" valign="middle" width="20%" style="padding-right:2%">
 					<font face="arial">

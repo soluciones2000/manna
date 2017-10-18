@@ -8,6 +8,7 @@ if ($codigo<>"") {
 	$result = mysql_query($query,$link);
 	if ($row = mysql_fetch_array($result)) {
 		session_start();
+		$_SESSION['referido'] = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
 		$_SESSION['user'] = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
 		$_SESSION['codigo'] = $codigo;
 		unset($_SESSION["orden"]);

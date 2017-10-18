@@ -34,7 +34,7 @@
 											echo  '<img SRC="img/'.trim($imagen).'.jpg" width="50px" height="50px" style="vertical-align:middle;">';
 										echo '</td>';
 										echo '<td align="left" width="380px" style="padding:2%">';
-											echo trim($id_pro).' - '.trim($desc_corta);
+											echo trim($id_pro).' - '.utf8_encode(trim($desc_corta));
 										echo '</td>';
 										echo '<td align="right" width="105px">';
 											echo 'Bs. '.number_format($precio_pro,2,',','.');

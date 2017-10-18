@@ -62,7 +62,6 @@ while($row = mysql_fetch_array($result)) {
 }
 // Hasta aqui rellena la tabla para el reporte
 
-
 // +-----------------------------------------------------------------------+
 // | Copyright (c) 2002-2005, Richard Heyes, Harald Radi                   |
 // | All rights reserved.                                                  |

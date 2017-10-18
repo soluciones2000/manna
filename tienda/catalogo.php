@@ -7,7 +7,7 @@
 							$contador = 1;
 							while($row = mysql_fetch_array($result)) {
 								$id_pro = $row["id_pro"];
-								$desc_corta = $row["desc_corta"];
+								$desc_corta = utf8_encode($row["desc_corta"]);
 								$precio_pro = $row["precio_pro"];
 								$imagen = $row["imagen"];
 								if ($contador==1) {

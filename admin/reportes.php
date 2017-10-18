@@ -8,7 +8,7 @@ include_once("menu.php");
 			<table border="0" align="center" width="100%" style="background-color:#F5F6CE">
 				<tr>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
  							<?php if ($men2=="resumen"): ?>
 								Resumen de comisiones
 							<?php else: ?>
@@ -17,7 +17,7 @@ include_once("menu.php");
 						</font>
 					</td>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
 							<?php if ($men2=="detalle"): ?>
 								Detalle de comisiones
 							<?php else: ?>
@@ -26,7 +26,7 @@ include_once("menu.php");
 						</font>
 					</td>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
 							<?php if ($men2=="planilla"): ?>
 								Impresión de planilla
 							<?php else: ?>
@@ -35,7 +35,7 @@ include_once("menu.php");
 						</font>
 					</td>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
 							<?php if ($men2=="datos"): ?>
 								Listado de datos básicos
 							<?php else: ?>
@@ -44,7 +44,7 @@ include_once("menu.php");
 						</font>
 					</td>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
 							<?php if ($men2=="cliente"): ?>
 								Listado de clientes preferenciales
 							<?php else: ?>
@@ -53,11 +53,11 @@ include_once("menu.php");
 						</font>
 					</td>
 					<td align="center" width="16.67%" style="padding-left:1%;padding-right:1%;">
-						<font face="arial">
+						<font face="arial" size="2">
 							<?php if ($men2=="fecha"): ?>
-								Lista de transacciones<br>por fecha
+								Lista de transacciones por fecha
 							<?php else: ?>
-								<a href="fecha.php">Lista de transacciones<br>por fecha</a>
+								<a href="fecha.php">Lista de transacciones por fecha</a>
 							<?php endif; ?>
 						</font>
 					</td>

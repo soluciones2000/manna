@@ -8,6 +8,8 @@ if ($email<>"") {
 		$_SESSION["email"] = $row["email"];
 		if ($_SESSION["ruta"]=="orden") {
 			$cadena = 'Location: resumen.php'; 
+		} elseif ($_SESSION["ruta"]=="tracking") {
+			$cadena = 'Location: tracking.php'; 
 		} else {
 			$cadena = 'Location: pago.php'; 
 		}

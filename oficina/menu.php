@@ -11,6 +11,7 @@
                         <a id="afiliacion" class="" href="#" onclick="refresca(this,'periodo2.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de inicio</a>
                         <a id="ordenes" class="" href="#" onclick="refresca(this,'catalogo.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Ordenar productos</a>
                         <a id="pagos" class="" href="#" onclick="refresca(this,'reportapago.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Reportar pago</a>
+                        <a id="tracking" class="" href="#" onclick="refresca(this,'tracking.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Seguimiento de órdenes</a>
                         <a id="salir" class="" href="logout.php">Salir</a>
 <!--
                         <a id="pedidos" class="" href="#" onclick="refresca(this,'pedidos.html',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Pedidos</a>
@@ -44,6 +45,7 @@
             document.getElementById("afiliacion").className = "";
             document.getElementById("ordenes").className = "";
             document.getElementById("pagos").className = "";
+            document.getElementById("tracking").className = "";
             document.getElementById("salir").className = "";
 /*            
             document.getElementById("pedidos").className = "";

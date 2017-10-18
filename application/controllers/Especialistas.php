@@ -32,7 +32,7 @@ class Especialistas extends CI_Controller {
 		$this->form_validation->set_message('existecodigo', 'El {field} no está registrado, introduzca un código válido, pulse atrás para corregir');
 
 		if ($this->form_validation->run() == FALSE){
-            $this->opcion();
+            $this->medico();
         } else {
 			$data = new stdClass();
            	$enrol_codigo = strtoupper($this->input->post('enrol_codigo'));

@@ -19,52 +19,111 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="row">
 						<div class="form_group">
 							<label for="nacionalidad" class="col-sm-5 control-label">Nacionalidad</label>
-							<div class="radio-inline col-sm-6" >
-								<div class="col-sm-3">
-									<input type="radio" name="nacionalidad" id="nacionalidad" value="Local" checked>Local (VE)
+							<?php if (set_value('nacionalidad')==="Extranjero"): ?>
+								<div class="radio-inline col-sm-6" >
+									<div class="col-sm-3">
+										<input type="radio" name="nacionalidad" id="nacionalidad" value="Local">Local (VE)
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="nacionalidad" id="nacionalidad" value="Extranjero" checked>Extranjero
+									</div>
 								</div>
-								<div class="col-sm-3">
-									<input type="radio" name="nacionalidad" id="nacionalidad" value="Extranjero">Extranjero
+							<?php else: ?>
+								<div class="radio-inline col-sm-6" >
+									<div class="col-sm-3">
+										<input type="radio" name="nacionalidad" id="nacionalidad" value="Local" checked>Local (VE)
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="nacionalidad" id="nacionalidad" value="Extranjero">Extranjero
+									</div>
 								</div>
-							</div>
+							<?php endif; ?>
 						</div>
 					</div>
 					<div class="row">
 						<div class="form_group">
 							<label for="tipo_afiliado" class="col-sm-5 control-label">kit de afiliación</label>
-							<div class="radio-inline col-sm-6" >
-								<div class="col-sm-3">
-									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Premium" checked>Premium
+							<?php if (set_value('tipo_afiliado')==="Premium"): ?>
+								<div class="radio-inline col-sm-6" >
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Premium" checked>Premium
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="VIP">VIP
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro">Oro
+									</div>
 								</div>
-								<div class="col-sm-3">
-									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="VIP">VIP
-								</div>
-								<div class="col-sm-3">
-									<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro">Oro
-								</div>
-							</div>
-
+							<?php else: ?>
+								<?php if (set_value('tipo_afiliado')==="VIP"): ?>
+									<div class="radio-inline col-sm-6" >
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Premium">Premium
+										</div>
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="VIP" checked>VIP
+										</div>
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro">Oro
+										</div>
+									</div>
+								<?php else: ?>
+									<div class="radio-inline col-sm-6" >
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Premium">Premium
+										</div>
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="VIP">VIP
+										</div>
+										<div class="col-sm-3">
+											<input type="radio" name="tipo_afiliado" id="tipo_afiliado" value="Oro" checked>Oro
+										</div>
+									</div>
+								<?php endif; ?>
+							<?php endif; ?>
 							<label for="tipo_afiliado" class="col-sm-5 control-label">Tipo de Kit</label>
+							<?php if (set_value('tipo_kit')==="Lq"): ?>
+								<div class="radio-inline col-sm-6" >
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_kit" id="tipo_kit" value="Lq" checked>Línea LQ
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas">Todas las líneas
+									</div>
+								</div>
+							<?php else: ?>
+								<div class="radio-inline col-sm-6" >
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_kit" id="tipo_kit" value="Lq">Línea LQ
+									</div>
+									<div class="col-sm-3">
+										<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas" checked>Todas las líneas
+									</div>
+								</div>
+							<?php endif; ?>
+<!--
 							<div class="radio-inline col-sm-6" >
-							<!--
+
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Hogar">Hogar
 								</div>
-							-->
+
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Lq">Línea LQ
 								</div>
-							<!--
+
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Teatro">Teatro
 								</div>
-							-->
+
 								<div class="col-sm-3">
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas" checked>Todas las líneas
 								</div>
 							</div>
-<!--							<input type="hidden" name="tipo_kit" id="tipo_kit" value="Todas">-->
+
 						</div>
+-->
 					</div>
 					<br>
 <!-- ******************************************************************************* -->

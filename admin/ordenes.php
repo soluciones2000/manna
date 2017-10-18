@@ -108,7 +108,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada">Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar">Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar">Conciliadas por despachar</option>';
-						echo '<option value="Despachada">Desapachadas</option>';
+						echo '<option value="Despachada">Despachadas</option>';
 						break;
 					case 'Pendiente':
 						echo '<option value="Todas">Todas</option>';
@@ -116,7 +116,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada">Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar">Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar">Conciliadas por despachar</option>';
-						echo '<option value="Despachada">Desapachadas</option>';
+						echo '<option value="Despachada">Despachadas</option>';
 						break;
 					case 'Parcialmente cancelada':
 						echo '<option value="Todas">Todas</option>';
@@ -124,7 +124,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada" selected>Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar">Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar">Conciliadas por despachar</option>';
-						echo '<option value="Despachada">Desapachadas</option>';
+						echo '<option value="Despachada">Despachadas</option>';
 						break;
 					case 'Cancelada por conciliar':
 						echo '<option value="Todas">Todas</option>';
@@ -132,7 +132,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada">Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar" selected>Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar">Conciliadas por despachar</option>';
-						echo '<option value="Despachada">Desapachadas</option>';
+						echo '<option value="Despachada">Despachadas</option>';
 						break;
 					case 'Conciliada por despachar':
 						echo '<option value="Todas">Todas</option>';
@@ -140,7 +140,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada">Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar">Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar" selected>Conciliadas por despachar</option>';
-						echo '<option value="Despachada">Desapachadas</option>';
+						echo '<option value="Despachada">Despachadas</option>';
 						break;
 					case 'Despachada':
 						echo '<option value="Todas">Todas</option>';
@@ -148,7 +148,7 @@ echo '<div id="cuerpo">';
 						echo '<option value="Parcialmente cancelada">Parcialmente canceladas</option>';
 						echo '<option value="Cancelada por conciliar">Canceladas por conciliar</option>';
 						echo '<option value="Conciliada por despachar">Conciliadas por despachar</option>';
-						echo '<option value="Despachada" selected>Desapachadas</option>';
+						echo '<option value="Despachada" selected>Despachadas</option>';
 						break;
 				}
 			echo '</select>';
