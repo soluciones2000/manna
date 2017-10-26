@@ -65,10 +65,10 @@ if ($error) {
 	$_SESSION["direccion_envio"] = $direccion_envio;
 	$mensaje = '';
 	$mensaje .= 'Número de Orden: <b>'.trim($orden_id).'</b><br>';
-	$mensaje .= 'Cliente: '.trim($cliente).' C.I. '.number_format($cedula,0,',','.').'<br>';
+	$mensaje .= 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
 	$mensaje .= 'Teléfono: '.trim($telefono).'<br>';
-	$mensaje .= 'Dirección: '.trim($direccion).'<br>';
-	$mensaje .= 'Enviar a: '.trim($direccion_envio).'<br>';
+	$mensaje .= 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
+	$mensaje .= 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
 			$mensaje .= '<th align="center" width="380px">Descripción</th>';
@@ -82,7 +82,7 @@ if ($error) {
 			$result = mysql_query($query,$link);
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
-				$desc_corta = $row["desc_corta"];
+				$desc_corta = utf8_encode($row["desc_corta"]);
 				$precio_pro = $row["pvp_dist"];
 				$valor_comisionable_pro = $row["com_dist"];
 				$puntos_pro = $row["pts_dist"];

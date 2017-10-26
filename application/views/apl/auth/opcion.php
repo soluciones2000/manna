@@ -134,12 +134,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<br>
 -->
 					<div class="row">
-						<label for="fechapago" class="col-sm-5 control-label"><font color="red">(*)</font> Fecha de pago (dd/mm/yyyy)</label>
+						<label for="fechapago" class="col-sm-5 control-label"><font color="red">(*)</font> Fecha de pago</label>
 						<div class="col-sm-2">
 <!--
 							<input type="date" name="fechapago" class="form-control" id="fechapago" id="datepicker" size="10" />
+							<input type="text" name="fechapago" class="form-control datepicker" id="fechapago" placeholder="Fecha">
 -->
-							<input type="date" name="fechapago" class="form-control" id="fechapago" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
+							<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="fechapago" class="form-control" id="fechapago" placeholder="dd/mm/yyyy" value="<?php echo date('d/m/Y') ?>" readonly style="background-color:white;" required>
+<!--
+							<input type="date" name="fechapago" class="form-control datepicker" id="fechapago" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
+-->
 						</div>
 					</div>
 					<br>
@@ -231,3 +235,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<!--
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="fechapago"]'); //our date input has the name "date"
+        var container=$('.container form').length>0 ? $('.container form').parent() : "body";
+        date_input.datepicker({
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
+-->

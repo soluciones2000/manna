@@ -35,7 +35,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					$result = mysql_query($query,$link);
 					if ($row = mysql_fetch_array($result)) {
 						$id_pro = $row["id_pro"];
-						$desc_corta = $row["desc_corta"];
+						$desc_corta = utf8_encode($row["desc_corta"]);
 						$precio_pro = $row["pvp_dist"];
 						$valor_comisionable_pro = $row["com_dist"];
 						$puntos_pro = $row["pts_dist"];

@@ -1,7 +1,7 @@
 		<div id="menu">
 			<table border="0" align="center" width="100%" style="background-color:#A9F5A9">
 				<tr>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($menu=="reportes"): ?>
 								Reportes
@@ -10,7 +10,27 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($menu=="pagos"): ?>
+								Pago de comisiones
+							<?php else: ?>
+								<a href="pagos.php">Pago de comisiones</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($menu=="parametros"): ?>
+								Parámetros del sistema
+							<?php else: ?>
+								<a href="parametros.php">Parámetros del sistema</a>
+							<?php endif; ?>
+						</font>
+					</td>
+
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($menu=="precios"): ?>
 								Actualizar precios
@@ -19,7 +39,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($menu=="upgrade"): ?>
 								Aprobar upgrades
@@ -28,7 +48,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($menu=="certif"): ?>
 								Reimprimir certificados
@@ -37,7 +57,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($menu=="inactivar"): ?>
 								Activar/Inactivar códigos
@@ -46,7 +66,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($menu=="ordenes"): ?>
 								Gestionar órdenes
@@ -55,7 +75,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($menu=="transac"): ?>
 								Cierre mensual
@@ -64,7 +84,7 @@
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($menu=="login"): ?>
 								Sallir del sistema

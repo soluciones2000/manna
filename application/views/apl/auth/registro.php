@@ -75,8 +75,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 						<?php if ($_POST["tipo_persona"]=="Natural"): ?>
 							<div class="col-sm-3">
-								<label for="tit_fecha_nac"><font color="red">(*)</font> Fecha de nacimiento (dd/mm/yyyy)</label>
+								<label for="tit_fecha_nac"><font color="red">(*)</font> Fecha de nacimiento</label>
+<!--
 								<input type="date" name="tit_fecha_nac" value="<?php echo set_value('tit_fecha_nac') ?>" class="form-control" id="tit_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
+-->
+								<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="tit_fecha_nac" class="form-control" id="tit_fecha_nac" placeholder="dd/mm/yyyy" value="<?php set_value('tit_fecha_nac') ?>" readonly style="background-color:white;" required>
+
 							</div>
 							<div class="col-sm-3">
 								<label for="tit_edo_civil"><font color="red">(*)</font> Estado Civil</label><br>
@@ -126,8 +130,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<input type="text" style="text-transform:uppercase;" name="cot_rif" class="form-control" id="cot_rif" placeholder="RIF" maxlength="11" minlength="9" pattern="[J|V|E]{1}[0-9]{8,10}" title="el primer caracter debe ser la letra J, V ó E en Mayúscula">
 							</div>
 							<div class="col-sm-3">
-								<label for="cot_fecha_nac">Fecha de nacimiento (dd/mm/yyyy)</label>
+								<label for="cot_fecha_nac">Fecha de nacimiento</label>
+<!--
 								<input type="date" name="cot_fecha_nac" value="<?php echo set_value('cot_fecha_nac') ?>" class="form-control" id="cot_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy">
+-->
+								<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="cot_fecha_nac" class="form-control" id="cot_fecha_nac" placeholder="dd/mm/yyyy" value="<?php set_value('cot_fecha_nac') ?>" readonly style="background-color:white;" required>
 							</div>
 							<div class="col-sm-3">
 								<label for="cot_edo_civil">Estado Civil</label><br>
@@ -668,6 +675,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 <!--
 					</div>

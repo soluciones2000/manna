@@ -19,19 +19,40 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '<tr>';
 		echo '<td colspan="3">';
 			echo '<table border="1" width="100%">';
-			$query = "SELECT * FROM productos order by id_pro";
+			$query = "SELECT tipo_persona FROM afiliados where tit_codigo='".$codigo."'";
+			$result = mysql_query($query,$link);
+			if($row = mysql_fetch_array($result)) {
+				$tipo_persona = $row["tipo_persona"];
+			} else {
+				$tipo_persona = '';
+			}
+
+			if ($tipo_persona=='Especialista') {
+				$query = "SELECT * FROM productos order by familia,id_pro";
+			} else {
+				$query = "SELECT * FROM productos where publico<>'Especialista' order by familia,id_pro";
+			}
+			
 			$result = mysql_query($query,$link);
 			$contador = 1;
 			while($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
-				$desc_corta = $row["desc_corta"];
+				$desc_corta = utf8_encode($row["desc_corta"]);
+				$desc_pro = trim(utf8_encode($row["desc_pro"]));
 				$precio_pro = $row["pvp_dist"];
 				$imagen = $row["imagen"];
+				if (file_exists('img/'.trim($imagen).'.jpg')) {
+					$imagen = 'img/'.trim($imagen).'.jpg';
+				} else {
+					$imagen = 'img/sin_imagen.jpg';
+				}
+
+
 				if ($contador==1) {
 					echo '<tr>';
 				}
 				echo '<td align="center" width="25%" style="padding:2%">';
-					echo  '<img SRC="img/'.trim($imagen).'.jpg" width="150px" height="150px"><br>';
+					echo  '<img SRC="'.trim($imagen).'" width="150px" height="150px" title="'.$desc_pro.'"><br>';
 					echo trim($id_pro).'<br>';
 					echo trim($desc_corta).'<br>';
 					echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';

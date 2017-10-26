@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<?php echo base_url(); ?>../recursos/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>recursos/js/bootstrap.min.js"></script>
     <!--
     <div class="pie" align="right">
     	<font  face="tahoma" size="1">

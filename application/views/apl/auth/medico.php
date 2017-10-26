@@ -121,9 +121,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<input type="radio" name="tipo_kit" id="tipo_kit" value="Todas" checked>Todas las líneas
 								</div>
 							</div>
-
-						</div>
 -->
+						</div>
 					</div>
 					<br>
 <!-- ******************************************************************************* -->
@@ -137,9 +136,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<br>
 -->
 					<div class="row">
-						<label for="fechapago" class="col-sm-5 control-label"><font color="red">(*)</font> Fecha de pago (dd/mm/yyyy)</label>
+						<label for="fechapago" class="col-sm-5 control-label"><font color="red">(*)</font> Fecha de pago</label>
 						<div class="col-sm-2">
+<!--
 							<input type="date" name="fechapago" class="form-control" id="fechapago" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
+-->
+							<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="fechapago" class="form-control" id="fechapago" placeholder="dd/mm/yyyy" value="<?php echo date('d/m/Y') ?>" readonly style="background-color:white;" required>
 						</div>
 					</div>
 					<br>
@@ -237,3 +239,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>

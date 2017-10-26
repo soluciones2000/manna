@@ -70,7 +70,7 @@ $dtbs = '';
 if (strpos(base_url(),'localhost')!==FALSE) {
 	$host = 'localhost';
 	$user = 'root';
-	$pass = 'myapm';
+	$pass = 'rootmyapm';
 	$dtbs = 'manna';
 } elseif (strpos(base_url(),'pruebas')!==FALSE) {
 	$host = 'localhost:3306';

@@ -247,6 +247,10 @@ class Aliados extends CI_Controller {
        	$sienvia = ($this->input->post('envio')) ? TRUE : FALSE ;
        	$direccion_envio = $this->input->post('direccion_envio');
 
+       	echo "<pre>";
+       	var_dump($_POST);
+       	echo "</pre>";
+
        	$user = $this->Auth_model->getUser($email);
 		if (!$user) {
 			if ($tipo_persona=='Natural') {
@@ -452,14 +456,14 @@ class Aliados extends CI_Controller {
 			$data = new stdClass();
            	$codigo = strtoupper($this->input->post('codigo'));
            	$tipo_afiliado = $this->input->post('tipo_afiliado');
-           	$fechapago = substr($this->input->post('fechapago'),6,4)."-".substr($this->input->post('fechapago'),3,2)."-".substr($this->input->post('fechapago'),0,2);
+           	$fechapago = $this->input->post('fechapago');
            	$numcomprobante = $this->input->post('numcomprobante');
            	$bancoorigen = $this->input->post('bancoorigen');
            	$monto = $this->input->post('monto');
 			$registro = array(
 	          	'codigo' => $codigo,
 	          	'tipo_afiliado' => $tipo_afiliado,
-	          	'fechapago' => $fechapago,
+	          	'fechapago' => substr($fechapago,6,4)."-".substr($fechapago,3,2)."-".substr($fechapago,0,2),
 	        	'numcomprobante' => $numcomprobante,
 	           	'bancoorigen' => $bancoorigen,
 	           	'monto' => $monto,
@@ -887,7 +891,7 @@ class Aliados extends CI_Controller {
 		}
 		// tipo = '01' corresponde al tipo de transacción "Afliación"
 		$registro = array(
-	       	'fecha' => $fechapago,
+	       	'fecha' => substr($fechapago,6,4)."-".substr($fechapago,3,2)."-".substr($fechapago,0,2),
 //	       	'fecha' => $fechapago,
 	       	'afiliado' => $tit_codigo,
 	       	'tipo' => '01',

@@ -17,7 +17,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url(); ?>recursos/css/style.css" rel="stylesheet">
 
     <script src="<?php echo base_url(); ?>recursos/js/my-js.js"></script>
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>recursos/css/jquery-ui.css"/>
 
+    <script src="<?php echo base_url();?>recursos/js/jquery-3.2.1.js"></script>
+    <script src="<?php echo base_url();?>recursos/js/bootstrap-datepicker.js"></script>
+    <script src="<?php echo base_url();?>recursos/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function(){ $('.datepicker').datepicker(); });
+    </script>
+    <link href="<?php echo base_url();?>recursos/css/datepicker.css" rel="stylesheet">    
+ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
