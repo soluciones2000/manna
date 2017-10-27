@@ -32,7 +32,7 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
 					            <table border="0" align="center">
 					            	<tr>
 					            		<td>
-					            			Número de tienda:
+					            			Introduzca su código de cliente preferencial (5 dígitos):
 					            		</td>
 					            		<td>
 								            <INPUT type="text" name="codigo" maxlength="5" size="5" style="text-align:center;text-transform:uppercase;">            			
@@ -45,34 +45,6 @@ $mensaje = isset($_GET['error']) ? $_GET['error'] : '';
 					            </div>
 	        				</form>
 							<br>
-
-					        <form name="admin" method="post" action="acceso2.php">
-					            <table border="0" align="center">
-					            	<tr>
-					            		<td colspan="2" align="center">
-					            			¿No conoce el número de la tienda?
-						            	<br>
-						            	<br>
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td colspan="2" align="center">
-					            			Indiquenos como se enteró de la tienda.<br>Si alguien lo refirió por favor indique su nombre:
-					            		</td>
-					            	</tr>
-					            	<tr>
-					            		<td colspan="2" align="center">
-								            <INPUT type="text" name="nombre" maxlength="100" size="60" style="text-align:center;" required>
-								            <input type="hidden" name="codigo" value="00000">
-					            		</td>
-					            	</tr>
-					            </table>
-					            <br>
-					            <div align="center">
-						            <INPUT type="submit" value="Enviar">
-					            </div>
-					            <br>
-	        				</form>
 
 						</div>
 					</div>

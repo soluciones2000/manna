@@ -10,7 +10,7 @@ $usuario = $nombre ? true : false;
 <html lang="es">
 <meta charset="UTF-8" />
 <head>
-	<title>Corporación MANNA C.A. - Tienda virtual</title>
+	<title>Corporación MANNA C.A. - Clientes preferenciales</title>
 <!--	<link rel="icon" type="image/png" href="psicoexpresate_ico.png" /> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 <body  ng-app="">
 	<div id="container">
-		<table border="0" align="center" width="100%" height="10%" style="background-color:#0404B4;">
+		<table border="0" align="center" width="100%" height="10%" style="background-color:#E3E4E5;">
 			<tr>
 				<td width="20%" align="left" style="padding:0.5%">
 					<img SRC="../recursos/img/Manna_peq.png" width="252.5px" height="62.5px">
@@ -66,9 +66,9 @@ $(document).ready(function() {
 				</td>
 -->
 				<td align="center">
-					<font face="arial" size="6" color="#FFFFFF">TIENDA VIRTUAL</font>
+					<font face="arial" size="6">CLIENTE PREFERENCIAL</font>
 					<br>
-					<font face="arial" size="3" color="#FFFFFF"><?php echo $nombre; ?></font>
+					<font face="arial" size="3"><?php echo $nombre; ?></font>
 				</td>
 				<td width="20%" align="right" style="padding:0.5%">
 					<?php 

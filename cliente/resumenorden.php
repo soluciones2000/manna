@@ -1,14 +1,14 @@
 			<tr>
 				<td valign="top" align="center" colspan="3">
 					<?php
-						$query = "SELECT * from clientes WHERE email='".trim($_SESSION["email"])."'";
+						$query = "SELECT * from cliente_preferencial WHERE clte_email='".trim($_SESSION["email"])."'";
 						$result = mysql_query($query,$link);
 						if ($row = mysql_fetch_array($result)) {
-							$cliente = $row["nombre"];
-							$cedula = $row["cedula"];
-							$telefono = $row["telefono"];
-							$direccion = $row["direccion"];
-							$direccion_envio = $row["direccion_envio"];
+							$cliente = $row["clte_nombre"];
+							$cedula = $row["clte_cedula"];
+							$telefono = $row["clte_telefono"];
+							$direccion = $row["clte_direccion"];
+							$direccion_envio = $row["clte_direccion_envio"];
 							$_SESSION["direccion_envio"] = $direccion_envio;
 							echo 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
 							echo 'Teléfono: '.trim($telefono).'<br>';
@@ -44,9 +44,9 @@
 								if ($row = mysql_fetch_array($result)) {
 									$id_pro = $row["id_pro"];
 									$desc_corta = utf8_encode($row["desc_corta"]);
-									$precio_pro = $row["precio_pro"];
-									$valor_comisionable_pro = $row["valor_comisionable_pro"];
-									$puntos_pro = $row["puntos_pro"];
+									$precio_pro = $row["pvp_clipref"];
+									$valor_comisionable_pro = $row["com_clipref"];
+									$puntos_pro = $row["pts_clipref"];
 									$_SESSION["precio_pro"][$prod] = $precio_pro;
 									$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 									$_SESSION["puntos_pro"][$prod] = $puntos_pro;

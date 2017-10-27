@@ -43,11 +43,11 @@ switch ($mes) {
 }
 
 $fecha = substr($fch,-4,4)."-".$mes."-".substr($fch,0,2);
-$afiliado = $_SESSION["codigo"];
-$cliente = isset($_POST['codclte']) ? $_POST['codclte'] : '';
-$cliente_pref = '';
-$tipo = "14";
-$precio =isset($_POST['monto']) ? $_POST['monto'] : '';
+$afiliado = $_SESSION["patroc_codigo"];
+$cliente = '';
+$cliente_pref = isset($_POST['codclte']) ? $_POST['codclte'] : '';
+$tipo = "24";
+$precio = isset($_POST['monto']) ? $_POST['monto'] : '';
 $monto = 0.00;
 $puntos = 0;
 $documento = isset($_POST['documento']) ? $_POST['documento'] : '';

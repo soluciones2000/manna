@@ -1,11 +1,12 @@
 <?php 
 include_once("conexion.php");
-$email = isset($_POST['email']) ? $_POST['email'] : '';
+$email = isset($_SESSION['clte_email']) ? $_SESSION['clte_email'] : '';
+$_SESSION["ruta"] = isset($_GET['ruta']) ? $_GET['ruta'] : '';
 if ($email<>"") {
-	$query = "SELECT * from clientes WHERE email='".trim($email)."'";
+	$query = "SELECT * from cliente_preferencial WHERE clte_email='".trim($email)."'";
 	$result = mysql_query($query,$link);
 	if ($row = mysql_fetch_array($result)) {
-		$_SESSION["email"] = $row["email"];
+		$_SESSION["email"] = $row["clte_email"];
 		if ($_SESSION["ruta"]=="orden") {
 			$cadena = 'Location: resumen.php'; 
 		} elseif ($_SESSION["ruta"]=="tracking") {
@@ -13,12 +14,12 @@ if ($email<>"") {
 		} else {
 			$cadena = 'Location: pago.php'; 
 		}
-	} else {
+/*	} else {
 		$_SESSION["email"] = $email;
-		$cadena = 'Location: datoscliente.php'; 
+		$cadena = 'Location: datoscliente.php'; */
 	}
-} else {
-	$cadena = 'Location: logincliente.php?error=cb'; 
+/*} else {
+	$cadena = 'Location: logincliente.php?error=cb'; */
 }
 header($cadena);
 ?>

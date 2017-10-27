@@ -14,9 +14,9 @@
 				<td width="20%">
 					<font face="arial">
 						<?php if ($ant=="pago"): ?>
-							<a href="logincliente.php?ruta=pago" id="anterior">Reportar pago</a>
+							<a href="validacliente.php?ruta=pago" id="anterior">Reportar pago</a>
 							<br>
-							<a href="logincliente.php?ruta=tracking" id="tracking">Seguimiento de órdenes</a>
+							<a href="validacliente.php?ruta=tracking" id="tracking">Seguimiento de órdenes</a>
 						<?php endif ?>
 						<?php if ($ant=="catalogo"): ?>
 							<a href="inicio.php" id="anterior">Volver al Catálogo</a>

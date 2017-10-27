@@ -4,17 +4,21 @@ include_once("conexion.php");
 $codigo = isset($_POST['codigo']) ? strtoupper($_POST['codigo']) : '';
 
 if ($codigo<>"") {
-	$query = "SELECT * from afiliados WHERE tit_codigo='".trim($codigo)."'";
+	$query = "SELECT * from cliente_preferencial WHERE cod_corto_clte='".trim($codigo)."'";
 	$result = mysql_query($query,$link);
 	if ($row = mysql_fetch_array($result)) {
 		session_start();
-		$_SESSION['referido'] = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
-		$_SESSION['user'] = trim($row["tit_nombres"])." ".trim($row["tit_apellidos"]);
-		$_SESSION['codigo'] = $codigo;
+		$_SESSION['patroc_codigo'] = trim($row["patroc_codigo"]);
+		$_SESSION['user'] = trim($row["clte_nombre"]);
+		$_SESSION['cod_clte'] = trim($row["cod_clte"]);
+		$_SESSION['cod_corto_clte'] = $codigo;
+		$_SESSION['clte_email'] = trim($row["clte_email"]);
+
 		unset($_SESSION["orden"]);
-		unset($_SESSION["precio_pro"]);
-		unset($_SESSION["valor_comisionable_pro"]);
-		unset($_SESSION["puntos_pro"]);
+		unset($_SESSION["pvp_clipref"]);
+		unset($_SESSION["com_clipref"]);
+		unset($_SESSION["pts_clipref"]);
+
 		$_SESSION['cantidad'] = 0;
 		$cadena = 'Location: inicio.php'; 
 	} else {

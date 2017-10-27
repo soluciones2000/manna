@@ -26,7 +26,7 @@
 								if ($row = mysql_fetch_array($result)) {
 									$id_pro = $row["id_pro"];
 									$desc_corta = utf8_encode($row["desc_corta"]);
-									$precio_pro = $row["precio_pro"];
+									$precio_pro = $row["pvp_clipref"];
 									$imagen = $row["imagen"];
 									echo '<tr>';
 										echo '<td align="center" width="100px">';
@@ -80,7 +80,7 @@
 								?></p>
 						 	</td>
 						 	<td align="center">
-						 		<form method="post" action="logincliente.php?ruta=orden">
+						 		<form method="post" action="validacliente.php?ruta=orden">
 							 		<input type="submit" name="ordenar" value="Completar orden">
 						 		</form>
 						 	</td>

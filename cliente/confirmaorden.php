@@ -1,13 +1,13 @@
 <?php 
 include_once("conexion.php");
 
-$query = "Select * from clientes where email='".trim($_SESSION["email"])."'";
+$query = "Select * from cliente_preferencial where clte_email='".trim($_SESSION["email"])."'";
 $result = mysql_query($query,$link);
 if ($row = mysql_fetch_array($result)) {
 	$codigo = $row["cod_corto_clte"];
 } 
-$tipo_orden = 'Cliente';
-$patroc_codigo = $_SESSION["codigo"];
+$tipo_orden = 'Cliente Preferencial';
+$patroc_codigo = $_SESSION["patroc_codigo"];
 $fecha = date('Y-m-d H:i:s');
 $monto = $_SESSION["monto"];
 $valor_comisionable = $_SESSION["comisionable"];
@@ -51,21 +51,21 @@ if ($result = mysql_query($query,$link)) {
 if ($error) {
 	$cadena = 'Location: error.php'; 
 } else {
-	$query = "SELECT * from clientes WHERE email='".trim($_SESSION["email"])."'";
+	$query = "SELECT * from cliente_preferencial WHERE clte_email='".trim($_SESSION["email"])."'";
 	$result = mysql_query($query,$link);
 	$row = mysql_fetch_array($result);
-	$cliente = $row["nombre"];
-	$cedula = $row["cedula"];
-	$telefono = $row["telefono"];
-	$direccion = $row["direccion"];
-	$direccion_envio = $row["direccion_envio"];
+	$cliente = $row["clte_nombre"];
+	$cedula = $row["clte_cedula"];
+	$telefono = $row["clte_telefono"];
+	$direccion = $row["clte_direccion"];
+	$direccion_envio = $row["clte_direccion_envio"];
 	$_SESSION["direccion_envio"] = $direccion_envio;
 	$mensaje = '';
 	$mensaje .= 'Número de Orden: <b>'.trim($orden_id).'</b><br>';
 	$mensaje .= 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
 	$mensaje .= 'Teléfono: '.trim($telefono).'<br>';
 	$mensaje .= 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
-	$mensaje .= 'Referido por: '.trim($_SESSION['referido']).'<br>';
+//	$mensaje .= 'Referido por: '.trim($_SESSION['referido']).'<br>';
 	$mensaje .= 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
@@ -81,9 +81,9 @@ if ($error) {
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
 				$desc_corta = utf8_encode($row["desc_corta"]);
-				$precio_pro = $row["precio_pro"];
-				$valor_comisionable_pro = $row["valor_comisionable_pro"];
-				$puntos_pro = $row["puntos_pro"];
+				$precio_pro = $row["pvp_clipref"];
+				$valor_comisionable_pro = $row["com_clipref"];
+				$puntos_pro = $row["pts_clipref"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;
 				$mensaje .= '<tr>';
 					$mensaje .= '<td align="left" width="380px">'.trim($id_pro).' - '.trim($desc_corta).'</td>';

@@ -247,10 +247,6 @@ class Aliados extends CI_Controller {
        	$sienvia = ($this->input->post('envio')) ? TRUE : FALSE ;
        	$direccion_envio = $this->input->post('direccion_envio');
 
-       	echo "<pre>";
-       	var_dump($_POST);
-       	echo "</pre>";
-
        	$user = $this->Auth_model->getUser($email);
 		if (!$user) {
 			if ($tipo_persona=='Natural') {

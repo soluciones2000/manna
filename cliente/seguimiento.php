@@ -3,14 +3,14 @@
 					<div style="vertical-align:top;">
 						<h3 align="center">Seguimiento de órdenes activas</h3>
 						<?php
-							$query = "select * from clientes where email='".$_SESSION["email"]."'";
+							$query = "select * from cliente_preferencial where clte_email='".$_SESSION["email"]."'";
 							$result = mysql_query($query,$link);
 							if ($row = mysql_fetch_array($result)) {
-								$nombre = $row["nombre"];
+								$nombre = $row["clte_nombre"];
 								$codclte = $row["cod_corto_clte"];
 							}
 							echo '<h4 align="center">'.$nombre.'</h4>';
-							$query = "select * from ordenes where codigo='".$codclte."'";
+							$query = "select * from ordenes where codigo='".$codclte."' and tipo_orden='Cliente Preferencial'";
 							if ($result = mysql_query($query,$link)){
 								echo '<div>';
 						            echo '<table border=1 align="center">';

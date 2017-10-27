@@ -3,10 +3,10 @@
 					<div style="vertical-align:top;">
 						<h4 align="center">Reportar pago</h4>
 						<?php
-							$query = "select * from clientes where email='".$_SESSION["email"]."'";
+							$query = "select * from cliente_preferencial where clte_email='".$_SESSION["email"]."'";
 							$result = mysql_query($query,$link);
 							if ($row = mysql_fetch_array($result)) {
-								$nombre = $row["nombre"];
+								$nombre = $row["clte_nombre"];
 								$codclte = $row["cod_corto_clte"];
 							}
 						?>
