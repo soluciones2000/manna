@@ -4,8 +4,14 @@ $query = "SELECT * from empresa";
 $result = mysql_query($query,$link);
 if ($row = mysql_fetch_array($result)) {
    $empresa = utf8_encode($row["emp_nombre"]);
+   $_SESSION["iva1"] = $row["iva1"];
+   $_SESSION["iva2"] = $row["iva2"];
+   $_SESSION["iva3"] = $row["iva3"];
 } else {
    $empresa = "Error al conectar a la base de datos.";
+   $_SESSION["iva1"] = 0;
+   $_SESSION["iva2"] = 0;
+   $_SESSION["iva3"] = 0;
 }
 ?>
 
