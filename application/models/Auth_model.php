@@ -136,4 +136,50 @@ class Auth_model extends CI_Model {
 		return $success;
 	}
 
+	public function getpatrocinio($codigo,$afiliado){
+//		$this->db->where('patroc_codigo',$codigo);
+//		$this->db->where('tit_codigo',$afiliado);
+		$this->db->order_by('patroc_codigo','ASC');
+		$this->db->order_by('tit_codigo','ASC');
+		$query = $this->db->get('patrocinio');
+		return $query->result();
+	}
+
+	public function getorganizacion($codigo,$uno,$dos){
+//		$this->db->where('organizacion',$codigo);
+//		$this->db->where('nivel >=',$uno);
+//		$this->db->where('nivel <',$dos);
+		$this->db->order_by('nivel','ASC');
+		$this->db->order_by('afiliado','ASC');
+		$query = $this->db->get('organizacion');
+		return $query->result();
+	}
+
+	public function get_transac($codigo,$fecha1,$fecha2){
+		$this->db->where('afiliado',$codigo);
+		$this->db->where('tipo <',50);
+		$this->db->where('fecha >=',$fecha1);
+		$this->db->where('fecha <=',$fecha2);
+		$this->db->where('status_comision =','Pendiente');
+		$query = $this->db->get('transacciones');
+		return $query->row();
+	}
+
+	public function getpunto(){
+		$this->db->select('valor_punto');
+		$query = $this->db->get('empresa');
+		return $query->row();
+	}
+
+	public function getbono($nivel){
+		$this->db->where('nivel',$nivel);
+		$query = $this->db->get('bono_afiliacion');
+		return $query->row();
+	}
+
+	public function detbonoafiliacion($data){
+		$success = $this->db->insert('detbonoafiliacion',$data);
+		return $success;
+	}
+
 }

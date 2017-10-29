@@ -12,7 +12,7 @@ include_once("menu.php");
  							<?php if ($men2=="resumen"): ?>
 								Resumen de comisiones
 							<?php else: ?>
-								<a href="periodo1.php">Resumen de comisiones</a>
+								<a href="resumenbonoafiliacion.php">Resumen de comisiones</a>
 							<?php endif; ?>
 						</font>
 					</td>

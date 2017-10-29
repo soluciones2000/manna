@@ -8,7 +8,7 @@
                         <a id="inicio" class="active" href="#" onclick="refresca(this,'inicio.html',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Inicio</a>
                         <a id="genealogia" class="" href="#" onclick="refresca(this,'genealogia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Genealogia</a>
                         <a id="patrocinio" class="" href="#" onclick="refresca(this,'patrocinio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Patrocinios</a>
-                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'periodo2.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de inicio</a>
+                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'afiliacion.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de inicio</a>
                         <a id="ordenes" class="" href="#" onclick="refresca(this,'catalogo.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Ordenar productos</a>
                         <a id="pagos" class="" href="#" onclick="refresca(this,'reportapago.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Reportar pago</a>
                         <a id="tracking" class="" href="#" onclick="refresca(this,'tracking.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Seguimiento de órdenes</a>

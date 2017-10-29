@@ -226,9 +226,9 @@ class Aliados extends CI_Controller {
        	$tel_local = $this->input->post('tel_local');
        	$tel_celular = $this->input->post('tel_celular');
        	$email = $this->input->post('email');
-       	$enrol_codigo = $this->input->post('enrol_codigo');
+       	$enrol_codigo = strtoupper($this->input->post('enrol_codigo'));
        	$enrol_nombre_completo = $this->input->post('enrol_nombre_completo');
-       	$patroc_codigo = $this->input->post('patroc_codigo');
+       	$patroc_codigo = strtoupper($this->input->post('patroc_codigo'));
        	$patroc_nombre_completo = $this->input->post('patroc_nombre_completo');
        	$banco_nombre_cta = $this->input->post('banco_nombre_cta');
        	$banco_numero_cta = $this->input->post('banco_numero_cta');
@@ -270,11 +270,11 @@ class Aliados extends CI_Controller {
 					$af = 'O';
 					break;
 			}
-			$tit_codigo = asignacodigo($this->Auth_model->ultcodigo());
+			$tit_codigo = strtoupper(asignacodigo($this->Auth_model->ultcodigo()));
 	        $tit_codigo_largo = $_SESSION['prefijo_pais'].'-'.$tit_codigo.'-T'.$tp.$nc.$af;
 	        $cot_codigo_largo = $_SESSION['prefijo_pais'].'-'.$tit_codigo.'-C'.$tp.$nc.$af;
 			$registro = array(
-	          	'tit_codigo' => $tit_codigo,
+	          	'tit_codigo' => strtoupper($tit_codigo),
 	          	'tit_codigo_largo' => $tit_codigo_largo,
 	          	'cot_codigo_largo' => $cot_codigo_largo,
 	        	'tit_nombres' => $tit_nombres,
@@ -338,6 +338,7 @@ class Aliados extends CI_Controller {
 				$this->transaccion($fechapago,$tit_codigo,$tipo_afiliado,$tipo_kit,$numcomprobante,$bancoorigen);
 				$this->orden($tit_codigo,$tipo_afiliado,$tipo_kit,$direccion_envio,trim($tit_nombres).' '.trim($tit_apellidos),trim($tit_cedula),trim($tel_local).' / '.trim($tel_celular),trim($numcomprobante),trim($email),$fechapago);
 				$this->patrocinio($patroc_codigo,$tit_codigo,date("Y-m-d"));
+				$this->generabono($patroc_codigo,$tit_codigo);
 
 	            $user = $this->Auth_model->getUser($email);
 	           	$_SESSION['userid'] = $user->id;
@@ -1062,4 +1063,105 @@ class Aliados extends CI_Controller {
 		$this->Auth_model->patrocinio($registro);
 	}
 
+	function generabono($patroc_codigo,$tit_codigo) {
+		$pto = $this->Auth_model->getpunto();
+		$valor_punto = $pto->valor_punto;
+
+		$pat = $this->Auth_model->getpatrocinio($patroc_codigo,$tit_codigo);
+		foreach ($pat as $ke0) {
+			if ($ke0->patroc_codigo==$patroc_codigo and $ke0->tit_codigo==$tit_codigo ) {
+				$fecha_afiliacion = $ke0->fecha_afiliacion;
+				$fecha_fin_bono = $ke0->fecha_fin_bono;
+
+				$no1 = $this->Auth_model->getcampos($patroc_codigo);
+				$tipo_patroc = $no1->tipo_afiliado;
+				$patroc_nombres = trim($no1->tit_nombres)." ".trim($no1->tit_apellidos);
+
+				$no2 = $this->Auth_model->getcampos($tit_codigo);
+				$tipo_patroc = $no2->tipo_afiliado;
+				$tit_nombre_completo = trim($no2->tit_nombres)." ".trim($no2->tit_apellidos);
+
+				$caf = $this->Auth_model->getorganizacion($tit_codigo,0,3);
+				foreach ($caf as $key) {
+					if ($key->afiliado==$tit_codigo and $key->nivel>=0 and $key->nivel<3) {
+						$organizacion = $key->organizacion;
+						$nivel = $key->nivel+1;
+						$afiliado = $key->afiliado;
+
+						$naf = $this->Auth_model->getcampos($afiliado);
+						$tipo_afil = $naf->tipo_afiliado;
+						$afil_nombres = trim($naf->tit_nombres)." ".trim($naf->tit_apellidos);
+
+						$trn = $this->Auth_model->get_transac($afiliado,$fecha_afiliacion,$fecha_fin_bono);
+						$monto = $trn->monto;
+						$puntos = $trn->puntos;
+						$fectr = $trn->fecha;
+						$id_trans = $trn->id;
+						switch ($trn->tipo) {
+							case '01':
+								$tipo_trans = 'Afiliación';
+								break;
+							case '02':
+								$tipo_trans = 'Upgrade';
+								break;
+							case '03':
+								$tipo_trans = 'Nota de crédito';
+								$monto = 0;
+								break;
+							case '04':
+								$tipo_trans = 'Consumo aliados';
+								$monto = $puntos * $valor_punto;
+								break;
+							case '14':
+								$tipo_trans = 'Consumo cliente';
+								$monto = $puntos * $valor_punto;
+								break;
+							case '24':
+								$tipo_trans = 'Consumo cliente preferencial';
+								$monto = $puntos * $valor_punto;
+								break;
+						}
+						if ($monto<>0.00) {
+							$bon = $this->Auth_model->getbono($nivel);
+							$porcentaje = 0.00;
+							switch ($tipo_patroc) {
+								case 'Premium':
+									$porcentaje = $bon->premium;
+									break;
+								case 'VIP':
+									$porcentaje = $bon->vip;
+									break;
+								case 'Oro':
+									$porcentaje = $bon->oro;
+									break;
+							}
+							$comision = $monto*($porcentaje/100);
+							$registro = array(
+								'patroc_codigo' => $patroc_codigo,
+								'tit_codigo' => $organizacion,
+								'fecha_afiliacion' => $fecha_afiliacion,
+								'fecha_fin_bono' => $fecha_fin_bono,
+								'nivel' => $nivel,
+								'afiliado' => $afiliado,
+								'tipo_patroc' => $tipo_patroc,
+								'tipo_afil' => $tipo_afil,
+								'tipo_trans' => $tipo_trans,
+								'fectr' => $fectr,
+								'monto' => $monto,
+								'porcentaje' => $porcentaje,
+								'comision' => $comision,
+								'patroc_nombres' => $patroc_nombres,
+								'tit_nombre_completo' => $tit_nombre_completo,
+								'afil_nombres' => $afil_nombres,
+								'id_trans_origen' => $id_trans,
+								'id_trans' => 0,
+								'status_bono' => 'Pendiente'
+							);
+							$this->Auth_model->detbonoafiliacion($registro);
+						}
+					}
+				}
+			}		
+		}
+	}
 }

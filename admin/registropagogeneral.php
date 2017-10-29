@@ -1,13 +1,18 @@
 <?php 
 include_once("conexion.php");
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
 foreach ($_POST as $key => $value) {
 	$query = "INSERT INTO transacciones (fecha, afiliado, tipo, precio, monto, puntos, status_comision) VALUES ('".date('Y-m-d')."','".trim($key)."','51',".$value.",".$value.",0,'Pagada')";
+	echo $query.'<br>';
 	$result = mysql_query($query,$link);
 
-	$query = "UPDATE transacciones SET status_comision='Pagada' WHERE tipo<'50' status_comision='Pendiente' and afiliado='".trim($key)."'";
+	$query = "SELECT id FROM transacciones WHERE fecha='".date('Y-m-d')."' and afiliado='".trim($key)."' and tipo='51'";
+	echo $query.'<br>';
+	$result = mysql_query($query,$link);
+	$row = mysql_fetch_array($result);
+	$id_trans = $row["id"];
+
+	$query = "UPDATE detbonoafiliacion SET id_trans=".trim($id_trans).", status_bono='Pagado' WHERE status_bono='Pendiente' and patroc_codigo='".trim($key)."'";
+	echo $query.'<br><br>';
 	$result = mysql_query($query,$link);
 
 }

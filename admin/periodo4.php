@@ -11,7 +11,7 @@ include_once("pagos.php");
 		<h3>PAGO DE COMISIONES INDIVIDUALES</h3>
 	</div>
 	<div>
-		<table border="1" align="center" width="36%">
+		<table border="1" align="center" width="20%">
 			<tr>
 				<td valign="top">
 					<br>
@@ -35,6 +35,7 @@ include_once("pagos.php");
 											<input type="text" style="text-transform:uppercase;text-align:center;" size="5" name="cod_hasta" minlength="5" maxlength="5" pattern="[0-9|A-Z|a-z]{5}" title="Este campo sólo puede tener números o letras">            			
 					            		</td>
 					            	</tr>
+<!--
 					            	<tr>
 					            		<td>
 					            			Mes y año:
@@ -69,6 +70,7 @@ include_once("pagos.php");
 											</select>
 					            		</td>
 					            	</tr>
+-->
 					            </table>
 					            <br>
 					            <INPUT type="submit" value="Enviar">

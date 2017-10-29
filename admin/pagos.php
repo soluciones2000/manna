@@ -12,7 +12,7 @@ include_once("menu.php");
  							<?php if ($men2=="resumen"): ?>
 								Pagos totales del período
 							<?php else: ?>
-								<a href="periodo3.php">Pagos totales del período</a>
+								<a href="pagogeneral.php">Pagos totales</a>
 							<?php endif; ?>
 						</font>
 					</td>
