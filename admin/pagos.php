@@ -9,23 +9,50 @@ include_once("menu.php");
 				<tr>
 					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
- 							<?php if ($men2=="resumen"): ?>
-								Pagos totales del período
+ 							<?php if ($men2=="totpat"): ?>
+								Patrocinios Totales
 							<?php else: ?>
-								<a href="pagogeneral.php">Pagos totales</a>
+								<a href="pagogeneral.php">Patrocinios Totales</a>
 							<?php endif; ?>
 						</font>
 					</td>
 					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
-							<?php if ($men2=="detalle"): ?>
-								Pagos individuales
+							<?php if ($men2=="detpat"): ?>
+								Patrocinios Detallados
 							<?php else: ?>
-								<a href="periodo4.php">Pagos individuales</a>
+								<a href="periodo4.php">Patrocinios Detallados</a>
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="70%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+ 							<?php if ($men2=="totuni"): ?>
+								Unilevel Totales
+							<?php else: ?>
+								<a href="unilevelgeneral.php">Unilevel Totales</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($men2=="detuni"): ?>
+								Unilevel Detallado
+							<?php else: ?>
+								<a href="periodo6.php">Unilevel Detallado</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($men2=="todos"): ?>
+								Bonos Totales
+							<?php else: ?>
+								<a href="pagotodos.php">Bonos Totales</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
 					</td>
 				</tr>
 			</table>

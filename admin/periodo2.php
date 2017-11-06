@@ -8,7 +8,7 @@ include_once("reportes.php");
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>DETALLE DE COMISIONES</h3>
+		<h3>DETALLE DE BONOS DE PATROCINIO</h3>
 	</div>
 	<div>
 		<table border="1" align="center" width="20%">

@@ -5,10 +5,12 @@
                      </h5>
                      <br>
                      <div id="menu" class="vertical-menu" align="center">
-                        <a id="inicio" class="active" href="#" onclick="refresca(this,'inicio.html',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Inicio</a>
+                        <a id="inicio" class="active" href="#" onclick="refresca(this,'inicio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Inicio</a>
                         <a id="genealogia" class="" href="#" onclick="refresca(this,'genealogia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Genealogia</a>
                         <a id="patrocinio" class="" href="#" onclick="refresca(this,'patrocinio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Patrocinios</a>
-                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'afiliacion.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de inicio</a>
+                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'afiliacion.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de Patrocinio</a>
+                        <a id="unilevel" class="" href="#" onclick="refresca(this,'unilevel.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono Unilevel</a>
+                        <a id="calif" class="" href="#" onclick="refresca(this,'calificaciones.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Calificaciones</a>
                         <a id="ordenes" class="" href="#" onclick="refresca(this,'catalogo.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Ordenar productos</a>
                         <a id="pagos" class="" href="#" onclick="refresca(this,'reportapago.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Reportar pago</a>
                         <a id="tracking" class="" href="#" onclick="refresca(this,'tracking.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Seguimiento de órdenes</a>
@@ -27,7 +29,7 @@
                   <div class="content" align="center">
                      <br>
 <!--                 <iframe id="marco" width="99%" height="400px" src="inicio.html">-->
-                     <iframe id="marco" width="99%" height="400px" src="inicio.html" frameborder="0">
+                     <iframe id="marco" width="99%" height="450px" src="inicio.php" frameborder="0">
                         <p>Tu navegador no soporta Frames.</p>
                      </iframe>
                   </div>
@@ -43,6 +45,8 @@
             document.getElementById("genealogia").className = "";
             document.getElementById("patrocinio").className = "";
             document.getElementById("afiliacion").className = "";
+            document.getElementById("unilevel").className = "";
+            document.getElementById("calif").className = "";
             document.getElementById("ordenes").className = "";
             document.getElementById("pagos").className = "";
             document.getElementById("tracking").className = "";

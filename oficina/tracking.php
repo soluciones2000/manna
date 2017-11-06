@@ -7,7 +7,7 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 					<div style="vertical-align:top;">
 						<h3 align="center">Seguimiento de órdenes activas</h3>
 						<?php
-							$query = "select * from ordenes where codigo='".$_SESSION['codigo']."'";
+							$query = "select * from ordenes where codigo='".$_SESSION['codigo']."' and status_orden<>'' and status_orden<>'Despachada'";
 							$result = mysql_query($query,$link);
 							if (mysql_num_rows($result) > 0){
 								echo '<div>';

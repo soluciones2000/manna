@@ -22,16 +22,15 @@ if ($row = mysql_fetch_array($result)) {
       <style> 
          td.left {
             width: 15%;
-            height: 100%;
+/*            height: 100%;*/
          }
          td.center {
-            width: 70%;
+            width: 60%;
          }
-/*
          td.right {
-            width: 15%;
+            width: 25%;
          }
-*/
+
          td.body {
             width: 85%;
             height: 100%;
@@ -83,6 +82,9 @@ if ($row = mysql_fetch_array($result)) {
          div.header {
             text-align: center;
          }
+         div.dato-user {
+            text-align: right;
+         }
          div.user {
             float: right;
          }
@@ -100,7 +102,7 @@ if ($row = mysql_fetch_array($result)) {
          div.footer {
 /*            font-size: 8;*/
             padding-left: 65%;
-            top: 93%;
+            top: 95%;
             position: fixed;
          }
       </style>
@@ -122,12 +124,15 @@ if ($row = mysql_fetch_array($result)) {
                      <p><font face="arial"><b>OFICINA VIRTUAL</b></font></p>
                   </div>
                </td>
-               <td class="center">
-                  <div id="sesion" class="header">
+               <td class="right">
+                  <div id="sesion" class="dato-user">
                      <?php
                         $nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
                         if ($usuario) {
-                           echo '<label id="user">Buen día: '.trim($nombre).'</label>';
+                           echo '<label id="user">Buen día: '.trim($nombre).'</label><br>';
+                           echo '<label id="rango">Rango: '.$_SESSION["rango"].'</label><br>';
+                           echo '<label id="pm">PM del mes: '.number_format($_SESSION["pm"],0,',','.').'</label><br>';
+                           echo '<label id="pmo">PMO: '.number_format($_SESSION["pmo"],0,',','.').'</label><br>';
                         }
                       ?>
    				  </div>

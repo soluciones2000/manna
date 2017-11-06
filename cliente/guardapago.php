@@ -82,6 +82,34 @@ if ($result = mysql_query($query,$link)) {
 	}
 	$query = "UPDATE ordenes SET id_transaccion=".$id_transaccion.",status_orden='".$status_orden."' WHERE orden_id=".trim($orden_id);
 	if ($result = mysql_query($query,$link)) {
+		$quer0 = "select tit_nombres,tit_apellidos from afiliados where tit_codigo='".$afiliado."'";
+		$resul0 = mysql_query($quer0,$link);
+		$ro0 = mysql_fetch_array($resul0);
+		$afil_nombres = trim($ro0["tit_nombres"])." ".trim($ro0["tit_apellidos"]);
+
+		$query = "SELECT organizacion.organizacion,afiliados.rango,organizacion.afiliado,organizacion.nivel FROM organizacion left outer join afiliados on organizacion.organizacion=afiliados.tit_codigo WHERE afiliado='".$afiliado."'";
+		$result = mysql_query($query,$link);
+		while($row = mysql_fetch_array($result)) {
+			$organizacion = $row["organizacion"];
+			$rango = $row["rango"];
+			$nivel = $row["nivel"];
+
+			$quer0 = "select tit_nombres,tit_apellidos from afiliados where tit_codigo='".$organizacion."'";
+			$resul0 = mysql_query($quer0,$link);
+			$ro0 = mysql_fetch_array($resul0);
+			$org_nombres = trim($ro0["tit_nombres"])." ".trim($ro0["tit_apellidos"]);
+
+			if ($nivel>0 and $nivel<=8) {
+				$quer2 = "SELECT n".trim(strval($nivel))." as porcentaje FROM unilevel WHERE rango='".$rango."'";
+				if ($resul2 = mysql_query($quer2,$link)) {
+					$ro2 = mysql_fetch_array($resul2);
+					$porcentaje = $ro2["porcentaje"];
+					$comision = $monto*$porcentaje/100;
+					$quer3 = "INSERT INTO detunilevel (organizacion, org_nombres, nivel, afiliado, afil_nombres, fectr, tipo_trans, nombre_trans, precio, monto, porcentaje, comision, id_trans_origen, id_trans, status_unilevel) VALUES ('".$organizacion."', '".$org_nombres."', '".$nivel."', '".$afiliado."', '".$afil_nombres."', '".$fecha."', '04', 'Pago pedidos aliados',".$precio_orden.", ".$monto.", ".$porcentaje.", ".$comision.", ".$id_transaccion.", 0, 'Pendiente')";
+					$resul3 = mysql_query($quer3,$link);
+				}
+			}
+		}
 		$cadena = 'Location: exito.php'; 
 	}
 } else {

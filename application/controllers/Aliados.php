@@ -325,7 +325,10 @@ class Aliados extends CI_Controller {
 	           	'fecha_afiliacion' => date("Y-m-d"),
 	           	'envio' => $sienvia,
 	           	'direccion_envio' => $direccion_envio,
-	           	'status_afiliado' => "Activo"
+	           	'status_afiliado' => "Activo",
+	           	'rango' => 'En Ascenso',
+	           	'pm' => 0,
+	           	'pmo' => 0
            	);
            	if ($envio) {
            		$direccion_envio = $direccion_envio;

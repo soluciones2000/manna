@@ -1,14 +1,14 @@
 <?php 
 include_once("conexion.php");
 include_once("cabecera.php");
-$menu = "pagos";
+$menu = "reportes";
 include_once("menu.php");
-$men2 = "detpat";
-include_once("pagos.php");
+$men2 = "unilevel";
+include_once("reportes.php");
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>BONOS DE PATROCINIO INDIVIDUALES</h3>
+		<h3>DETALLE DE BONOS UNILEVEL</h3>
 	</div>
 	<div>
 		<table border="1" align="center" width="20%">
@@ -17,7 +17,7 @@ include_once("pagos.php");
 					<br>
 					<div style="vertical-align:top;">
 						<div style="margin: 0% 15% 0% 15%">
-					        <form name="admin" method="post" action="pagoindividual.php">
+					        <form name="admin" method="post" action="detallebonounilevel.php">
 					            <table border=0>
 					            	<tr>
 					            		<td>

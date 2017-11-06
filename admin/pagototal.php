@@ -60,45 +60,46 @@ include_once("pagos.php");
 <?php
 echo '<div id="cuerpo">';
 	echo '<div style="padding-left:15%">';
-		echo '<h3>CONFIRMAR BONOS DE PATROCINIO A PAGAR<br>';
+		echo '<h3>CONFIRMAR BONOS TOTALES A PAGAR<br>';
 	echo '</div>';
 
-$quer0 = "DELETE FROM repbonoafilindiv WHERE 1";
-$resul0 = mysql_query($quer0,$link);
-
-foreach ($_POST as $key => $value) {
-	$query = "SELECT patroc_codigo,patroc_nombres,comision FROM detbonoafiliacion where id=".trim($key)." and status_bono='Pendiente'";
-	$result = mysql_query($query,$link);
-
-	$row = mysql_fetch_array($result);
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
-	$comision = $row['comision'];
-
-	$quer2 = "INSERT INTO repbonoafilindiv VALUES ('".$patroc_codigo."','".$patroc_nombres."',".$comision.",".trim($key).");";
-	$resul2 = mysql_query($quer2,$link);
-}
-
 $tot_general = 0.00;
-echo '<form name="gestion" method="post" action="registropagoindividual.php">';
+echo '<form name="gestion" method="post" action="registropagototal.php">';
+foreach ($_POST as $key => $value) {
 
-$query = "SELECT patroc_codigo,patroc_nombres,sum(comision) as tot_comision  FROM repbonoafilindiv group by patroc_codigo order by patroc_codigo";
-$result = mysql_query($query,$link);
-while($row = mysql_fetch_array($result)) {
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
-	$tot_comision = $row['tot_comision'];
+	$quer2 = "SELECT tit_nombres,tit_apellidos FROM afiliados where tit_codigo='".trim($key)."'";
+	$resul2 = mysql_query($quer2,$link);
+	$ro2 = mysql_fetch_array($resul2);
+	$nombres = trim($ro2['tit_nombres']).' '.trim($ro2['tit_apellidos']);
 
+	$query = "SELECT patroc_codigo, sum(comision) as patrocinio FROM detbonoafiliacion WHERE patroc_codigo='".trim($key)."' and status_bono='Pendiente' group by patroc_codigo";
+	$result = mysql_query($query,$link);
+	if ($row = mysql_fetch_array($result)) {
+		$patrocinio = $row['patrocinio'];
+	} else {
+		$patrocinio = 0.00;
+	}
+	
+	$query = "SELECT organizacion, sum(comision) as unilevel FROM detunilevel where organizacion='".trim($key)."' and status_unilevel='Pendiente'  group by organizacion";
+	$result = mysql_query($query,$link);
+	if ($row = mysql_fetch_array($result)) {
+		$unilevel = $row['unilevel'];
+	} else {
+		$unilevel = 0.00;
+	}
+	
+	$tot_comision = $patrocinio+$unilevel;
+
+	echo '<input type="hidden" name="'.trim($key).'" value="'.trim($tot_comision).'">';
 	$tot_general += $tot_comision;
 
 	echo '<div class="sangria"></div>';
-	echo '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+	echo '<div class="nombre">'.trim($key)." ".trim($nombres).'</div>';
 
 	echo '<div class="sangria"></div>';
 	echo '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_comision,2,',','.')).'</div><br>';
 
 }
-
 echo '<div style="text-align:right;padding-right:55%;">'.str_repeat('=', 20)."</div>";
 echo '<div style="text-align:right;padding-right:55%;"><b>TOTAL GENERAL: '.trim(number_format($tot_general,2,',','.'))."</b></div>";
 

@@ -60,39 +60,39 @@ include_once("pagos.php");
 <?php
 echo '<div id="cuerpo">';
 	echo '<div style="padding-left:15%">';
-		echo '<h3>CONFIRMAR BONOS DE PATROCINIO A PAGAR<br>';
+		echo '<h3>CONFIRMAR BONOS UNILEVEL A PAGAR<br>';
 	echo '</div>';
 
-$quer0 = "DELETE FROM repbonoafilindiv WHERE 1";
+$quer0 = "DELETE FROM repunilevelindiv WHERE 1";
 $resul0 = mysql_query($quer0,$link);
 
 foreach ($_POST as $key => $value) {
-	$query = "SELECT patroc_codigo,patroc_nombres,comision FROM detbonoafiliacion where id=".trim($key)." and status_bono='Pendiente'";
+	$query = "SELECT organizacion,org_nombres,comision FROM detunilevel where id=".trim($key)." and status_bono='Pendiente'";
 	$result = mysql_query($query,$link);
 
 	$row = mysql_fetch_array($result);
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
+	$organizacion = $row['organizacion'];
+	$org_nombres = $row['org_nombres'];
 	$comision = $row['comision'];
 
-	$quer2 = "INSERT INTO repbonoafilindiv VALUES ('".$patroc_codigo."','".$patroc_nombres."',".$comision.",".trim($key).");";
+	$quer2 = "INSERT INTO repunilevelindiv VALUES ('".$organizacion."','".$org_nombres."',".$comision.",".trim($key).");";
 	$resul2 = mysql_query($quer2,$link);
 }
 
 $tot_general = 0.00;
-echo '<form name="gestion" method="post" action="registropagoindividual.php">';
+echo '<form name="gestion" method="post" action="registrounilevelindividual.php">';
 
-$query = "SELECT patroc_codigo,patroc_nombres,sum(comision) as tot_comision  FROM repbonoafilindiv group by patroc_codigo order by patroc_codigo";
+$query = "SELECT organizacion,org_nombres,sum(comision) as tot_comision  FROM repunilevelindiv group by organizacion order by organizacion";
 $result = mysql_query($query,$link);
 while($row = mysql_fetch_array($result)) {
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
+	$organizacion = $row['organizacion'];
+	$org_nombres = $row['org_nombres'];
 	$tot_comision = $row['tot_comision'];
 
 	$tot_general += $tot_comision;
 
 	echo '<div class="sangria"></div>';
-	echo '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+	echo '<div class="nombre">'.$organizacion." ".trim($org_nombres).'</div>';
 
 	echo '<div class="sangria"></div>';
 	echo '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_comision,2,',','.')).'</div><br>';

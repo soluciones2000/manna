@@ -8,7 +8,7 @@ include_once("pagos.php");
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>BONOS DE PATROCINIO INDIVIDUALES</h3>
+		<h3>BONOS UNILEVEL INDIVIDUALES</h3>
 	</div>
 	<div>
 		<table border="1" align="center" width="20%">
@@ -17,7 +17,7 @@ include_once("pagos.php");
 					<br>
 					<div style="vertical-align:top;">
 						<div style="margin: 0% 15% 0% 15%">
-					        <form name="admin" method="post" action="pagoindividual.php">
+					        <form name="admin" method="post" action="unilevelindividual.php">
 					            <table border=0>
 					            	<tr>
 					            		<td>

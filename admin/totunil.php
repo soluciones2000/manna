@@ -3,7 +3,7 @@ include_once("conexion.php");
 include_once("cabecera.php");
 $menu = "pagos";
 include_once("menu.php");
-$men2 = "resumen";
+$men2 = "totuni";
 include_once("pagos.php");
 ?>
 <style>
@@ -60,45 +60,31 @@ include_once("pagos.php");
 <?php
 echo '<div id="cuerpo">';
 	echo '<div style="padding-left:15%">';
-		echo '<h3>CONFIRMAR BONOS DE PATROCINIO A PAGAR<br>';
+		echo '<h3>CONFIRMAR BONOS UNILEVEL A PAGAR<br>';
 	echo '</div>';
 
-$quer0 = "DELETE FROM repbonoafilindiv WHERE 1";
-$resul0 = mysql_query($quer0,$link);
-
+$tot_general = 0.00;
+echo '<form name="gestion" method="post" action="registrounilevelgeneral.php">';
 foreach ($_POST as $key => $value) {
-	$query = "SELECT patroc_codigo,patroc_nombres,comision FROM detbonoafiliacion where id=".trim($key)." and status_bono='Pendiente'";
+
+	$query = "SELECT organizacion, org_nombres, sum(detunilevel.comision) as unilevel FROM detunilevel where organizacion='".trim($key)."' and status_unilevel='Pendiente' group by organizacion order by organizacion";
 	$result = mysql_query($query,$link);
 
 	$row = mysql_fetch_array($result);
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
-	$comision = $row['comision'];
+	$organizacion = $row['organizacion'];
+	$org_nombres = $row['org_nombres'];
+	$unilevel = $row['unilevel'];
 
-	$quer2 = "INSERT INTO repbonoafilindiv VALUES ('".$patroc_codigo."','".$patroc_nombres."',".$comision.",".trim($key).");";
-	$resul2 = mysql_query($quer2,$link);
-}
-
-$tot_general = 0.00;
-echo '<form name="gestion" method="post" action="registropagoindividual.php">';
-
-$query = "SELECT patroc_codigo,patroc_nombres,sum(comision) as tot_comision  FROM repbonoafilindiv group by patroc_codigo order by patroc_codigo";
-$result = mysql_query($query,$link);
-while($row = mysql_fetch_array($result)) {
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
-	$tot_comision = $row['tot_comision'];
-
-	$tot_general += $tot_comision;
+	echo '<input type="hidden" name="'.trim($key).'" value="'.trim($unilevel).'">';
+	$tot_general += $unilevel;
 
 	echo '<div class="sangria"></div>';
-	echo '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+	echo '<div class="nombre">'.$organizacion." ".trim($org_nombres).'</div>';
 
 	echo '<div class="sangria"></div>';
-	echo '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_comision,2,',','.')).'</div><br>';
+	echo '<div class="detalle" style="text-align:right;">'.trim(number_format($unilevel,2,',','.')).'</div><br>';
 
 }
-
 echo '<div style="text-align:right;padding-right:55%;">'.str_repeat('=', 20)."</div>";
 echo '<div style="text-align:right;padding-right:55%;"><b>TOTAL GENERAL: '.trim(number_format($tot_general,2,',','.'))."</b></div>";
 

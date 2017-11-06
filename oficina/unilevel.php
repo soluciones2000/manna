@@ -1,10 +1,13 @@
 <?php 
 include_once("conexion.php");
-include_once("cabecera.php");
-$menu = "reportes";
-include_once("menu.php");
-$men2 = "";
-include_once("reportes.php");
+$codigo = isset($_GET['c']) ? $_GET['c'] : '';
+$quer7 = "SELECT tit_nombres,tit_apellidos from afiliados where tit_codigo='".$codigo."'";
+$resul7 = mysql_query($quer7,$link);
+if($ro7 = mysql_fetch_array($resul7)) {
+	$name_user = utf8_encode(trim($ro7["tit_nombres"])." ".trim($ro7["tit_apellidos"]));
+} else {
+	$name_user = "";
+}
 ?>
 <style>
 .sangria {
@@ -21,6 +24,10 @@ include_once("reportes.php");
 }
 .nombre {
     width: 30%;
+	display: inline-block;	
+}
+.nombre_trans {
+    width: 22%;
 	display: inline-block;	
 }
 .tipo_af {
@@ -58,36 +65,16 @@ include_once("reportes.php");
 }
 </style>
 <?php
-if ($_POST['cod_desde']<>'') {
-	$dsd = $_POST['cod_desde'];
-} else {
-	$dsd = 'Primero';
-}
-if ($_POST['cod_hasta']<>'') {
-	$hst = $_POST['cod_hasta'];
-} else {
-	$hst = 'Último';
-}
+$dsd = $codigo;
+$hst = $dsd;
 
 echo '<div id="cuerpo">';
 	echo '<div style="text-align:center">';
-		echo '<h3>BONOS DE PATROCINIO POR PAGAR<br>';
-		echo 'Desde el código: <font color="red">'.trim($dsd).'</font> hasta el código: <font color="red">'.trim($hst).'</font></h3>';
+		echo '<h3>BONOS UNILEVEL POR PAGAR<br>';
+		echo '<font color="red">'.trim($name_user).'</font></h3>';
 	echo '</div>';
 
-if ($dsd<>'Primero') {
-	if ($hst<>'Último') {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."' AND patroc_codigo<='".trim($hst)."' AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
-	} else {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."'  AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
-	}
-} else {
-	if ($hst<>'Último') {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo<='".trim($hst)."'  AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
-	} else {
-		$query = "SELECT * FROM detbonoafiliacion WHERE status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
-	}
-}
+$query = "SELECT * FROM detunilevel WHERE organizacion>='".trim($dsd)."' AND organizacion<='".trim($hst)."' AND status_unilevel='Pendiente' order by organizacion,afiliado,nivel,tipo_trans,fectr";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_tit = 0.00;
@@ -96,46 +83,53 @@ $tot_gen = 0.00;
 $grupo = 1;
 while($row = mysql_fetch_array($result)) {
 	if ($first) {
-		$patroc_codigo = $row['patroc_codigo'];
-		$tit_codigo = $row['tit_codigo'];
-		$patroc_nombres = $row['patroc_nombres'];
-		$tit_nombre_completo = $row['tit_nombre_completo'];
-		$tipo_patroc = $row['tipo_patroc'];
+		$organizacion = $row['organizacion'];
+		$afiliado = $row['afiliado'];
+		$org_nombres= $row['org_nombres'];
+		$afil_nombres = $row['afil_nombres'];
 		$first = false;
 
 		echo "<b><u>";
-		echo '<div class="sangria"></div>';
+//		echo '<div class="sangria"></div>';
 		echo "NIVEL";
 		echo '<div class="espacio"></div>';
 		echo "AFILIADO";
-		echo '<div class="espacio"></div>';
-		echo '<div class="espacio"></div>';
-		echo '<div class="sangria"></div>';
-		echo "TIPO";
+//		echo '<div class="espacio"></div>';
+//		echo '<div class="espacio"></div>';
+//		echo '<div class="sangria"></div>';
+//		echo "TIPO";
 
+		echo '<div class="varios"></div>';
 		echo '<div class="sangria"></div>';
 		echo "TRANSACCIÓN";
 
 		echo '<div class="sangria"></div>';
 		echo '<div class="sangria"></div>';
-		echo '<div class="caracter"></div>';
-		echo "FECHA";
 		echo '<div class="sangria"></div>';
+		echo '<div class="sangria"></div>';
+		echo '<div class="caracter"></div>';
+//		echo '<div class="caracter"></div>';
+		echo "FECHA";
+		echo '<div class="caracter"></div>';
+		echo '<div class="caracter"></div>';
 		echo '<div class="sangria"></div>';
 		echo "MONTO";
 		echo '<div class="caracter"></div>';
-		echo "PORCENTAJE";
+		echo '<div class="caracter"></div>';
+		echo "PORC.";
+		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
 		echo "COMISIÓN";
 		echo "</u></b><br>";
 
-		$txt = '<div class="grupo1">';
-		$txt .= "<b>Patrocinador: ".$patroc_codigo." - ".$patroc_nombres." - tipo de afiliado: ".$tipo_patroc."</b><br>";
-		$txt .= '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
-		$tot_tit = 0.00;
-		$tot_pat = 0.00;
+//		$txt = '<div class="grupo1">';
+//		$txt .= "<b>Patrocinador: ".$patroc_codigo." - ".$patroc_nombres." - tipo de afiliado: ".$tipo_patroc."</b><br>";
+//		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
+//		$tot_tit = 0.00;
+//		$tot_pat = 0.00;
 		$tot_gen = 0.00;
 	}
+/*
 	if ($patroc_codigo<>$row['patroc_codigo']) {
 		$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('-', 20)."</div>";
 		$txt .= '<div style="text-align:right;padding-right:7%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
@@ -155,54 +149,53 @@ while($row = mysql_fetch_array($result)) {
 			$txt = '<div class="grupo1">';
 			$grupo = 1;
 		}
-		$txt .= "<b>Patrocinador: ".$patroc_codigo." - ".$patroc_nombres." - tipo de afiliado: ".$tipo_patroc."</b><br>";
+		$txt .= "<b>Patrocinador: ".$organizacion." - ".$patroc_nombres." - tipo de afiliado: ".$tipo_patroc."</b><br>";
 		$txt .= '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
 		$tot_tit = 0.00;
 		$tot_pat = 0.00;
 	}
-	if ($tit_codigo<>$row['tit_codigo']) {
+
+	if ($afiliado<>$row['afiliado']) {
 //		$txt .= '<div class="caracter"></div>';
-		$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('-', 20)."</div>";
-		$txt .= '<div style="text-align:right;padding-right:7%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
+		$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
+		$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
 		echo $txt;
-		$patroc_codigo = $row['patroc_codigo'];
+		$organizacion = $row['organizacion'];
 		$tit_codigo = $row['tit_codigo'];
 		$patroc_nombres = $row['patroc_nombres'];
 		$tit_nombre_completo = $row['tit_nombre_completo'];
 		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
 		$tot_tit = 0.00;
 	}
-	$patroc_codigo = $row['patroc_codigo'];
-	$tit_codigo = $row['tit_codigo'];
-	$fecha_afiliacion = $row['fecha_afiliacion'];
-	$fecha_fin_bono = $row['fecha_fin_bono'];
+*/
+	$organizacion = $row['organizacion'];
+	$org_nombres = $row['org_nombres'];
 	$nivel = $row['nivel'];
 	$afiliado = $row['afiliado'];
-	$tipo_patroc = $row['tipo_patroc'];
-	$tipo_afil = $row['tipo_afil'];
-	$tipo_trans = $row['tipo_trans'];
+	$afil_nombres = $row['afil_nombres'];
 	$fectr = $row['fectr'];
+	$tipo_trans = $row['tipo_trans'];
+	$nombre_trans = $row['nombre_trans'];
+
+	$precio = $row['precio'];
 	$monto = $row['monto'];
 	$porcentaje = $row['porcentaje'];
 	$comision = $row['comision'];
-	$patroc_nombres = $row['patroc_nombres'];
-	$tit_nombre_completo = $row['tit_nombre_completo'];
-	$afil_nombres = $row['afil_nombres'];
-	$id_trans = $row['id_trans'];
 
 	$txt .= '<div class="caracter"></div>';
 	$txt .= '<div class="caracter"></div>';
-	$txt .= '<div class="sangria"></div>';
+//	$txt .= '<div class="sangria"></div>';
 	$txt .= $nivel;
 
 	$txt .= '<div class="sangria"></div>';
 	$txt .= '<div class="nombre">'.$afiliado." ".$afil_nombres.'</div>';
 
 	$txt .= '<div class="caracter"></div>';
-	$txt .= '<div class="tipo_af">'.$tipo_afil.'</div>';
-
 	$txt .= '<div class="caracter"></div>';
-	$txt .= '<div class="varios">'.$tipo_trans.'</div>';
+	$txt .= '<div class="nombre_trans">'.$nombre_trans.'</div>';
+
+//	$txt .= '<div class="caracter"></div>';
+//	$txt .= '<div class="varios">'.$tipo_trans.'</div>';
 
 	$txt .= '<div class="caracter"></div>';
 	$txt .= substr($fectr,8,2).'/'.substr($fectr,5,2).'/'.substr($fectr,0,4);
@@ -215,21 +208,20 @@ while($row = mysql_fetch_array($result)) {
 
 	$txt .= '<div class="caracter"></div>';
 	$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($comision,2,',','.')).'</div>'."<br>";
-	$tot_tit += $comision;
-	$tot_pat += $comision;
+//	$tot_tit += $comision;
+//	$tot_pat += $comision;
 	$tot_gen += $comision;
 //	echo $txt;
 }
 //if ($patroc_codigo<>$row['patroc_codigo']) {
-	$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('-', 20)."</div>";
-	$txt .= '<div style="text-align:right;padding-right:7%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
+//	$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
+//	$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
 	$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('=', 20)."</div>";
-	$txt .= '<div style="text-align:right;padding-right:7%;"><b>Total Patrocinador '.$patroc_codigo." - ".trim($patroc_nombres).': '.trim(number_format($tot_pat,2,',','.'))."</b></div>";
-	$txt .= '</div>';
-	$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('=', 20)."</div>";
-	$txt .= '<div style="text-align:right;padding-right:7%;"><b>TOTAL GENERAL: '.trim(number_format($tot_gen,2,',','.'))."</b></div>";
+	$txt .= '<div style="text-align:right;padding-right:7%;"><b>Total Unilevel para '.$organizacion." - ".trim($patroc_nombres).': '.trim(number_format($tot_gen,2,',','.'))."</b></div>";
+	$txt .= '<br>';
+//	$txt .= '</div>';
+//	$txt .= '<div style="text-align:right;padding-right:7%;">'.str_repeat('=', 20)."</div>";
+//	$txt .= '<div style="text-align:right;padding-right:7%;"><b>TOTAL GENERAL: '.trim(number_format($tot_gen,2,',','.'))."</b></div>";
 	echo $txt;
 //}
-
-include_once("pie.php");
 ?>

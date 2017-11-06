@@ -3,7 +3,7 @@ include_once("conexion.php");
 include_once("cabecera.php");
 $menu = "pagos";
 include_once("menu.php");
-$men2 = "totpat";
+$men2 = "totuni";
 include_once("pagos.php");
 ?>
 <style>
@@ -62,26 +62,26 @@ include_once("pagos.php");
 //$ano = isset($_POST['ano']) ? $_POST['ano'] : null;
 echo '<div id="cuerpo">';
 	echo '<div style="text-align:center">';
-		echo '<h3>TOTAL DE BONOS DE PATROCINIO POR PAGAR<br>';
+		echo '<h3>BONOS UNILEVEL TOTALES POR PAGAR<br>';
 	echo '</div>';
 
-$query = "SELECT * FROM detbonoafiliacion where status_bono='Pendiente' order by patroc_codigo,tit_codigo,afiliado";
+$query = "SELECT organizacion, org_nombres, sum(detunilevel.comision) as unilevel FROM detunilevel where status_unilevel='Pendiente' group by organizacion order by organizacion";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_tit = 0.00;
 $tot_pat = 0.00;
 $tot_gen = 0.00;
 $grupo = 1;
-echo '<form name="gestion" method="post" action="totpago.php">';
+echo '<form name="gestion" method="post" action="totunil.php">';
 while($row = mysql_fetch_array($result)) {
 	if ($first) {
-		$patroc_codigo = $row['patroc_codigo'];
-		$patroc_nombres = $row['patroc_nombres'];
+		$organizacion = $row['organizacion'];
+		$org_nombres = $row['org_nombres'];
 		$first = false;
 
 		echo "<b><u>";
 		echo '<div class="sangria"></div>';
-		echo "PATROCINADOR";
+		echo "ORGANIZACIÓN";
 		echo '<div class="espacio"></div>';
 		echo '<div class="espacio"></div>';
 		echo '<div class="espacio"></div>';
@@ -93,7 +93,7 @@ while($row = mysql_fetch_array($result)) {
 		$tot_pat = 0.00;
 		$tot_gen = 0.00;
 	}
-	if ($patroc_codigo<>$row['patroc_codigo']) {
+	if ($organizacion<>$row['organizacion']) {
 		if ($grupo==1) {
 			$txt = '<div class="grupo1">';
 			$grupo = 2;
@@ -103,22 +103,22 @@ while($row = mysql_fetch_array($result)) {
 		}
 
 		$txt .= '<div class="sangria"></div>';
-		$txt .= '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+		$txt .= '<div class="nombre">'.$organizacion." ".trim($org_nombres).'</div>';
 
 		$txt .= '<div class="sangria"></div>';
 		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat,2,',','.')).'</div>';
 
 		$txt .= '<div class="sangria"></div>';
-		$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$patroc_codigo.'"/> Pagar</div>'."<br>";
+		$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$organizacion.'"/> Pagar</div>'."<br>";
 
 		$txt .= "</div>";
 		echo $txt;
-		$patroc_codigo = $row['patroc_codigo'];
-		$patroc_nombres = $row['patroc_nombres'];
+		$organizacion = $row['organizacion'];
+		$org_nombres = $row['org_nombres'];
 		$tot_pat = 0.00;
 	}
-	$patroc_codigo = $row['patroc_codigo'];
-	$comision = $row['comision'];
+	$organizacion = $row['organizacion'];
+	$comision = $row['unilevel'];
 
 	$tot_pat += $comision;
 	$tot_gen += $comision;
@@ -133,13 +133,13 @@ if ($grupo==1) {
 }
 
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+$txt .= '<div class="nombre">'.$organizacion." ".trim($org_nombres).'</div>';
 
 $txt .= '<div class="sangria"></div>';
 $txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat,2,',','.')).'</div>';
 
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$patroc_codigo.'"/> Pagar</div>'."<br>";
+$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$organizacion.'"/> Pagar</div>'."<br>";
 $txt .= "</div><br>";
 
 //$txt .= '<div style="text-align:right;padding-right:55%;">'.str_repeat('=', 20)."</div>";
@@ -149,7 +149,6 @@ echo $txt;
 echo '<div align="center">';
 	echo '<input type="submit" value="Totalizar">';
 echo '</div>';
-echo '</form>';
  
 include_once("pie.php");
 ?>
