@@ -33,7 +33,9 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 						?>
 						<br>
 						<div align="center">
-							<form action="inicio.html"><INPUT type="submit" value="Volver al catálogo"></form>
+							<form method="post" action="inicio.php?c=<?php echo $_SESSION["codigo"]; ?>">
+								<INPUT type="submit" value="Volver al inicio">
+							</form>
 						</div>
 						<br>
 					</div>

@@ -1,5 +1,6 @@
 <?php 
 include_once("conexion.php");
+//$codigo = isset($_GET['c']) ? $_GET['c'] : $_SESSION["codigo"];
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 ?>
 <!DOCTYPE html>
@@ -45,10 +46,10 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		echo "Acumulado para el bono unilevel: ".trim(number_format($bonounilevel,2,',','.'))."<br>";
 		echo "<br>";
 		echo "<b><i>Total acumulado para bonos: ".trim(number_format($bonopatroc+$bonounilevel,2,',','.'))."</i></b>";
-*/		echo "<li>Acumulado para el bono de Patrocinio: ".trim(number_format($bonopatroc,2,',','.'))."</li>";
-		echo "<li>Acumulado para el bono unilevel: ".trim(number_format($bonounilevel,2,',','.'))."</li>";
+*/		echo "<li>Acumulado para el Bono de Patrocinio: ".trim(number_format($bonopatroc,2,',','.'))."</li>";
+		echo "<li>Acumulado para el Bono Unilevel: ".trim(number_format($bonounilevel,2,',','.'))."</li>";
 		echo "<br>";
-		echo '<li><b><i><font size="4"> Total acumulado para bonos: '.trim(number_format($bonopatroc+$bonounilevel,2,',','.')).'</font></i></b></li>';
+		echo '<li><b><i><font size="4"> Total acumulado para Bonos: '.trim(number_format($bonopatroc+$bonounilevel,2,',','.')).'</font></i></b></li>';
 		echo "</ul>";
 	?>
 </body>

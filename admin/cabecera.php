@@ -6,7 +6,7 @@ $usuario = $nombre ? true : false;
 <!DOCTYPE html>
 
 <html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Corporación MANNA C.A. - Admnistración</title>
 <!--	<link rel="icon" type="image/png" href="psicoexpresate_ico.png" /> -->
 </head>

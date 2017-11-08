@@ -67,8 +67,6 @@ function calificacion($codigo,$pm,$pmo,$link){
 		$flag = true;
 		$query = "UPDATE afiliados SET rango='".$rango."',flag='".$flag."' WHERE tit_codigo='".trim($codigo)."'";
 		$result = mysql_query($query,$link);
-		$_SESSION['rango'] = $rango;
-		$_SESSION['flag'] = $flag;
 	}
 }
 

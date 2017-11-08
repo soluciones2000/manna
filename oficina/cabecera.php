@@ -19,7 +19,48 @@ if ($row = mysql_fetch_array($result)) {
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 <html>
    <head> 
-      <style> 
+      <style>
+         /* The Modal (background) */
+         .modal {
+             display: none; /* Hidden by default */
+             position: fixed; /* Stay in place */
+             z-index: auto; /* Sit on top */
+             padding-top: 30px; /* Location of the box */
+             left: 0px;
+             top: 0px;
+             width: 100%; /* Full width */
+             height: 100%; /* Full height */
+             overflow: auto; /* Enable scroll if needed */
+             background-color: rgb(0,0,0); /* Fallback color */
+             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+         }
+
+         /* Modal Content */
+         .modal-content {
+             background-color: #fefefe;
+             margin: auto;
+             padding: 10px;
+             border: 1px solid #888;
+             width: 40%;
+             height: auto;
+             text-align: center;
+         }
+
+         /* The Close Button */
+         .close {
+             color: #aaaaaa;
+             float: right;
+             font-size: 28px;
+             font-weight: bold;
+         }
+
+         .close:hover,
+         .close:focus {
+             color: #000;
+             text-decoration: none;
+             cursor: pointer;
+         }
+
          td.left {
             width: 15%;
 /*            height: 100%;*/
@@ -109,8 +150,64 @@ if ($row = mysql_fetch_array($result)) {
       <title><?php echo $empresa; ?></title>
 <!--  <link rel="icon" type="image/png" href="sgc_ico.png" /> -->
    </head>
-   <body>
-      <div class="container">
+   <body onload="Abrir_ventana()">
+   <?php 
+      $query = "SELECT rango,flag from afiliados WHERE tit_codigo='".trim($_SESSION['codigo'])."'";
+      $result = mysql_query($query,$link);
+      if ($row = mysql_fetch_array($result)) {
+         $rango = $row["rango"];
+         $flag = $row["flag"];
+         if ($flag) {
+            $falso = false;
+            $query = "UPDATE afiliados SET flag='".$falso."' WHERE tit_codigo='".trim($_SESSION['codigo'])."'";
+            $result = mysql_query($query,$link);
+         }
+      } else {
+         $flag = false;
+      }
+   ?>
+   <?php if ($flag): ?>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+         <!-- Modal content -->
+         <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>¡¡¡Felicitaciones!!!</h2>
+            <img SRC="logro2.jpg" height="auto" width="80%">
+            <p><font size="4">Has alcanzado el rango de <b><?php echo strtoupper($rango); ?>.</b></font></p>
+            <p><font size="4">A partir de ahora podrás disfrutar de los beneficios de este nuevo nivel, continúa realizando ese excelente trabajo.</font></p>
+         </div>
+      </div>
+      <script>
+         // Get the modal
+         var modal = document.getElementById('myModal');
+
+         // Get the <span> element that closes the modal
+         var span = document.getElementsByClassName("close")[0];
+
+         // variables de la imagen
+//         var imagen = "'.$imagen.'";
+
+         // When the user clicks the button, open the modal 
+         function Abrir_ventana() {
+                modal.style.display = "block";
+         }
+
+         // When the user clicks on <span> (x), close the modal
+         span.onclick = function() {
+             modal.style.display = "none";
+         }
+
+         // When the user clicks anywhere outside of the modal, close it
+         window.onclick = function(event) {
+             if (event.target == modal) {
+                 modal.style.display = "none";
+             }
+         }
+      </script>
+   <?php endif; ?>
+
+   <div class="container">
          <table border="0">
             <tr>
                <td class="left">

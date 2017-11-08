@@ -321,13 +321,14 @@ class Especialistas extends CI_Controller {
 	           	'tipo_afiliado' => $tipo_afiliado,
 	           	'tipo_kit' => $tipo_kit,
 	           	'fecha_afiliacion' => date("Y-m-d"),
+	           	'mes_afiliacion' => substr(date('Y-m-d'),5,2),
 	           	'envio' => $sienvia,
 	           	'direccion_envio' => $direccion_envio,
 	           	'status_afiliado' => "Activo",
 	           	'rango' => 'En Ascenso',
 	           	'pm' => 0,
 	           	'pmo' => 0
-
+	           	'flag' => false
            	);
            	if ($envio) {
            		$direccion_envio = $direccion_envio;
