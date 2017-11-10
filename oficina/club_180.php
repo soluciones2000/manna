@@ -17,7 +17,17 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		$puntos = $row["pts_acum"];
 		echo number_format($puntos,2,',','.');
 	?>
-	 Puntos.</b></p>
+	 Puntos</b>, los cuales caducan el <b>
+	<?php 
+		$query = "SELECT fecha_afiliacion from afiliados WHERE tit_codigo='".$codigo."'";
+		$result = mysql_query($query,$link);
+		$row = mysql_fetch_array($result);
+		$fecha_afiliacion = $row["fecha_afiliacion"];
+		$fecha_fin = strtotime('+1 year', strtotime ($fecha_afiliacion));
+		$fecha_fin = date ( 'Y-m-d' , $fecha_fin );
+		$fecha_fin_180 = substr($fecha_fin,8,2).'/'.substr($fecha_fin,5,2).'/'.substr($fecha_fin,0,4);
+		echo $fecha_fin_180;
+	?>.</b></p>
 	<p>Puede Solicitar el canje y se generará una nota de crédito para consumos en su billetera.</p>
 	<form method="post" action="canje.php">
 		<INPUT type="hidden" name="codigo" value="<?php echo $_SESSION["codigo"]; ?>">
