@@ -156,7 +156,7 @@ while($row = mysql_fetch_array($result)) {
 	display: inline-block;	
 }
 .detalle {
-    width: 9%;
+    width: 12%;
 	display: inline-block;	
 }
 .varios {
@@ -218,12 +218,15 @@ while($row = mysql_fetch_array($result)) {
 
 		echo '<div class="sangria"></div>';
 		echo '<div class="sangria"></div>';
+		echo '<div class="sangria"></div>';
 		echo '<div class="caracter"></div>';
 		echo "PMO";
 
 		echo '<div class="sangria"></div>';
+		echo '<div class="caracter"></div>';
 		echo "PIERNAS CALIFICADAS";
 
+		echo '<div class="sangria"></div>';
 		echo '<div class="sangria"></div>';
 		echo "REQUISITOS";
 
@@ -256,26 +259,26 @@ while($row = mysql_fetch_array($result)) {
 	$cuenta = $row["cuenta"];
 	$preq = $row["preq"];
 
-	$txt .= '<div class="sangria"></div>';
+//	$txt .= '<div class="caracter"></div>';
 	$txt .= '<div class="nombre">'.$afiliado." - ".$afil_nombres.'</div>';
 	if ($ppm<100) {
-		$txt .= '<div class="detalle" style="text-align:right;"><font color="red">'.number_format($ppm,2,',','.').'%</font></div>';
+		$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pm,2,',','.').'<font color="red"> ('.number_format($ppm,2,',','.').'%)</font></div>';
 	} else {
 		if ($ppm>100) {
-			$txt .= '<div class="detalle" style="text-align:right;"><font color="blue">'.number_format($ppm,2,',','.').'%</font></div>';
+			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pm,2,',','.').'<font color="blue"> ('.number_format($ppm,2,',','.').'%)</font></div>';
 		} else {
-			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($ppm,2,',','.').'%</div>';
+			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pm,2,',','.').' ('.number_format($ppm,2,',','.').'%)</div>';
 		}
 	}
 
 	$txt .= '<div class="caracter"></div>';
 	if ($ppmo<100) {
-		$txt .= '<div class="detalle" style="text-align:right;"><font color="red">'.number_format($ppmo,2,',','.').'%</font></div>';
+		$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pmo,2,',','.').'<font color="red"> ('.number_format($ppmo,2,',','.').'%)</font></div>';
 	} else {
 		if ($ppmo>100) {
-			$txt .= '<div class="detalle" style="text-align:right;"><font color="blue">'.number_format($ppmo,2,',','.').'%</font></div>';
+			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pmo,2,',','.').'<font color="blue"> ('.number_format($ppmo,2,',','.').'%)</font></div>';
 		} else {
-			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($ppmo,2,',','.').'%</div>';
+			$txt .= '<div class="detalle" style="text-align:right;">'.number_format($pm,2,',','.').' ('.number_format($ppmo,2,',','.').'%)</div>';
 		}
 	}
 

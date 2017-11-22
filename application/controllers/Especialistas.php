@@ -794,7 +794,7 @@ class Especialistas extends CI_Controller {
 	       	'tipo' => '01',
 	       	'precio' => $precio,
 	       	'monto' => $monto,
-	       	'puntos' => $puntos,,
+	       	'puntos' => $puntos,
 	       	'valor_punto' => $_SESSION["valor_punto"],
 	       	'documento' => $numcomprobante,
 	       	'bancoorigen' => $bancoorigen,
