@@ -72,7 +72,7 @@ foreach ($_POST as $key => $value) {
 	$ro2 = mysql_fetch_array($resul2);
 	$nombres = trim($ro2['tit_nombres']).' '.trim($ro2['tit_apellidos']);
 
-	$query = "SELECT patroc_codigo, sum(comision) as patrocinio FROM detbonoafiliacion WHERE patroc_codigo='".trim($key)."' and status_bono='Pendiente' group by patroc_codigo";
+	$query = "SELECT patroc_codigo, sum(comision) as patrocinio FROM detbonoafiliacion WHERE patroc_codigo='".trim($key)."' and status_bono='Pendiente' and nivel>0 group by patroc_codigo";
 	$result = mysql_query($query,$link);
 	if ($row = mysql_fetch_array($result)) {
 		$patrocinio = $row['patrocinio'];
@@ -88,7 +88,15 @@ foreach ($_POST as $key => $value) {
 		$unilevel = 0.00;
 	}
 	
-	$tot_comision = $patrocinio+$unilevel;
+	$query = "SELECT afiliado, sum(monto) as reembolso FROM reembolso where afiliado='".trim($key)."' and status_comision='Pendiente'  group by afiliado";
+	$result = mysql_query($query,$link);
+	if ($row = mysql_fetch_array($result)) {
+		$reembolso = $row['reembolso'];
+	} else {
+		$reembolso = 0.00;
+	}
+
+	$tot_comision = $patrocinio+$unilevel+$reembolso;
 
 	echo '<input type="hidden" name="'.trim($key).'" value="'.trim($tot_comision).'">';
 	$tot_general += $tot_comision;

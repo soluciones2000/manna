@@ -35,6 +35,8 @@ $(document).ready(function() {
 <?php 
 include_once("conexion.php");
 
+$navegador = getBrowser($_SERVER['HTTP_USER_AGENT']);
+
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 
 echo '<table border="0" align="center" width="100%" height="10%">';
@@ -56,7 +58,11 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 							echo '</tr>';
 							echo '<tr>';
 								echo '<td>Fecha del pago:</td>';
-								echo '<td><input type="date" name="fecha" id="datepicker" readonly="readonly" size="10" required title="Introduzca la fecha del pago" /></td>';
+								// if ($navegador=='Mozilla Firefox') {
+									// echo '<td><INPUT type="text" name="fecha" value="'.date('Y-m-d').'" readonly><br></td>';
+								// } else {
+									echo '<td><input type="date" name="fecha" id="datepicker" size="10" required title="Introduzca la fecha del pago" value="'.date('Y-m-d').'" /></td>';
+								// }
 							echo '</tr>';
 							echo '<tr>';
 								echo '<td>Número del comprobante:</td>';

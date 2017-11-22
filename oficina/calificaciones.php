@@ -100,9 +100,13 @@ include_once("funciones.php");
 				echo '.</li>';
 			}
 			echo '<br>';
-			echo '<li><b>PORCENTAJE DE LOGRO DE REQUISITOS PARA TU CALIFICACIÓN: '.number_format($logro/$cant*100,2,',','.').'%</b></li>';
-			
+			echo '<li><b>PORCENTAJE DE CALIFICACIÓN ('.number_format($logro,0,',','.').' de '.number_format($cant,0,',','.').' requisitos logrados): '.number_format($logro/$cant*100,2,',','.').'%</b></li>';
 			echo '</ul>';
+
+			echo '<p>En el siguiente reporte podrás ver los rangos de tus afiliados y su porcentaje de calificación, esto te ayudará a planificar estrategias en conjunto para el crecimiento de tu organización.';
+			echo '<form method="post" action="rangos.php?c='.$_SESSION["codigo"].'">';
+				echo '<p align="center"><input type="submit" name="ordenar" value="Ver rangos de la organización"></p>';
+			echo '</form>';
 		} else {
 			echo ".</p>";
 		}

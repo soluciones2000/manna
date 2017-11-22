@@ -65,7 +65,7 @@ echo '<div id="cuerpo">';
 		echo '<h3>TOTAL DE BONOS DE PATROCINIO POR PAGAR<br>';
 	echo '</div>';
 
-$query = "SELECT * FROM detbonoafiliacion where status_bono='Pendiente' order by patroc_codigo,tit_codigo,afiliado";
+$query = "SELECT * FROM detbonoafiliacion where status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,afiliado";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_tit = 0.00;

@@ -67,7 +67,7 @@ $tot_general = 0.00;
 echo '<form name="gestion" method="post" action="registropagogeneral.php">';
 foreach ($_POST as $key => $value) {
 
-	$query = "SELECT patroc_codigo,patroc_nombres,sum(comision) as tot_comision FROM detbonoafiliacion where patroc_codigo='".trim($key)."' where status_bono='Pendiente' group by patroc_codigo order by patroc_codigo";
+	$query = "SELECT patroc_codigo,patroc_nombres,sum(comision) as tot_comision FROM detbonoafiliacion where patroc_codigo='".trim($key)."' where status_bono='Pendiente' and nivel>0 group by patroc_codigo order by patroc_codigo";
 	$result = mysql_query($query,$link);
 
 	$row = mysql_fetch_array($result);

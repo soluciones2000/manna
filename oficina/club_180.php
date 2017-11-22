@@ -42,6 +42,7 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 			<th width="150px">Detalle</th>
 			<th width="50px">Fecha</th>
 			<th width="60px" align="right">Puntos</th>
+			<th width="100px" align="right">Vencimiento</th>
 		</tr>
 		<?php 
 			$query = "SELECT * from det_180 WHERE afiliado='".$codigo."' and status_180='Pendiente' order by fectr,id_trans_origen";
@@ -54,11 +55,13 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 					$nombre_trans = $row["nombre_trans"];
 					$id_trans_origen = $row["id_trans_origen"];
 					$puntos = $row["puntos"];
+					$vencimiento = $row["vencimiento"];
 					echo '<tr>';
 						echo '<td align="center">'.$id_trans_origen.'</td>';
 						echo '<td>'.$nombre_trans.'</td>';
 						echo '<td>'.$fectr.'</td>';
 						echo '<td align="right">'.number_format($puntos,2,',','.').'</td>';
+						echo '<td align="center">'.substr($vencimiento,8,2).'/'.substr($vencimiento,5,2).'/'.substr($vencimiento,0,4).'</td>';
 					echo '</tr>';
 				}
 			} else {

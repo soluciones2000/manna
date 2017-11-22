@@ -106,50 +106,91 @@ while($row = mysql_fetch_array($result)) {
     $expandedIcon = 'folder-expanded.gif';
 
     $menu  = new HTML_TreeMenu();
-	$query = "SELECT * FROM v_patrocinio where patroc_codigo>='".$codigo."' and tit_codigo<>'".$codigo."' order by patroc_codigo,tit_codigo";
+	$query = "SELECT * FROM v_redpatrocinios where patroc_codigo>='".$codigo."' order by patroc_codigo,tit_codigo";
 	if ($result = mysql_query($query,$link)) {
-		$padre = '';
-		$hijo = '';
+		$patroc_codigo = '';
+		$tit_codigo = '';
 		$first = true;
 		$second = true;
 		$nodos = array();
 		while($row = mysql_fetch_array($result)) {
 			if ($first) {
 				if ($row["patroc_codigo"]==$codigo) {
-					$padre = $row["patroc_codigo"];
-					$hijo = $row["tit_codigo"];
-					$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
+					$patroc_codigo = $row["patroc_codigo"];
+					$tit_codigo = $row["tit_codigo"];
+					$nombre_patroc = utf8_encode(trim($row["nombre_patroc"]).' '.trim($row["apellido_patroc"]));
+					$fecha_fin_bono = $row["fecha_fin_bono"];
+
 					$arbol = trim($nombre_patroc);
-					$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-	//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-					$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nombre_afil = utf8_encode(trim($row["nombre_afil"]).' '.trim($row["apellido_afil"]));
+					$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
 					$first = false;
 					$continuar = true;
 				} else {
 					$continuar = false;
 				}
 			}
-			if ($continuar) {
-				if ($padre<>$row["patroc_codigo"]) {
-					$padre = $row["patroc_codigo"];
-					$hijo = $row["tit_codigo"];
-					$nombre_patroc = utf8_encode(trim($row["nombres_patroc"]).' '.trim($row["apellidos_patroc"]));
-					$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-				}
-				$hijo = $row["tit_codigo"];
-				$nombre_hijo = utf8_encode(trim($row["nombres"]).' '.trim($row["apellidos"]));
-				$fecha_fin_bono = $row["fecha_fin_bono"];
-				if ($fecha_fin_bono<date('Y-m-d')) {
-				    $icon         = 'no-calif.gif';
-				    $expandedIcon = 'no-calif.gif';
-				} else {
-				    $icon         = 'calif.gif';
-				    $expandedIcon = 'calif.gif';
-				}
-	//			$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-				if (!is_null($nodos[$padre])) {
 
-					$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+			if ($continuar) {
+				if ($patroc_codigo<>$row["patroc_codigo"]) {
+					$patroc_codigo = $row["patroc_codigo"];
+					$tit_codigo = $row["tit_codigo"];
+					$nombre_patroc = utf8_encode(trim($row["nombre_patroc"]).' '.trim($row["apellido_patro"]));
+					$nombre_afil = utf8_encode(trim($row["nombre_afil"]).' '.trim($row["apellido_afil"]));
+					$fecha_fin_bono = $row["fecha_fin_bono"];
+
+					$quer2 = "SELECT nivel FROM redpatrocinios where patroc_codigo='".$codigo."' and afiliado='".$tit_codigo."'";
+					$resul2 = mysql_query($quer2,$link);
+					$ro2 = mysql_fetch_array($resul2);
+					$nivel = $ro2["nivel"];
+					switch ($nivel) {
+						case '1':
+						    $icon         = '001.gif';
+						    $expandedIcon = '001.gif';
+							break;
+						case '2':
+						    $icon         = '002.gif';
+						    $expandedIcon = '002.gif';
+							break;
+						case '3':
+						    $icon         = '003.gif';
+						    $expandedIcon = '003.gif';
+							break;
+						default:
+						    $icon         = 'folder.gif';
+						    $expandedIcon = 'folder-expanded.gif';
+							break;
+					}
+				}
+				if (!is_null($nodos[$patroc_codigo])) {
+					$tit_codigo = $row["tit_codigo"];
+					$nombre_afil = utf8_encode(trim($row["nombre_afil"]).' '.trim($row["apellido_afil"]));
+//					$fecha_fin_bono = $row["fecha_fin_bono"];
+					$quer2 = "SELECT nivel FROM redpatrocinios where patroc_codigo='".$codigo."' and afiliado='".$tit_codigo."'";
+					$resul2 = mysql_query($quer2,$link);
+					$ro2 = mysql_fetch_array($resul2);
+					$nivel = $ro2["nivel"];
+					switch ($nivel) {
+						case '1':
+						    $icon         = '001.gif';
+						    $expandedIcon = '001.gif';
+							break;
+						case '2':
+						    $icon         = '002.gif';
+						    $expandedIcon = '002.gif';
+							break;
+						case '3':
+						    $icon         = '003.gif';
+						    $expandedIcon = '003.gif';
+							break;
+						default:
+						    $icon         = 'folder.gif';
+						    $expandedIcon = 'folder-expanded.gif';
+							break;
+					}
+					if ($fecha_fin_bono>date("Y-m-d")) {
+						$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => $nombre_afil, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					}
 				}
 			}
 		}
@@ -181,9 +222,8 @@ while($row = mysql_fetch_array($result)) {
 </head>
 <body>
 
-<h3><u>Patrocinios de <?php echo utf8_encode($_SESSION['user']); ?></u></h3>
-<p>Leyenda: <img src="html_tree_menu/images/calif.gif" style="vertical-align:-55%;"> Califica para bono | <img src="html_tree_menu/images/no-calif.gif" style="vertical-align:-50%;"> No califica para bono</p>
-<!--<p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p>-->
+<h3><u>Red de patrocinados de <?php echo utf8_encode($_SESSION['user']); ?></u></h3>
+<!-- <p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p> -->
 <!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
 
@@ -193,7 +233,6 @@ while($row = mysql_fetch_array($result)) {
 		alert('PM: XXXX\nPMO: YYY');		
 	}
 </script>
-<!--
+
 </body>
 </html>
--->

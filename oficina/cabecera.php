@@ -7,11 +7,13 @@ if ($row = mysql_fetch_array($result)) {
    $_SESSION["iva1"] = $row["iva1"];
    $_SESSION["iva2"] = $row["iva2"];
    $_SESSION["iva3"] = $row["iva3"];
+   $_SESSION["valor_punto"] = $row["valor_punto"];
 } else {
    $empresa = "Error al conectar a la base de datos.";
    $_SESSION["iva1"] = 0;
    $_SESSION["iva2"] = 0;
    $_SESSION["iva3"] = 0;
+   $_SESSION["valor_punto"] = 0.00;
 }
 ?>
 
@@ -227,6 +229,7 @@ if ($row = mysql_fetch_array($result)) {
                         $nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
                         if ($usuario) {
                            echo '<label id="user">Buen día: '.trim($nombre).'</label><br>';
+                           echo '<label id="afiliado">Afiliado '.trim($_SESSION["tipo_afiliado"]).'</label><br>';
                            echo '<label id="rango">Rango: '.$_SESSION["rango"].'</label><br>';
                            echo '<label id="pm">PM del mes: '.number_format($_SESSION["pm"],0,',','.').'</label><br>';
                            echo '<label id="pmo">PMO: '.number_format($_SESSION["pmo"],0,',','.').'</label><br>';

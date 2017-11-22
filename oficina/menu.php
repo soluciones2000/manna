@@ -6,10 +6,10 @@
                      <br>
                      <div id="menu" class="vertical-menu" align="center">
                         <a id="inicio" class="active" href="#" onclick="refresca(this,'inicio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Inicio</a>
-                        <a id="genealogia" class="" href="#" onclick="refresca(this,'genealogia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Genealogia</a>
-                        <a id="patrocinio" class="" href="#" onclick="refresca(this,'patrocinio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Patrocinios</a>
-                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'afiliacion.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono de Patroc.</a>
-                        <a id="unilevel" class="" href="#" onclick="refresca(this,'unilevel.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono Unilevel</a>
+                        <a id="genealogia" class="" href="#" onclick="refresca(this,'menugenealogia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Genealogia</a>
+                        <!-- <a id="patrocinio" class="" href="#" onclick="refresca(this,'patrocinio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Patrocinios</a> -->
+                        <a id="afiliacion" class="" href="#" onclick="refresca(this,'menubonos.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bonos</a>
+                        <!-- <a id="unilevel" class="" href="#" onclick="refresca(this,'unilevel.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Bono Unilevel</a> -->
                         <a id="calif" class="" href="#" onclick="refresca(this,'calificaciones.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Calificaciones</a>
                         <a id="c180" class="" href="#" onclick="refresca(this,'club_180.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Club 180</a>
                         <a id="billetera" class="" href="#" onclick="refresca(this,'billetera.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Billetera</a>
@@ -45,9 +45,9 @@
          function refresca(id,enlace,c) {
             document.getElementById("inicio").className = "";
             document.getElementById("genealogia").className = "";
-            document.getElementById("patrocinio").className = "";
+            // document.getElementById("patrocinio").className = "";
             document.getElementById("afiliacion").className = "";
-            document.getElementById("unilevel").className = "";
+            // document.getElementById("unilevel").className = "";
             document.getElementById("calif").className = "";
             document.getElementById("c180").className = "";
             document.getElementById("billetera").className = "";

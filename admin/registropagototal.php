@@ -16,9 +16,12 @@ foreach ($_POST as $key => $value) {
 	$result = mysql_query($query,$link);
 
 	$query = "UPDATE detunilevel SET id_trans=".trim($id_trans).", status_unilevel='Pagado' WHERE status_unilevel='Pendiente' and organizacion='".trim($key)."'";
-	echo $query.'<br><br>';
+	echo $query.'<br>';
 	$result = mysql_query($query,$link);
 
+	$query = "UPDATE reembolso SET trans_id=".trim($id_trans).", status_comision='Pagado' WHERE status_comision='Pendiente' and afiliado='".trim($key)."'";
+	echo $query.'<br><br>';
+	$result = mysql_query($query,$link);
 }
 $cadena = 'Location: inicio.php?user='.$_SESSION['user']; 
 header($cadena);

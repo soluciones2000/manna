@@ -70,7 +70,7 @@ echo '<div id="cuerpo">';
 		echo '<font color="red">'.trim($name_user).'</font></h3>';
 	echo '</div>';
 
-$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."' AND patroc_codigo<='".trim($hst)."' AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
+$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."' AND patroc_codigo<='".trim($hst)."' AND status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,nivel,afiliado";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_tit = 0.00;
@@ -115,7 +115,8 @@ while($row = mysql_fetch_array($result)) {
 
 //		$txt = '<div class="grupo1">';
 //		$txt .= "<b>Patrocinador: ".$patroc_codigo." - ".$patroc_nombres." - tipo de afiliado: ".$tipo_patroc."</b><br>";
-		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
+//		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
+		$txt = '';
 		$tot_tit = 0.00;
 		$tot_pat = 0.00;
 		$tot_gen = 0.00;
@@ -148,14 +149,15 @@ while($row = mysql_fetch_array($result)) {
 */
 	if ($tit_codigo<>$row['tit_codigo']) {
 //		$txt .= '<div class="caracter"></div>';
-		$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
-		$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
-		echo $txt;
+//		$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
+//		$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
+//		echo $txt;
 		$patroc_codigo = $row['patroc_codigo'];
 		$tit_codigo = $row['tit_codigo'];
 		$patroc_nombres = $row['patroc_nombres'];
 		$tit_nombre_completo = $row['tit_nombre_completo'];
-		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
+//		$txt = '<div class="caracter"></div><i><u>Patrocinado: '.$tit_codigo." - ".$tit_nombre_completo."</u></i><br>";
+		$txt = '';
 		$tot_tit = 0.00;
 	}
 	$patroc_codigo = $row['patroc_codigo'];
@@ -208,8 +210,8 @@ while($row = mysql_fetch_array($result)) {
 //	echo $txt;
 }
 //if ($patroc_codigo<>$row['patroc_codigo']) {
-	$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
-	$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
+//	$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('-', 20)."</div>";
+//	$txt .= '<div style="text-align:right;padding-right:7.5%;"><i>Total Patrocinado '.$tit_codigo." - ".trim($tit_nombre_completo).': '.trim(number_format($tot_tit,2,',','.'))."</i></div>";
 	$txt .= '<div style="text-align:right;padding-right:7.5%;">'.str_repeat('=', 20)."</div>";
 	$txt .= '<div style="text-align:right;padding-right:7.5%;"><b>Total Patrocinador '.$patroc_codigo." - ".trim($patroc_nombres).': '.trim(number_format($tot_pat,2,',','.'))."</b></div>";
 	$txt .= '<br>';

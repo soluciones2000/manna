@@ -76,9 +76,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<?php if ($_POST["tipo_persona"]=="Natural"): ?>
 							<div class="col-sm-3">
 								<label for="tit_fecha_nac"><font color="red">(*)</font> Fecha de nacimiento</label>
-<!--
-								<input type="date" name="tit_fecha_nac" value="<?php echo set_value('tit_fecha_nac') ?>" class="form-control" id="tit_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required>
--->
+
+								<!-- <input type="date" name="tit_fecha_nac" value="<?php echo set_value('tit_fecha_nac') ?>" class="form-control" id="tit_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy" required> -->
+
 								<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="tit_fecha_nac" class="form-control" id="tit_fecha_nac" placeholder="dd/mm/yyyy" value="<?php set_value('tit_fecha_nac') ?>" readonly style="background-color:white;" required>
 
 							</div>
@@ -131,9 +131,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 							<div class="col-sm-3">
 								<label for="cot_fecha_nac">Fecha de nacimiento</label>
-<!--
-								<input type="date" name="cot_fecha_nac" value="<?php echo set_value('cot_fecha_nac') ?>" class="form-control" id="cot_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy">
--->
+
+								<!-- <input type="date" name="cot_fecha_nac" value="<?php echo set_value('cot_fecha_nac') ?>" class="form-control" id="cot_fecha_nac" maxlength="10" minlength="10" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" title="El formato de este campo es 99/99/9999" placeholder="dd/mm/yyyy"> -->
+
 								<input data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-autoclose="true" name="cot_fecha_nac" class="form-control" id="cot_fecha_nac" placeholder="dd/mm/yyyy" value="<?php set_value('cot_fecha_nac') ?>" readonly style="background-color:white;" required>
 							</div>
 							<div class="col-sm-3">

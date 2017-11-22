@@ -1,7 +1,6 @@
 <?php 
 include_once("conexion.php");
 include_once("funciones.php");
-
 $fch = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 $mes = substr($fch,3,3);
 switch ($mes) {
@@ -43,7 +42,8 @@ switch ($mes) {
 		break;
 }
 
-$fecha = substr($fch,7,4)."-".$mes."-".substr($fch,0,2);
+//$fecha = substr($fch,7,4)."-".$mes."-".substr($fch,0,2);
+$fecha = $fch;
 $afiliado = $_SESSION["codigo"];
 $cliente = $afiliado;
 $cliente_pref = '';
@@ -72,7 +72,7 @@ if ($precio<$precio_orden) {
 	$status_orden = "Parcialmente cancelada";
 }
 
-$query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fecha."','".$afiliado."','".$cliente."','".$cliente_pref."','".$tipo."',".$precio.",".$monto.",".$puntos.",'".$documento."','".$bancoorigen."','".$status_comision."',".$orden_id.")";
+$query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, valor_punto, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fecha."','".$afiliado."','".$cliente."','".$cliente_pref."','".$tipo."',".$precio.",".$monto.",".$puntos.",".$_SESSION["valor_punto"].",'".$documento."','".$bancoorigen."','".$status_comision."',".$orden_id.")";
 if ($result = mysql_query($query,$link)) {
 	$query = "select id from transacciones where orden_id=".trim($orden_id)." and fecha='".$fecha."'";
 	$result = mysql_query($query,$link);
@@ -81,6 +81,7 @@ if ($result = mysql_query($query,$link)) {
 	} else {
 		$id_transaccion = 0;
 	}
+
 	$query = "UPDATE ordenes SET id_transaccion=".$id_transaccion.",status_orden='".$status_orden."' WHERE orden_id=".trim($orden_id);
 	if ($result = mysql_query($query,$link)) {
 
@@ -97,28 +98,28 @@ if ($result = mysql_query($query,$link)) {
 		$fecha_fin_bono = $rox["fecha_fin_bono"];
 
 		if (date('Y-m-d')<=$fecha_fin_bono) {
-			$query = "SELECT * from organizacion where afiliado='".$afiliado."' and nivel>='0' AND nivel<'3' order by nivel";
+			$query = "SELECT * from redpatrocinios where afiliado='".$afiliado."' and nivel>'0' AND nivel<='3' order by nivel";
 			$result = mysql_query($query,$link);
 			while($row = mysql_fetch_array($result)) {
-				$patroc_codigo = $row["organizacion"];
+				$patroc_codigo = $row["patroc_codigo"];
 			}
 
 			$querz = "select tit_nombres,tit_apellidos,tipo_afiliado from afiliados where tit_codigo='".$patroc_codigo."'";
 			$resulz = mysql_query($querz,$link);
 			$roz = mysql_fetch_array($resulz);
 			$patroc_nombres = trim($roz["tit_nombres"])." ".trim($roz["tit_apellidos"]);
-			$tipo_patroc = $roz["tipo_afiliado"];
 
-			$query = "SELECT * from organizacion where afiliado='".$afiliado."' and nivel>='0' AND nivel<'3' order by nivel";
+			$query = "SELECT * from redpatrocinios where afiliado='".$afiliado."' and nivel>'0' AND nivel<='3' order by nivel";
 			$result = mysql_query($query,$link);
 			while($row = mysql_fetch_array($result)) {
-				$organizacion = $row["organizacion"];
-				$nivel = $row["nivel"]+1;
+				$patroc_codigo = $row["patroc_codigo"];
+				$nivel = $row["nivel"];
 
-				$quera = "select tit_nombres,tit_apellidos from afiliados where tit_codigo='".$organizacion."'";
+				$quera = "select tit_nombres,tit_apellidos,tipo_afiliado from afiliados where tit_codigo='".$patroc_codigo."'";
 				$resula = mysql_query($quera,$link);
 				$roa = mysql_fetch_array($resula);
 				$tit_nombre_completo = trim($roa["tit_nombres"])." ".trim($roa["tit_apellidos"]);
+				$tipo_patroc = $roa["tipo_afiliado"];
 
 				$quer5 = "SELECT * from bono_afiliacion where bono_afiliacion.nivel='".trim($nivel)."'";
 				$resul5 = mysql_query($quer5,$link);
@@ -137,14 +138,8 @@ if ($result = mysql_query($query,$link)) {
 				}
 				$comision = $monto*($porcentaje/100);
 
-				$quer6 = "INSERT INTO detbonoafiliacion (patroc_codigo, tit_codigo, fecha_afiliacion, fecha_fin_bono, nivel, afiliado, tipo_patroc, tipo_afil, tipo_trans, fectr, monto, porcentaje, comision, patroc_nombres, tit_nombre_completo, afil_nombres, id_trans_origen, id_trans, status_bono) VALUES ('".$organizacion."','".$organizacion."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_patroc."','".$tipo_afil."','Consumo aliados','".$fecha."',".$monto.",".$porcentaje.",".$comision.",'".$patroc_nombres."','".$tit_nombre_completo."','".$afil_nombres."',".$id_transaccion.",0,'Pendiente');";
-				echo $quer6.'<br>';
-				if ($resul6 = mysql_query($quer6,$link)) {
-					echo "SI".'<br><br>';
-				} else {
-					echo "NO".'<br><br>';
-				}
-
+				$quer6 = "INSERT INTO detbonoafiliacion (patroc_codigo, tit_codigo, fecha_afiliacion, fecha_fin_bono, nivel, afiliado, tipo_patroc, tipo_afil, tipo_trans, fectr, monto, porcentaje, comision, patroc_nombres, tit_nombre_completo, afil_nombres, id_trans_origen, id_trans, status_bono) VALUES ('".$patroc_codigo."','".$patroc_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_patroc."','".$tipo_afil."','Consumo aliados','".$fecha."',".$monto.",".$porcentaje.",".$comision.",'".$patroc_nombres."','".$tit_nombre_completo."','".$afil_nombres."',".$id_transaccion.",0,'Pendiente');";
+				$resul6 = mysql_query($quer6,$link);
 			}
 		} else {
 
@@ -166,7 +161,7 @@ if ($result = mysql_query($query,$link)) {
 						$ro2 = mysql_fetch_array($resul2);
 						$porcentaje = $ro2["porcentaje"];
 						$comision = $monto*$porcentaje/100;
-						$quer3 = "INSERT INTO detunilevel (organizacion, org_nombres, nivel, afiliado, afil_nombres, fectr, tipo_trans, nombre_trans, precio, monto, porcentaje, comision, id_trans_origen, id_trans, status_unilevel) VALUES ('".$organizacion."', '".$org_nombres."', '".$nivel."', '".$afiliado."', '".$afil_nombres."', '".$fecha."', '04', 'Consumo aliados',".$precio_orden.", ".$monto.", ".$porcentaje.", ".$comision.", ".$id_transaccion.", 0, 'Pendiente')";
+						$quer3 = "INSERT INTO detunilevel (organizacion, org_nombres, rango, nivel, afiliado, afil_nombres, fectr, tipo_trans, nombre_trans, precio, monto, porcentaje, comision, id_trans_origen, id_trans, status_unilevel) VALUES ('".$organizacion."', '".$org_nombres."', '".$rango."', '".$nivel."', '".$afiliado."', '".$afil_nombres."', '".$fecha."', '04', 'Consumo aliados',".$precio_orden.", ".$monto.", ".$porcentaje.", ".$comision.", ".$id_transaccion.", 0, 'Pendiente')";
 						$resul3 = mysql_query($quer3,$link);
 					}
 				}
@@ -174,29 +169,43 @@ if ($result = mysql_query($query,$link)) {
 		}
 
 		// CLUB 180
-		$porc_180 = ($tipo_afil=='Premium') ? 0.2 : 0.1 ;
+//		$porc_180 = ($tipo_afil=='Premium') ? 0.2 : 0.1 ;
+		$porc_180 = 0.03 ;
 //		if ($_SESSION['pm']+$puntos>50 and $_SESSION['pm']+$puntos<300) {
-		if ($_SESSION['pm']>50 or $_SESSION['pm']+$puntos>50) {
-			if ($_SESSION['pm']<300) {
-				if ($_SESSION['pm']<=50) {
-					$base = $_SESSION['pm'] + $puntos - 50;
+		if ($_SESSION['pm']>100 or $_SESSION['pm']+$puntos>100) {
+			if ($_SESSION['pm']<200) {
+				if ($_SESSION['pm']<=100) {
+					$base = $_SESSION['pm'] + $puntos - 100;
 				} else {
-					$base = ($_SESSION['pm']+$puntos>=300) ? $_SESSION['pm'] + $puntos - 300 : $puntos ;
+					$base = ($_SESSION['pm']+$puntos>=200) ? $_SESSION['pm'] + $puntos - 200 : $puntos ;
 				}
 				
-				$quer0 = "select tit_nombres,tit_apellidos,tipo_afiliado from afiliados where tit_codigo='".$afiliado."'";
+				$quer0 = "select tit_nombres,tit_apellidos,tipo_afiliado,fecha_afiliacion from afiliados where tit_codigo='".$afiliado."'";
 				$resul0 = mysql_query($quer0,$link);
 				$ro0 = mysql_fetch_array($resul0);
 				$afil_nombres = trim($ro0["tit_nombres"])." ".trim($ro0["tit_apellidos"]);
+				$fecha_afiliacion = $ro0["fecha_afiliacion"];
+				$vencimiento = strtotime('+1 year', strtotime ($fecha_afiliacion));
+				$vencimiento = date ( 'Y-m-d' , $vencimiento );
 
 				$puntos_180 = $base * $porc_180;
-				$query = "INSERT INTO det_180 (afiliado, afil_nombres, fectr, tipo_trans, nombre_trans, puntos, id_trans_origen, id_trans, status_180) VALUES ('".$afiliado."', '".$afil_nombres."', '".$fecha."', '04', 'Consumo aliados',".$puntos_180.", ".$id_transaccion.", 0, 'Pendiente')";
+				$query = "INSERT INTO det_180 (afiliado, afil_nombres, fectr, tipo_trans, nombre_trans, puntos, id_trans_origen, id_trans, status_180, vencimiento) VALUES ('".$afiliado."', '".$afil_nombres."', '".$fecha."', '04', 'Consumo aliados',".$puntos_180.", ".$id_transaccion.", 0, 'Pendiente','".$vencimiento."')";
 				$result = mysql_query($query,$link);
 			}
 		}
 		$_SESSION['pm'] += $puntos;
 
 		calificacion($afiliado,$_SESSION['pm'],$_SESSION['pmo'],$link);
+
+		// Bono de reembolso
+		$querq = "select reembolso from empresa";
+		$resulq = mysql_query($querq,$link);
+		$roq = mysql_fetch_array($resulq);
+		$reembolso = $roq["reembolso"];
+
+		$query = "INSERT INTO reembolso (afiliado, fecha, precio, monto, puntos, trans_id, status_comision) VALUES ('".$afiliado."', '".$fecha."', 0, ".$monto*($reembolso/100).", 0, ".$id_transaccion.", 'Pendiente')";
+		$result = mysql_query($query,$link);
+
 		$cadena = 'Location: exito.php';
 	}
 } else {

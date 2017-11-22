@@ -7,7 +7,7 @@ include_once("menu.php");
 		<div id="menu">
 			<table border="0" align="center" width="100%" style="background-color:#F5F6CE">
 				<tr>
-					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.30%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($men2=="totpat"): ?>
 								Patrocinios Totales
@@ -16,7 +16,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="detpat"): ?>
 								Patrocinios Detallados
@@ -25,7 +25,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($men2=="totuni"): ?>
 								Unilevel Totales
@@ -34,7 +34,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="detuni"): ?>
 								Unilevel Detallado
@@ -43,7 +43,25 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="15%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+ 							<?php if ($men2=="totree"): ?>
+								Reembolso Totales
+							<?php else: ?>
+								<a href="reembolsogeneral.php">Reembolso Totales</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($men2=="detree"): ?>
+								Reembolso Detallado
+							<?php else: ?>
+								<a href="periodo8.php">Reembolso Detallado</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="14.30%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="todos"): ?>
 								Bonos Totales
@@ -51,8 +69,6 @@ include_once("menu.php");
 								<a href="pagotodos.php">Bonos Totales</a>
 							<?php endif; ?>
 						</font>
-					</td>
-					<td align="center" width="25%" style="padding-left:1%;padding-right:1%;">
 					</td>
 				</tr>
 			</table>

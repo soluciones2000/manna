@@ -7,7 +7,7 @@ include_once("menu.php");
 		<div id="menu">
 			<table border="0" align="center" width="100%" style="background-color:#F5F6CE">
 				<tr>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
  							<?php if ($men2=="resumen"): ?>
 								Resumen de comisiones
@@ -16,7 +16,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="detalle"): ?>
 								Bonos de patrocinio
@@ -25,7 +25,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="unilevel"): ?>
 								Bonos Unilevel
@@ -34,7 +34,16 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
+						<font face="arial" size="2">
+							<?php if ($men2=="reembolso"): ?>
+								Bonos de Reembolso
+							<?php else: ?>
+								<a href="periodo7.php">Bonos de Reembolso</a>
+							<?php endif; ?>
+						</font>
+					</td>
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="planilla"): ?>
 								Impresión de planilla
@@ -43,7 +52,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="datos"): ?>
 								Datos básicos
@@ -52,7 +61,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="cliente"): ?>
 								Clientes preferenciales
@@ -61,7 +70,7 @@ include_once("menu.php");
 							<?php endif; ?>
 						</font>
 					</td>
-					<td align="center" width="14.28%" style="padding-left:1%;padding-right:1%;">
+					<td align="center" width="12.5%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
 							<?php if ($men2=="fecha"): ?>
 								Transacciones por fecha

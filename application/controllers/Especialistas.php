@@ -327,7 +327,7 @@ class Especialistas extends CI_Controller {
 	           	'status_afiliado' => "Activo",
 	           	'rango' => 'En Ascenso',
 	           	'pm' => 0,
-	           	'pmo' => 0
+	           	'pmo' => 0,
 	           	'flag' => false
            	);
            	if ($envio) {
@@ -794,7 +794,8 @@ class Especialistas extends CI_Controller {
 	       	'tipo' => '01',
 	       	'precio' => $precio,
 	       	'monto' => $monto,
-	       	'puntos' => $puntos,
+	       	'puntos' => $puntos,,
+	       	'valor_punto' => $_SESSION["valor_punto"],
 	       	'documento' => $numcomprobante,
 	       	'bancoorigen' => $bancoorigen,
 	       	'status_comision' => 'Pendiente'
@@ -959,6 +960,35 @@ class Especialistas extends CI_Controller {
 	       	'fecha_fin_bono' => $fecha_fin_bono
         );
 		$this->Auth_model->patrocinio($registro);
+////////////////////////////////////////////////////////////////////////////////////////////////
+		$nivel = 0;
+		$registro = array(
+	       	'patroc_codigo' => $tit_codigo,
+	       	'nivel' => $nivel,
+	       	'afiliado' => $tit_codigo
+        );
+		$this->Auth_model->redpatrocinios($registro);
+		$hijo = $tit_codigo;
+
+		$loop = true;
+		while ($loop) {
+		    $red = $this->Auth_model->patroc($hijo);
+			if (!$red) {
+				$loop = false;
+			} else {
+			    $patroc_codigo = $red->patroc_codigo;
+				$nivel = $nivel + 1;
+				$afiliado = $tit_codigo;
+				$registro = array(
+			       	'patroc_codigo' => $patroc_codigo,
+			       	'nivel' => $nivel,
+			       	'afiliado' => $tit_codigo
+		        );
+				$this->Auth_model->redpatrocinios($registro);
+		        $hijo = $patroc_codigo;
+			}
+		}
+////////////////////////////////////////////////////////////////////////////////////////////////		
 	}
 
 	function generabono($patroc_codigo,$tit_codigo) {
@@ -972,19 +1002,23 @@ class Especialistas extends CI_Controller {
 				$fecha_fin_bono = $ke0->fecha_fin_bono;
 
 				$no1 = $this->Auth_model->getcampos($patroc_codigo);
-				$tipo_patroc = $no1->tipo_afiliado;
+//				$tipo_patroc = $no1->tipo_afiliado;
 				$patroc_nombres = trim($no1->tit_nombres)." ".trim($no1->tit_apellidos);
 
-				$no2 = $this->Auth_model->getcampos($tit_codigo);
-				$tipo_patroc = $no2->tipo_afiliado;
-				$tit_nombre_completo = trim($no2->tit_nombres)." ".trim($no2->tit_apellidos);
+//				$no2 = $this->Auth_model->getcampos($tit_codigo);
+//				$tipo_patroc = $no2->tipo_afiliado;
+//				$tit_nombre_completo = trim($no2->tit_nombres)." ".trim($no2->tit_apellidos);
 
-				$caf = $this->Auth_model->getorganizacion($tit_codigo,0,3);
+				$caf = $this->Auth_model->getredpatrocinios($tit_codigo,0,3);
 				foreach ($caf as $key) {
-					if ($key->afiliado==$tit_codigo and $key->nivel>=0 and $key->nivel<3) {
-						$organizacion = $key->organizacion;
-						$nivel = $key->nivel+1;
+					if ($key->afiliado==$tit_codigo and $key->nivel>0 and $key->nivel<=3) {
+						$patroc = $key->patroc_codigo;
+						$nivel = $key->nivel;
 						$afiliado = $key->afiliado;
+
+						$no3 = $this->Auth_model->getcampos($patroc);
+						$tipo_patroc = $no3->tipo_afiliado;
+						$tit_nombre_completo = trim($no3->tit_nombres)." ".trim($no3->tit_apellidos);
 
 						$naf = $this->Auth_model->getcampos($afiliado);
 						$tipo_afil = $naf->tipo_afiliado;
@@ -1020,23 +1054,27 @@ class Especialistas extends CI_Controller {
 								break;
 						}
 						if ($monto<>0.00) {
-							$bon = $this->Auth_model->getbono($nivel);
-							$porcentaje = 0.00;
-							switch ($tipo_patroc) {
-								case 'Premium':
-									$porcentaje = $bon->premium;
-									break;
-								case 'VIP':
-									$porcentaje = $bon->vip;
-									break;
-								case 'Oro':
-									$porcentaje = $bon->oro;
-									break;
+							if ($nivel<>0) {
+								$bon = $this->Auth_model->getbono($nivel);
+								$porcentaje = 0.00;
+								switch ($tipo_patroc) {
+									case 'Premium':
+										$porcentaje = $bon->premium;
+										break;
+									case 'VIP':
+										$porcentaje = $bon->vip;
+										break;
+									case 'Oro':
+										$porcentaje = $bon->oro;
+										break;
+								}
+							} else {
+								$porcentaje = 0.00;
 							}
 							$comision = $monto*($porcentaje/100);
 							$registro = array(
-								'patroc_codigo' => $patroc_codigo,
-								'tit_codigo' => $organizacion,
+								'patroc_codigo' => $patroc,
+								'tit_codigo' => $patroc,
 								'fecha_afiliacion' => $fecha_afiliacion,
 								'fecha_fin_bono' => $fecha_fin_bono,
 								'nivel' => $nivel,
@@ -1063,3 +1101,4 @@ class Especialistas extends CI_Controller {
 		}
 	}
 }
+

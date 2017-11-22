@@ -77,15 +77,15 @@ echo '<div id="cuerpo">';
 
 if ($dsd<>'Primero') {
 	if ($hst<>'Último') {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."' AND patroc_codigo<='".trim($hst)."' AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
+		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."' AND patroc_codigo<='".trim($hst)."' AND status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,nivel,afiliado";
 	} else {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."'  AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
+		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo>='".trim($dsd)."'  AND status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,nivel,afiliado";
 	}
 } else {
 	if ($hst<>'Último') {
-		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo<='".trim($hst)."'  AND status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
+		$query = "SELECT * FROM detbonoafiliacion WHERE patroc_codigo<='".trim($hst)."'  AND status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,nivel,afiliado";
 	} else {
-		$query = "SELECT * FROM detbonoafiliacion WHERE status_bono='Pendiente' order by patroc_codigo,tit_codigo,nivel,afiliado";
+		$query = "SELECT * FROM detbonoafiliacion WHERE status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,nivel,afiliado";
 	}
 }
 

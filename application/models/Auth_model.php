@@ -147,8 +147,8 @@ class Auth_model extends CI_Model {
 
 	public function getorganizacion($codigo,$uno,$dos){
 //		$this->db->where('organizacion',$codigo);
-//		$this->db->where('nivel >=',$uno);
-//		$this->db->where('nivel <',$dos);
+//		$this->db->where('nivel >',$uno);
+//		$this->db->where('nivel <=',$dos);
 		$this->db->order_by('nivel','ASC');
 		$this->db->order_by('afiliado','ASC');
 		$query = $this->db->get('organizacion');
@@ -180,6 +180,27 @@ class Auth_model extends CI_Model {
 	public function detbonoafiliacion($data){
 		$success = $this->db->insert('detbonoafiliacion',$data);
 		return $success;
+	}
+
+	public function redpatrocinios($data){
+		$success = $this->db->insert('redpatrocinios',$data);
+		return $success;
+	}
+
+	public function patroc($tit_codigo){
+		$this->db->where('tit_codigo',$tit_codigo);
+		$query = $this->db->get('patrocinio');
+		return $query->row();
+	}
+
+	public function getredpatrocinios($codigo,$uno,$dos){
+//		$this->db->where('organizacion',$codigo);
+//		$this->db->where('nivel >',$uno);
+//		$this->db->where('nivel <=',$dos);
+		$this->db->order_by('nivel','ASC');
+		$this->db->order_by('afiliado','ASC');
+		$query = $this->db->get('redpatrocinios');
+		return $query->result();
 	}
 
 }

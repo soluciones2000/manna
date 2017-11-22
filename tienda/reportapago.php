@@ -22,7 +22,8 @@
 <!--
 					            		<td><INPUT type="text" name="nombre" maxlength="150" size="50" alt="Introduzca su nombre" required><br></td>
 -->
-										<td><input type="date" name="fecha" id="datepicker" readonly="readonly" size="10" required title="Introduzca la fecha del pago" /></td>
+										<!-- <td><INPUT type="text" name="fecha" value="'.date('Y-m-d').'" readonly><br></td> -->
+										<td><input type="date" name="fecha" id="datepicker" size="10" required title="Introduzca la fecha del pago" value="<?php echo date('Y-m-d');  ?>" /></td>
 					            	</tr>
 					            	<tr>
 					            		<td>Número del comprobante:</td>

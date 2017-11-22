@@ -65,6 +65,7 @@ class Menu extends CI_Controller {
         $_SESSION['mp_oro_lq'] = $param->mp_oro_lq;
         $_SESSION['mp_oro_teatro'] = $param->mp_oro_teatro;
         $_SESSION['mp_oro_todas'] = $param->mp_oro_todas;
+        $_SESSION['valor_punto'] = $param->valor_punto;
 
 		$data = new stdClass();
 

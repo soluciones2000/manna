@@ -31,4 +31,5 @@ $row = mysql_fetch_array($result);
 $_SESSION["iva1"] = $row["iva1"];
 $_SESSION["iva2"] = $row["iva2"];
 $_SESSION["iva3"] = $row["iva3"];
+$_SESSION["valor_punto"] = $row["valor_punto"];
 ?>

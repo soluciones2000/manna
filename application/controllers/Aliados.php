@@ -900,6 +900,7 @@ class Aliados extends CI_Controller {
 	       	'precio' => $precio,
 	       	'monto' => $monto,
 	       	'puntos' => $puntos,
+	       	'valor_punto' => $_SESSION["valor_punto"],
 	       	'documento' => $numcomprobante,
 	       	'bancoorigen' => $bancoorigen,
 	       	'status_comision' => 'Pendiente'
@@ -1066,8 +1067,148 @@ class Aliados extends CI_Controller {
 	       	'fecha_fin_bono' => $fecha_fin_bono
         );
 		$this->Auth_model->patrocinio($registro);
+////////////////////////////////////////////////////////////////////////////////////////////////
+		$nivel = 0;
+		$registro = array(
+	       	'patroc_codigo' => $tit_codigo,
+	       	'nivel' => $nivel,
+	       	'afiliado' => $tit_codigo
+        );
+		$this->Auth_model->redpatrocinios($registro);
+		$hijo = $tit_codigo;
+
+		$loop = true;
+		while ($loop) {
+		    $red = $this->Auth_model->patroc($hijo);
+			if (!$red) {
+				$loop = false;
+			} else {
+			    $patroc_codigo = $red->patroc_codigo;
+				$nivel = $nivel + 1;
+				$afiliado = $tit_codigo;
+				$registro = array(
+			       	'patroc_codigo' => $patroc_codigo,
+			       	'nivel' => $nivel,
+			       	'afiliado' => $tit_codigo
+		        );
+				$this->Auth_model->redpatrocinios($registro);
+		        $hijo = $patroc_codigo;
+			}
+		}
+////////////////////////////////////////////////////////////////////////////////////////////////		
 	}
 
+	function generabono($patroc_codigo,$tit_codigo) {
+		$pto = $this->Auth_model->getpunto();
+		$valor_punto = $pto->valor_punto;
+
+		$pat = $this->Auth_model->getpatrocinio($patroc_codigo,$tit_codigo);
+		foreach ($pat as $ke0) {
+			if ($ke0->patroc_codigo==$patroc_codigo and $ke0->tit_codigo==$tit_codigo ) {
+				$fecha_afiliacion = $ke0->fecha_afiliacion;
+				$fecha_fin_bono = $ke0->fecha_fin_bono;
+
+				$no1 = $this->Auth_model->getcampos($patroc_codigo);
+//				$tipo_patroc = $no1->tipo_afiliado;
+				$patroc_nombres = trim($no1->tit_nombres)." ".trim($no1->tit_apellidos);
+
+//				$no2 = $this->Auth_model->getcampos($tit_codigo);
+//				$tipo_patroc = $no2->tipo_afiliado;
+//				$tit_nombre_completo = trim($no2->tit_nombres)." ".trim($no2->tit_apellidos);
+
+				$caf = $this->Auth_model->getredpatrocinios($tit_codigo,0,3);
+				foreach ($caf as $key) {
+					if ($key->afiliado==$tit_codigo and $key->nivel>0 and $key->nivel<=3) {
+						$patroc = $key->patroc_codigo;
+						$nivel = $key->nivel;
+						$afiliado = $key->afiliado;
+
+						$no3 = $this->Auth_model->getcampos($patroc);
+						$tipo_patroc = $no3->tipo_afiliado;
+						$tit_nombre_completo = trim($no3->tit_nombres)." ".trim($no3->tit_apellidos);
+
+						$naf = $this->Auth_model->getcampos($afiliado);
+						$tipo_afil = $naf->tipo_afiliado;
+						$afil_nombres = trim($naf->tit_nombres)." ".trim($naf->tit_apellidos);
+
+						$trn = $this->Auth_model->get_transac($afiliado,$fecha_afiliacion,$fecha_fin_bono);
+						$monto = $trn->monto;
+						$puntos = $trn->puntos;
+						$fectr = $trn->fecha;
+						$id_trans = $trn->id;
+						switch ($trn->tipo) {
+							case '01':
+								$tipo_trans = 'Afiliación';
+								break;
+							case '02':
+								$tipo_trans = 'Upgrade';
+								break;
+							case '03':
+								$tipo_trans = 'Nota de crédito';
+								$monto = 0;
+								break;
+							case '04':
+								$tipo_trans = 'Consumo aliados';
+								$monto = $puntos * $valor_punto;
+								break;
+							case '14':
+								$tipo_trans = 'Consumo cliente';
+								$monto = $puntos * $valor_punto;
+								break;
+							case '24':
+								$tipo_trans = 'Consumo cliente preferencial';
+								$monto = $puntos * $valor_punto;
+								break;
+						}
+						if ($monto<>0.00) {
+							if ($nivel<>0) {
+								$bon = $this->Auth_model->getbono($nivel);
+								$porcentaje = 0.00;
+								switch ($tipo_patroc) {
+									case 'Premium':
+										$porcentaje = $bon->premium;
+										break;
+									case 'VIP':
+										$porcentaje = $bon->vip;
+										break;
+									case 'Oro':
+										$porcentaje = $bon->oro;
+										break;
+								}
+							} else {
+								$porcentaje = 0.00;
+							}
+							$comision = $monto*($porcentaje/100);
+							$registro = array(
+								'patroc_codigo' => $patroc,
+								'tit_codigo' => $patroc,
+								'fecha_afiliacion' => $fecha_afiliacion,
+								'fecha_fin_bono' => $fecha_fin_bono,
+								'nivel' => $nivel,
+								'afiliado' => $afiliado,
+								'tipo_patroc' => $tipo_patroc,
+								'tipo_afil' => $tipo_afil,
+								'tipo_trans' => $tipo_trans,
+								'fectr' => $fectr,
+								'monto' => $monto,
+								'porcentaje' => $porcentaje,
+								'comision' => $comision,
+								'patroc_nombres' => $patroc_nombres,
+								'tit_nombre_completo' => $tit_nombre_completo,
+								'afil_nombres' => $afil_nombres,
+								'id_trans_origen' => $id_trans,
+								'id_trans' => 0,
+								'status_bono' => 'Pendiente'
+							);
+							$this->Auth_model->detbonoafiliacion($registro);
+						}
+					}
+				}
+			}		
+		}
+	}
+}
+/*
 	function generabono($patroc_codigo,$tit_codigo) {
 		$pto = $this->Auth_model->getpunto();
 		$valor_punto = $pto->valor_punto;
@@ -1083,14 +1224,14 @@ class Aliados extends CI_Controller {
 				$patroc_nombres = trim($no1->tit_nombres)." ".trim($no1->tit_apellidos);
 
 				$no2 = $this->Auth_model->getcampos($tit_codigo);
-				$tipo_patroc = $no2->tipo_afiliado;
+//				$tipo_patroc = $no2->tipo_afiliado;
 				$tit_nombre_completo = trim($no2->tit_nombres)." ".trim($no2->tit_apellidos);
 
 				$caf = $this->Auth_model->getorganizacion($tit_codigo,0,3);
 				foreach ($caf as $key) {
 					if ($key->afiliado==$tit_codigo and $key->nivel>=0 and $key->nivel<3) {
 						$organizacion = $key->organizacion;
-						$nivel = $key->nivel+1;
+						$nivel = $key->nivel;
 						$afiliado = $key->afiliado;
 
 						$naf = $this->Auth_model->getcampos($afiliado);
@@ -1127,18 +1268,22 @@ class Aliados extends CI_Controller {
 								break;
 						}
 						if ($monto<>0.00) {
-							$bon = $this->Auth_model->getbono($nivel);
-							$porcentaje = 0.00;
-							switch ($tipo_patroc) {
-								case 'Premium':
-									$porcentaje = $bon->premium;
-									break;
-								case 'VIP':
-									$porcentaje = $bon->vip;
-									break;
-								case 'Oro':
-									$porcentaje = $bon->oro;
-									break;
+							if ($nivel<>0) {
+								$bon = $this->Auth_model->getbono($nivel);
+								$porcentaje = 0.00;
+								switch ($tipo_patroc) {
+									case 'Premium':
+										$porcentaje = $bon->premium;
+										break;
+									case 'VIP':
+										$porcentaje = $bon->vip;
+										break;
+									case 'Oro':
+										$porcentaje = $bon->oro;
+										break;
+								}
+							} else {
+								$porcentaje = 0.00;
 							}
 							$comision = $monto*($porcentaje/100);
 							$registro = array(
@@ -1169,4 +1314,4 @@ class Aliados extends CI_Controller {
 			}		
 		}
 	}
-}
+*/

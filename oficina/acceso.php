@@ -20,6 +20,7 @@ if ($codigo<>'') {
 			$result = mysql_query($query,$link);
 			if ($row = mysql_fetch_array($result)) {
 				$_SESSION['rango'] = $row["rango"];
+				$_SESSION['tipo_afiliado'] = $row["tipo_afiliado"];
 				$_SESSION['flag'] = $row["flag"];
 
 				$quer2 = "SELECT afiliado,sum(puntos) as puntos FROM transacciones where afiliado='".trim($codigo)."' and status_comision='Pendiente' and status_comision<>'No aplica'";
@@ -41,6 +42,7 @@ if ($codigo<>'') {
 				$_SESSION['pmo'] -= $_SESSION['pm'];
 			} else {
 				$_SESSION['rango'] = '';
+				$_SESSION['tipo_afiliado'] = '';
 				$_SESSION['pm'] = 0;
 				$_SESSION['pmo'] = 0;
 			}

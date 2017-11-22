@@ -65,11 +65,13 @@ echo '<div id="cuerpo">';
 		echo '<h3>TOTAL GENERAL DE BONOS POR PAGAR<br>';
 	echo '</div>';
 
-$query = "SELECT patroc_codigo as codigo, sum(detbonoafiliacion.comision) as patrocinio,0 as unilevel FROM detbonoafiliacion where status_bono='Pendiente' group by patroc_codigo union SELECT organizacion as codigo, 0 as patrocinio,sum(detunilevel.comision) as unilevel FROM detunilevel where status_unilevel='Pendiente' group by organizacion order by codigo";
+
+$query = "SELECT patroc_codigo as codigo, sum(detbonoafiliacion.comision) as patrocinio,0 as unilevel, 0 as reembolso FROM detbonoafiliacion where status_bono='Pendiente' and nivel>0 group by patroc_codigo union SELECT organizacion as codigo, 0 as patrocinio,sum(detunilevel.comision) as unilevel, 0 as reembolso FROM detunilevel where status_unilevel='Pendiente' group by organizacion  union SELECT afiliado as codigo, 0 as patrocinio,0 as unilevel, sum(reembolso.monto) as reembolso FROM reembolso where status_comision='Pendiente' group by afiliado order by codigo";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_uni = 0.00;
 $tot_pat = 0.00;
+$tot_ree = 0.00;
 echo '<form name="gestion" method="post" action="pagototal.php">';
 $grupo = 1;
 while($row = mysql_fetch_array($result)) {
@@ -104,6 +106,11 @@ while($row = mysql_fetch_array($result)) {
 		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
+		echo "REEMBOLSO";
+		echo '<div class="caracter"></div>';
+		echo '<div class="caracter"></div>';
+		echo '<div class="caracter"></div>';
+		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
 		echo '<div class="caracter"></div>';
@@ -112,6 +119,7 @@ while($row = mysql_fetch_array($result)) {
 
 		$tot_pat = 0.00;
 		$tot_gen = 0.00;
+		$tot_ree = 0.00;
 	}
 	if ($codigo<>$row['codigo']) {
 		if ($grupo==1) {
@@ -130,7 +138,9 @@ while($row = mysql_fetch_array($result)) {
 		$txt .= '<div class="sangria"></div>';
 		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_uni,2,',','.')).'</div>';
 		$txt .= '<div class="sangria"></div>';
-		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat+$tot_uni,2,',','.')).'</div>';
+		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_ree,2,',','.')).'</div>';
+		$txt .= '<div class="sangria"></div>';
+		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat+$tot_uni+$tot_ree,2,',','.')).'</div>';
 		$txt .= '<div class="sangria"></div>';
 		$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$codigo.'"/> Pagar</div>'."<br>";
 
@@ -143,13 +153,23 @@ while($row = mysql_fetch_array($result)) {
 		$nombres = trim($ro2['tit_nombres']).' '.trim($ro2['tit_apellidos']);
 		$tot_pat = 0.00;
 		$tot_uni = 0.00;
+		$tot_ree = 0.00;
 	}
 	$codigo = $row['codigo'];
 	$patrocinio = $row['patrocinio'];
 	$unilevel = $row['unilevel'];
+	$reembolso = $row['reembolso'];
 
 	$tot_pat += $patrocinio;
 	$tot_uni += $unilevel;
+	$tot_ree += $reembolso;
+}
+if ($grupo==1) {
+	$txt = '<div class="grupo1">';
+	$grupo = 2;
+} else {
+	$txt = '<div class="grupo2">';
+	$grupo = 1;
 }
 
 $txt .= '<div class="sangria"></div>';
@@ -160,10 +180,12 @@ $txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($to
 $txt .= '<div class="sangria"></div>';
 $txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_uni,2,',','.')).'</div>';
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat+$tot_uni,2,',','.')).'</div>';
+$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_ree,2,',','.')).'</div>';
+$txt .= '<div class="sangria"></div>';
+$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat+$tot_uni+$tot_ree,2,',','.')).'</div>';
 
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$patroc_codigo.'"/> Pagar</div>'."<br>";
+$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$codigo.'"/> Pagar</div>'."<br>";
 $txt .= "</div><br>";
 
 echo $txt;
