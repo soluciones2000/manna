@@ -405,7 +405,7 @@ class Aliados extends CI_Controller {
 					);
 					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
-//					$this->email->to('soluciones2000@gmail.com,ordenesmanna@gmail.com');
+					$this->email->to('ordenesmanna@gmail.com');
 					$this->email->to('soluciones2000@gmail.com');
 					$this->email->subject('Datos de la planilla de nuevo afiliado');
 					$this->email->message($cadena);

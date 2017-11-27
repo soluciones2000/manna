@@ -10,9 +10,9 @@ if ($row = mysql_fetch_array($result)) {
    $_SESSION["valor_punto"] = $row["valor_punto"];
 } else {
    $empresa = "Error al conectar a la base de datos.";
-   $_SESSION["iva1"] = 0;
-   $_SESSION["iva2"] = 0;
-   $_SESSION["iva3"] = 0;
+   $_SESSION["iva1"] = 0.00;
+   $_SESSION["iva2"] = 0.00;
+   $_SESSION["iva3"] = 0.00;
    $_SESSION["valor_punto"] = 0.00;
 }
 ?>

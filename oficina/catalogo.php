@@ -39,15 +39,18 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 				$id_pro = $row["id_pro"];
 				$desc_corta = utf8_encode($row["desc_corta"]);
 				$desc_pro = trim(utf8_encode($row["desc_pro"]));
-				$precio_pro = $row["pvp_dist"];
+				$puntos_pro = $row["pts_dist"];
+				if ($_SESSION["iva2"]<>0.00) {
+					$precio_pro = $row["pvp_dist"]/(1+($_SESSION["iva2"]/100));
+				} else {
+					$precio_pro = $row["pvp_dist"];
+				}
 				$imagen = $row["imagen"];
 				if (file_exists('img/'.trim($imagen).'.jpg')) {
 					$imagen = 'img/'.trim($imagen).'.jpg';
 				} else {
 					$imagen = 'img/sin_imagen.jpg';
 				}
-
-
 				if ($contador==1) {
 					echo '<tr>';
 				}
@@ -56,6 +59,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo trim($id_pro).'<br>';
 					echo trim($desc_corta).'<br>';
 					echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
+					echo 'Puntos Manna: '.trim(number_format($puntos_pro,2,',','.')).'<br>';
 					echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
 				echo '</td>';
 				if ($contador==4) {

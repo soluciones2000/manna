@@ -44,17 +44,26 @@
 								if ($row = mysql_fetch_array($result)) {
 									$id_pro = $row["id_pro"];
 									$desc_corta = utf8_encode($row["desc_corta"]);
-									$precio_pro = $row["pvp_clipref"];
+									if ($_SESSION["iva2"]<>0.00) {
+										$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
+									} else {
+										$precio_pro = $row["pvp_clipref"];
+									}
 									$valor_comisionable_pro = $row["com_clipref"];
 									$puntos_pro = $row["pts_clipref"];
 									$_SESSION["precio_pro"][$prod] = $precio_pro;
 									$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 									$_SESSION["puntos_pro"][$prod] = $puntos_pro;
 									$imagen = $row["imagen"];
+									if (file_exists('img/'.trim($imagen).'.jpg')) {
+										$imagen = 'img/'.trim($imagen).'.jpg';
+									} else {
+										$imagen = 'img/sin_imagen.jpg';
+									}
 									echo '<tr>';
 										echo '<td align="center" width="100px">';
 //											echo '<a href="borra.php?prd='.$prod.'"><img src="eliminar.jpg" style="vertical-align:middle;"></a>';
-											echo  '<img SRC="img/'.trim($imagen).'.jpg" width="50px" height="50px" style="vertical-align:middle;">';
+											echo  '<img SRC="'.trim($imagen).'" width="50px" height="50px" style="vertical-align:middle;">';
 										echo '</td>';
 										echo '<td align="left" width="380px" style="padding:2%">';
 											echo trim($id_pro).' - '.trim($desc_corta);

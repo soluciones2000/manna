@@ -96,6 +96,11 @@ class Cliente extends CI_Controller {
 					if (!$this->email->send()) {
 						echo $this->email->print_debugger();
 					}
+					$this->email->message("Se ha enviado el siguiente mensaje:<br><br>".$this->mensaje($registro,$patroc_nombre_completo));
+					$this->email->to('ordenesmanna@gmail.com');
+					if (!$this->email->send()) {
+						echo $this->email->print_debugger();
+					}
 					// fin envío email
 				}
 			}

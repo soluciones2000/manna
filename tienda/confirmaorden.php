@@ -128,7 +128,7 @@ if ($error) {
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
 	$cabeceras = 'Content-type: text/html;';
 	if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {	           	
-//		mail("soluciones2000@gmail.com,ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
+		mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 		mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
 		mail($_SESSION["email"],$asunto,$mensaje,$cabeceras);
 	}
@@ -142,7 +142,8 @@ if ($error) {
 	$_SESSION["monto"] = 0.00;
 	$_SESSION["comisionable"] = 0.00;
 	$_SESSION["puntos"] = 0;
-	$cadena = 'Location: exito.php'; 
+//	$cadena = 'Location: exito.php';
+	$cadena = 'Location: exito.php?orden='.trim($orden_id); 
 }
 /*
 echo 'mensaje3 '.$mensaje3.'<br>';

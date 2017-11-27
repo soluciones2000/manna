@@ -43,24 +43,32 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 						$_SESSION["puntos_pro"][$prod] = $puntos_pro;
 						$imagen = $row["imagen"];
+						if (file_exists('img/'.trim($imagen).'.jpg')) {
+							$imagen = 'img/'.trim($imagen).'.jpg';
+						} else {
+							$imagen = 'img/sin_imagen.jpg';
+						}						
 						echo '<tr>';
 							echo '<td align="center" width="100px">';
-								echo  '<img SRC="img/'.trim($imagen).'.jpg" width="50px" height="50px" style="vertical-align:middle;">';
+								echo  '<img SRC="'.trim($imagen).'" width="50px" height="50px" style="vertical-align:middle;">';
 							echo '</td>';
 							echo '<td align="left" width="380px" style="padding:2%">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
-							echo '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
+							echo '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'<br>';
+							echo '<font size="2">(PM. '.number_format($puntos_pro,2,',','.').')</font></td>';
 							echo '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
-							echo '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.');
-									$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
-									$valorcom += $_SESSION["orden"][$prod]*$valor_comisionable_pro;
-									$ptsorden += $_SESSION["orden"][$prod]*$puntos_pro;
+							echo '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'<br>';
+							echo '<font size="2">(PM. '.number_format($_SESSION["orden"][$prod]*$puntos_pro,2,',','.').')</font>';
+							$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
+							$valorcom += $_SESSION["orden"][$prod]*$valor_comisionable_pro;
+							$ptsorden += $_SESSION["orden"][$prod]*$puntos_pro;
 							echo '</td>';
 						echo '</tr>';
 					}
 				}
 				echo '<tr>';
 					echo '<td colspan="4" align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
-					echo '<td align="right"><b>Bs. '.number_format($subtotal,2,',','.').'</b></td>';
+					echo '<td align="right"><b>Bs. '.number_format($subtotal,2,',','.').'<br>';
+					echo '<font size="2">(PM. '.number_format($ptsorden,2,',','.').')(**)</font>'.'</b></td>';
 				echo '</tr>';
 				echo '<tr>';
 					echo '<td colspan="4" align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
@@ -72,14 +80,15 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 				echo '</tr>';
 				echo '<tr>';
 					echo '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
-						echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
-						echo '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
+						echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.<br>';
+						echo 'En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
 							$_SESSION["monto"] = $subtotal;
 							$_SESSION["comisionable"] = $valorcom;
 							$_SESSION["puntos"] = $ptsorden;
 			 				if ($subtotal>2000000) { echo number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
 							else { echo number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
 						echo '</p>';
+						echo '<p align="justify"><b>(**)</b> Al cancelar esta compra usted acumulará '.number_format($ptsorden,2,',','.').' PM.</p>';
 					echo '</td>';
 					echo '<td align="center">';
 						echo '<form method="post" action="confirmaorden.php">';

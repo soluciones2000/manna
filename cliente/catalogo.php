@@ -9,14 +9,17 @@
 								$id_pro = $row["id_pro"];
 								$desc_corta = utf8_encode($row["desc_corta"]);
 								$desc_pro = trim(utf8_encode($row["desc_pro"]));
-								$precio_pro = $row["pvp_clipref"];
+								if ($_SESSION["iva2"]<>0.00) {
+									$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
+								} else {
+									$precio_pro = $row["pvp_clipref"];
+								}
 								$imagen = $row["imagen"];
 								if (file_exists('img/'.trim($imagen).'.jpg')) {
 									$imagen = 'img/'.trim($imagen).'.jpg';
 								} else {
 									$imagen = 'img/sin_imagen.jpg';
 								}
-								
 								if ($contador==1) {
 									echo '<tr>';
 								}
