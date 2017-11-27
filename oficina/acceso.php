@@ -22,6 +22,7 @@ if ($codigo<>'') {
 				$_SESSION['rango'] = $row["rango"];
 				$_SESSION['tipo_afiliado'] = $row["tipo_afiliado"];
 				$_SESSION['flag'] = $row["flag"];
+				$_SESSION['pmo'] = $row["pmo"];
 
 				$quer2 = "SELECT afiliado,sum(puntos) as puntos FROM transacciones where afiliado='".trim($codigo)."' and status_comision='Pendiente' and status_comision<>'No aplica'";
 				$resul2 = mysql_query($quer2,$link);
