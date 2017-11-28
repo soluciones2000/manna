@@ -68,10 +68,8 @@ $cedula = isset($_GET['cedula']) ? $_GET['cedula'] : '';
 					            	</tr>
 
 					            </table>
-					            <br>
-					            <INPUT type="submit" value="Enviar">
+					            <p align="center"><INPUT type="submit" value="Enviar"></p>
 	        				</form>
-							<br>
 						</div>
 					</div>
 				</td>

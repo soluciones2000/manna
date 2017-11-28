@@ -35,7 +35,7 @@ $st = isset($_GET['st']) ? $_GET['st'] : '';
 						<div style="margin: 0% 15% 0% 15%">
 					        <form name="promo" method="post" action="promo.php">
 					            <table border=0>
-					            	<tr>
+<!-- 					            	<tr>
 					            		<td>
 					            			Número de ticket:
 					            		</td>
@@ -43,7 +43,7 @@ $st = isset($_GET['st']) ? $_GET['st'] : '';
 								            <INPUT type="text" name="ticket" maxlength="5" size="5" pattern="[0-9]{5}" title="Este campo sólo puede tener números" required>            			
 					            		</td>
 					            	</tr>
-					            	<tr>
+ -->					            	<tr>
 					            		<td>
 					            			Cédula de identidad:
 					            		</td>
@@ -52,10 +52,8 @@ $st = isset($_GET['st']) ? $_GET['st'] : '';
 					            		</td>
 					            	</tr>
 					            </table>
-					            <br>
-					            <INPUT type="submit" value="Enviar">
+					            <p align="center"><INPUT type="submit" value="Enviar"></p>
 	        				</form>
-							<br>
 						</div>
 					</div>
 				</td>

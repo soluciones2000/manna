@@ -84,17 +84,20 @@ $mensaje .= "TOTAL A PAGAR Bs. ".number_format($tota2,2,',','.')."<br>";
 if ($codigo<>"") {
 	$mensaje .= "TOTAL MP: ".number_format($tomp2,0,',','.')."<br>";
 }
-$asunto = "Orden de pedido promoción experiencia Manna: ".$orden_id;
+$asunto = "Orden de pedido promoción Navidad 2017: ".$orden_id;
 $cabeceras = 'Content-type: text/html;';
-mail("soluciones2000@gmail.com,baudetguerra@gmail.com",$asunto,$mensaje,$cabeceras);
-
+if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {	           	
+	mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
+	mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
+}
 $mensaje .= "<br>";
 $mensaje .= "Para hacer efectivo el pedido debe realizar el depósito o transferencia de este monto y enviarlo por email a depositosbancarios@corporacionmanna.com<br>";
 
 $asunto = "Orden de pedido promoción experiencia Manna: ".$orden_id;
 $cabeceras = 'Content-type: text/html;';
-mail($email,$asunto,$mensaje,$cabeceras);
-
+if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {	           	
+	mail($email,$asunto,$mensaje,$cabeceras);
+}
 echo '<div>';
 echo $mensaje;
 echo '</div>';

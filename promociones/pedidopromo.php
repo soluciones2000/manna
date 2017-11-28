@@ -6,7 +6,8 @@ $id = isset($_GET['id']) ? $_GET['id'] : 0;
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>PEDIDOS CON TICKETS DE PROMOCIÓN</h3>
+		<!-- <h3>PEDIDOS CON TICKETS DE PROMOCIÓN</h3> -->
+		<h3>PEDIDOS DE PROMOCIÓN</h3>
 	</div>
 	<?php
 	$quer1 = "SELECT * FROM tickets where id=".$id;
@@ -20,9 +21,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : 0;
         <?php
 			echo '<input type="hidden" name="id" value="'.trim($id).'">';
 		?>
-		<table border="1" align="center" width="40%">
+		<table border="1" align="center" width="70%">
 			<tr>
-				<th colspan="3">
+				<th colspan="4">
 					PRODUCTOS
 				</th>
 				<th>
@@ -36,10 +37,12 @@ $id = isset($_GET['id']) ? $_GET['id'] : 0;
 					$promo_kit = $ro2["promo_kit"];
 					$promo_nombre = $ro2["promo_nombre"];
 					$promo_precio = $ro2["promo_precio"];
+					$promo_puntos = $ro2["promo_puntos"];
 					echo '<tr>';
 						echo '<td align="center">'.trim($promo_kit).'</td>';
 						echo '<td> '.trim($promo_nombre).'</td>';
-						echo '<td align="right">'.number_format($promo_precio,2,',','.').'</td>';
+						echo '<td align="right">Bs. '.number_format($promo_precio,2,',','.').'</td>';
+						echo '<td align="right">'.number_format($promo_puntos,2,',','.').' PM</td>';
 						echo '<td align="center"><INPUT type="number" name="'.trim($promo_kit).'" maxlength="5" size="5" min="0" max="99999" pattern="[0-9]{0-5}" title="Este campo sólo puede tener números" align="right">';
 						echo '</td>';
 					echo '</tr>';
@@ -48,9 +51,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : 0;
 
 		</table>
 		<br>
-		<table border="0" align="center" width="40%">
+		<table border="0" align="center" width="70%">
 			<tr>
-				<td>
+				<td align="center">
 					<INPUT type="submit" value="Enviar orden">
 				</td>
 			</tr>

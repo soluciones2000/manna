@@ -6,7 +6,8 @@ $id = isset($_POST['id']) ? $_POST['id'] : 0;
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>PEDIDOS CON TICKETS DE PROMOCIÓN</h3>
+		<!-- <h3>PEDIDOS CON TICKETS DE PROMOCIÓN</h3> -->
+		<h3>PEDIDOS DE PROMOCIÓN</h3>
 	</div>
 	<?php
 	$quer1 = "SELECT * FROM tickets where id=".$id;
@@ -33,9 +34,9 @@ $id = isset($_POST['id']) ? $_POST['id'] : 0;
 
 	<div>
         <form name="orden" method="post" action="regorden.php">
-		<table border="1" align="center" width="40%">
+		<table border="1" align="center" width="75%">
 			<tr>
-				<th colspan="3">PRODUCTOS</th>
+				<th colspan="4">PRODUCTOS</th>
 				<th>CANTIDAD</th>
 				<th>MONTO</th>
 			</tr>
@@ -53,29 +54,31 @@ $id = isset($_POST['id']) ? $_POST['id'] : 0;
 					$promo_kit = $ro2["promo_kit"];
 					$promo_nombre = $ro2["promo_nombre"];
 					$promo_precio = $ro2["promo_precio"];
+					$promo_puntos = $ro2["promo_puntos"];
 					$cantidad = $_POST[trim($promo_kit)];
-
-					echo '<input type="hidden" name="'.trim($promo_kit).'" value="'.$_POST[trim($promo_kit)].'">';
-
-					$total += $cantidad*$promo_precio;
-					echo '<tr>';
-						echo '<td align="center">'.trim($promo_kit).'</td>';
-						echo '<td> '.trim($promo_nombre).'</td>';
-						echo '<td align="right">'.number_format($promo_precio,2,',','.').'</td>';
-						echo '<td align="right">'.$cantidad.'</td>';
-						echo '<td align="right">'.number_format($cantidad*$promo_precio,2,',','.').'</td>';
-					echo '</tr>';
+					if ($cantidad>0) {
+						echo '<input type="hidden" name="'.trim($promo_kit).'" value="'.$_POST[trim($promo_kit)].'">';
+						$total += $cantidad*$promo_precio;
+						echo '<tr>';
+							echo '<td align="center">'.trim($promo_kit).'</td>';
+							echo '<td> '.trim($promo_nombre).'</td>';
+							echo '<td align="right">Bs. '.number_format($promo_precio,2,',','.').'</td>';
+							echo '<td align="right">'.number_format($promo_puntos,2,',','.').' PM</td>';
+							echo '<td align="right">'.$cantidad.'</td>';
+							echo '<td align="right">Bs. '.number_format($cantidad*$promo_precio,2,',','.').'</td>';
+						echo '</tr>';
+					}
 				}
 				?>
-				<th colspan="4" align="right">TOTAL ORDEN</th>
+				<th colspan="5" align="right">TOTAL ORDEN</th>
 				<?php
-					echo '<th align="right">'.number_format($total,2,',','.').'</th>';
+					echo '<th align="right">Bs. '.number_format($total,2,',','.').'</th>';
 				?>
 		</table>
 		<br>
-		<table border="0" align="center" width="40%">
+		<table border="0" align="center" width="75%">
 			<tr>
-				<td>
+				<td align="center">
 					<INPUT type="submit" value="Confirmar orden">
 				</td>
 			</tr>
