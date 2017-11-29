@@ -94,6 +94,9 @@ $route['reg_cliente'] = 'cliente/reg_cliente'; //aqui es el controlador y el met
 $route['crea_user'] = 'aliados/crea_user'; //aqui es el controlador y el metodo
 $route['contrato'] = 'aliados/contrato'; //aqui es el controlador y el metodo
 
+
+$route['fechas'] = 'ayuda/fechas'; //aqui es el controlador y el metodo
+
 /*
 $route['crea_organizacion'] = 'registrodatos/crea_organizacion'; //aqui es el controlador y el metodo
 

@@ -46,7 +46,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <?php endif; ?>
         </li>
       
-        <li <?php if(isset($active) && $active=="contacto"){ echo 'class="active"';} ?>><a href="<?php echo base_url(); ?>contacto">Contáctenos</a></li>
+        <li <?php if(isset($active) && $active=="ayuda"){ echo 'class="active"';} ?> class="dropdown">
+          <?php if (strpos(base_url(),'localhost')==FALSE): ?>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ayuda<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url(); ?>fechas">Tutorial insertar fechas</a></li>
+              <li><a href="<?php echo base_url(); ?>contacto">Contáctenos</a></li>
+            </ul>
+          <?php else: ?>
+              <li><a href="<?php echo base_url(); ?>fechas">Tutorial insertar fechas</a></li>
+              <li><a href="<?php echo base_url(); ?>contacto">Contáctenos</a></li>
+          <?php endif; ?>
+        </li>
+            <!-- <li <?php if(isset($active) && $active=="contacto"){ echo 'class="active"';} ?>><a href="<?php echo base_url(); ?>contacto">Contáctenos</a></li> -->
 
       </ul>
     </div><!-- /.navbar-collapse -->
