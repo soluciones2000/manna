@@ -15,12 +15,14 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 										echo '<tr>';
 											echo '<th>Orden</th>';
 											echo '<th>Fecha</th>';
+											echo '<th>Monto</th>';
 											echo '<th>Status</th>';
 										echo '</tr>';
 										while ($row = mysql_fetch_array($result)) {
 											echo '<tr>';
 												echo '<td align="center">'.$row['orden_id'].'</td>';
 												echo '<td>'.substr($row['fecha'],8,2).'/'.substr($row['fecha'],5,2).'/'.substr($row['fecha'],0,4).'</td>';
+												echo '<td align="right">'.number_format($row['monto'],2,',','.').'</td>';
 												echo '<td>'.$row['status_orden'].'</td>';
 											echo '</tr>';
 										}

@@ -16,13 +16,14 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		$row = mysql_fetch_array($result);
 		$puntos = $row["pts_acum"];
 		echo number_format($puntos,2,',','.');
+//		echo $puntos;
 	?>
-	 Puntos</b>, los cuales caducan el <b>
+	 puntos</b>, los cuales caducan el <b>
 	<?php 
-		$query = "SELECT fecha_afiliacion from afiliados WHERE tit_codigo='".$codigo."'";
+		$query = "SELECT fecha_180 from afiliados WHERE tit_codigo='".$codigo."'";
 		$result = mysql_query($query,$link);
 		$row = mysql_fetch_array($result);
-		$fecha_afiliacion = $row["fecha_afiliacion"];
+		$fecha_afiliacion = $row["fecha_180"];
 		$fecha_fin = strtotime('+1 year', strtotime ($fecha_afiliacion));
 		$fecha_fin = date ( 'Y-m-d' , $fecha_fin );
 		$fecha_fin_180 = substr($fecha_fin,8,2).'/'.substr($fecha_fin,5,2).'/'.substr($fecha_fin,0,4);

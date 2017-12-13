@@ -322,6 +322,7 @@ class Especialistas extends CI_Controller {
 	           	'tipo_kit' => $tipo_kit,
 	           	'fecha_afiliacion' => date("Y-m-d"),
 	           	'mes_afiliacion' => substr(date('Y-m-d'),5,2),
+	           	'fecha_180' => date("Y-m-d"),
 	           	'envio' => $sienvia,
 	           	'direccion_envio' => $direccion_envio,
 	           	'status_afiliado' => "Activo",

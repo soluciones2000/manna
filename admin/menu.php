@@ -77,10 +77,10 @@
 					</td>
 					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
-							<?php if ($menu=="transac"): ?>
-								Cierre mensual
+							<?php if ($menu=="c180"): ?>
+								Canje club 180
 							<?php else: ?>
-								<a href="#">Cierre mensual</a>
+								<a href="club180.php">Canje club 180</a>
 							<?php endif; ?>
 						</font>
 					</td>

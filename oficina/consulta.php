@@ -35,7 +35,7 @@ $movimiento = 0.00;
 $final = 0.00;
 
 //$query = "SELECT * from billetera WHERE afiliado='".$codigo."' AND tipo_trans='".$tipo."' and mesmov='".substr(date('Y-m-d'),5,2)."' order by afiliado,mesmov,fecmov,tipmov,tipo_trans,numdoc";
-$query = "SELECT * from billetera WHERE afiliado='".$codigo."' AND tipo_trans='".$tipo."' order by afiliado,mesmov,fecmov,tipmov,tipo_trans,numdoc";
+$query = "SELECT * from billetera WHERE afiliado='".$codigo."' AND tipo_trans='".$tipo."' order by afiliado,mesmov,fecmov,tipmov,id";
 if ($result = mysql_query($query,$link)) {
 	while ($row = mysql_fetch_array($result)) {
 		$fecmov = $row["fecmov"];
@@ -111,14 +111,14 @@ $linea = 1;
 			<th width="15%">Monto</th>
 		</tr>
 		<tr bgcolor="#A4A4A4">
-			<td>01/<?php echo $mes; ?>/<?php echo $ano; ?></td>
+			<td align="center">01/<?php echo $mes; ?>/<?php echo $ano; ?></td>
 			<td> </td>
 			<td>Saldo Inicial</td>
 			<td align="right"><?php echo $x = ($inicial>=0) ? number_format($inicial,2,',','.') : '' ; ?></td>
 		</tr>
 		<?php 
 			$linea++;
-			$query = "SELECT * from billetera WHERE afiliado='".$codigo."' AND tipo_trans='".$tipo."' and mesmov='".substr(date('Y-m-d'),5,2)."' order by afiliado,mesmov,fecmov,tipmov,tipo_trans,numdoc";
+			$query = "SELECT * from billetera WHERE afiliado='".$codigo."' AND tipo_trans='".$tipo."' and mesmov='".substr(date('Y-m-d'),5,2)."' order by afiliado,mesmov,fecmov,tipmov,id";
 			if ($result = mysql_query($query,$link)) {
 				while ($row = mysql_fetch_array($result)) {
 					$fecmov = $row["fecmov"];
@@ -148,7 +148,7 @@ $linea = 1;
 			}
 		?>
 		<tr bgcolor="#A4A4A4">
-			<td><?php echo substr(date("Y-m-d"),8,2).'/'.substr(date("Y-m-d"),5,2).'/'.substr(date("Y-m-d"),0,4); ?></td>
+			<td align="center"><?php echo substr(date("Y-m-d"),8,2).'/'.substr(date("Y-m-d"),5,2).'/'.substr(date("Y-m-d"),0,4); ?></td>
 			<td> </td>
 			<td>Saldo Final</td>
 			<td align="right"><?php echo $x = ($final>=0) ? number_format($final,2,',','.') : '' ; ?></td>

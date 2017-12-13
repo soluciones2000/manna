@@ -19,6 +19,16 @@ while($row = mysql_fetch_array($result)) {
 	$resul3 = mysql_query($quer3,$link);
 }
 
+$query = "SELECT organizacion,sum(comision) as monto FROM repunilevelindiv group by organizacion order by organizacion";
+$result = mysql_query($query,$link);
+while($row = mysql_fetch_array($result)) {
+	$afiliado = $row['organizacion'];
+	$comision = $row['monto'];
+
+	$query = "INSERT INTO billetera (afiliado, fecmov, mesmov, tipmov, numdoc, tipo_trans, concepto, creditos, debitos) VALUES ('".$afiliado."', '".date("Y-m-d")."', '".date("m")."', 'Crédito', '".date("Ymd").trim($afiliado)."', 'CA', 'Comisiones en cuenta No. ".date("Ymd").trim($afiliado)."', ".$comision.", 0.00)";
+	$result = mysql_query($query,$link);
+}
+
 $cadena = 'Location: inicio.php?user='.$_SESSION['user']; 
 header($cadena);
 ?>

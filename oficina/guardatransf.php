@@ -14,5 +14,5 @@ if ($result = mysql_query($query,$link)) {
 	$result = mysql_query($query,$link);
 	$cadena = 'Location: exito.php';
 }
-//header($cadena);
+header($cadena);
 ?>

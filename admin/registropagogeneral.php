@@ -15,6 +15,8 @@ foreach ($_POST as $key => $value) {
 	echo $query.'<br><br>';
 	$result = mysql_query($query,$link);
 
+	$query = "INSERT INTO billetera (afiliado, fecmov, mesmov, tipmov, numdoc, tipo_trans, concepto, creditos, debitos) VALUES ('".$key."', '".date("Y-m-d")."', '".date("m")."', 'Crédito', '".$id_trans."', 'CA', 'Comisiones en cuenta No. ".$id_trans."', ".$value.", 0.00)";
+	$result = mysql_query($query,$link);
 }
 $cadena = 'Location: inicio.php?user='.$_SESSION['user']; 
 header($cadena);
