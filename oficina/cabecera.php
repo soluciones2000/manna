@@ -98,7 +98,7 @@ if ($row = mysql_fetch_array($result)) {
             color: white;
             display: block;
             padding: 5px;
-            margin-bottom: 10px;
+            margin-bottom: 9px;
             text-decoration: none;
             text-align: center;
          }
