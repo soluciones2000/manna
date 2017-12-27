@@ -1,11 +1,13 @@
 <?php
-session_start(); 
-include_once("conexion.php");
+ session_start(); 
+ include_once("conexion.php");
 $codigo = $_POST['c'];
-// $codigo = '00000';
-$where = "";
-$query = "select tit_nombres, tit_apellidos, email from afiliados where tit_codigo<>'".trim($codigo)."'";
+//$codigo = '00000';
 
+$where = "";
+//$query = "select tit_nombres, tit_apellidos, email from afiliados where tit_codigo<>'".trim($codigo)."'";
+$query = "select organizacion.organizacion,organizacion.nivel,afiliados.* from organizacion left outer join afiliados on organizacion.afiliado=afiliados.tit_codigo where organizacion.organizacion='".trim($codigo)."' and organizacion.afiliado<>'".trim($codigo)."'";
+$order = " order by nivel,tit_codigo";
 $cond ='';
 foreach ($_POST as $key => $value) {
    $cond .= '***'.$key.'='.$value;
@@ -185,7 +187,7 @@ $cabeceras = "From: ".$ro4["email"]."; Content-type: text/html;";
 // //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
 // $resul2 = mysql_query($quer2,$link);
 
-$query .= $where;
+$query .= $where.$order;
 echo $query.'<br>';
 echo $quer4.'<br>';
 echo $quer2.'<br>';
@@ -202,9 +204,9 @@ if ($seleccionar) {
          if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {             
             mail($row["email"],$_POST["asunto"],$_POST["cuerpo"],$cabeceras);
          }
-//         $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$row["email"]."')";
+        $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$row["email"]."')";
          // //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
-//         $resul2 = mysql_query($quer2,$link);
+        $resul2 = mysql_query($quer2,$link);
       }
    }
 } else {
@@ -212,79 +214,61 @@ if ($seleccionar) {
       if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {             
          mail($row["email"],$_POST["asunto"],$_POST["cuerpo"],$cabeceras);
       }
-//      $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$row["email"]."')";
+     $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$row["email"]."')";
       // //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
-//      $resul2 = mysql_query($quer2,$link);
+     $resul2 = mysql_query($quer2,$link);
    }
 }
 
 $emails = (isset($_POST["emails"])) ? $_POST["emails"] : "" ;
-$pos = 0;
-$arb = 0;
-$pto = 0;
-$dirx = "";
-$ini = 0;
+//$emails = "sgcvzla@gmail.com,soluciones2000@gmail.com,luisrodriguezestrada@hotmail.com" ;
 if (strlen($emails)>0) {
+   $pos = 0;
+   $arb = 0;
+   $pto = 0;
+   $dirx = "";
+   $ini = 0;
+   $largo = strlen($emails);
+   echo 'emails '.$emails.'<br>';
+   echo 'strlen(emails) '.strlen($emails).'<br>';
    echo "si<br>";
-   echo 'len '.strlen($emails).'<br>';
-   for ($i=0; $i < strlen($emails); $i++) {
+   echo 'largo '.$largo.'<br>';
+   echo 'ini < largo'.($ini < $largo).'<br>';
+   echo "ini ".$ini.'<br><br>';
+   while ($i <= $largo) {
       $pos = strpos($emails,',',$ini);
-      echo 'pos '.$pos.'<br>';
-      if ($pos>0 and $pos<=strlen($emails)) {
-         $dirx = substr($emails,$i,$pos);
-         $arb = strpos($dirx,'@');
-         $pto = strpos($dirx,'.',$arb);
-         $i = $ini+strlen($dirx);
-         $ini = $i;
-         echo 'i '.$i.'<br>';
-         echo 'pos '.$pos.'<br>';
-         echo 'dirx '.$dirx.'<br>';
-         echo 'arb '.$arb.'<br>';
-         echo 'pto '.$pto.'<br>';
-         echo 'i '.$i.'<br>';
-         echo 'ini '.$ini.'<br>';
-         if ($arb>0 and $pto>0) {
-            echo 'envio<br>';
-            if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {             
-               mail($dirx,$_POST["asunto"],$_POST["cuerpo"],$cabeceras);
-            }
-//            $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$dirx."')";
-//            $quer2 = "insert into mensajes (codigo,mensaje) values ('00000','".$dirx."')";
-            echo $quer2.'<br><br>';
-            //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
-//            $resul2 = mysql_query($quer2,$link);
-         }
+      $si = false;
+      if ($pos>0) {
+         $len = $pos-$ini;
+         $dirx = substr($emails,$ini,$len);
+         $si = true;
+         $ini += $len+1;
       } else {
-         $dirx = $emails;         
+         if ($ini<$largo) {
+            $dirx = substr($emails,$ini);
+            $si = true;
+         }
+         $i = $largo;
+      }
+      if ($si) {
          $arb = strpos($dirx,'@');
          $pto = strpos($dirx,'.',$arb);
-         $i = $ini+strlen($dirx);
-         $ini = $i;
-         echo 'i '.$i.'<br>';
-         echo 'pos '.$pos.'<br>';
-         echo 'dirx '.$dirx.'<br>';
          echo 'arb '.$arb.'<br>';
          echo 'pto '.$pto.'<br>';
-         echo 'i '.$i.'<br>';
-         echo 'ini '.$ini.'<br>';
          if ($arb>0 and $pto>0) {
             echo 'envio<br>';
             if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {             
                mail($dirx,$_POST["asunto"],$_POST["cuerpo"],$cabeceras);
             }
-//            $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$dirx."')";
-//            $quer2 = "insert into mensajes (codigo,mensaje) values ('00000','".$dirx."')";
+           $quer2 = "insert into mensajes (codigo,mensaje) values ('".$codigo."','".$dirx.' 1 '.strval($pos).' '.strval($ini).' '.strval(strlen($emails))."')";
             echo $quer2.'<br><br>';
-            //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
-//            $resul2 = mysql_query($quer2,$link);
+//           $resul2 = mysql_query($quer2,$link);
          }
       }
+      $i+=10;
    }
 } else {
    echo "no";
 }
 
-// $quer2 = 'insert into mensajes (codigo,mensaje) values ("'.$codigo.'","'.$query.$where.'")';
-// //$quer2 = "insert into mensajes (codigo,mensaje) values ('00000','prueba')";
-// $resul2 = mysql_query($quer2,$link);
 ?>
