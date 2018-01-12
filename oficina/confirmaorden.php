@@ -117,15 +117,15 @@ if ($error) {
 //			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
-		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
-				$mensaje .= '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
-				$mensaje .= '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs.';
-					if ($subtotal>2000000) { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
-					else { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
-				$mensaje .= '.</p>';
-			$mensaje .= '</td>';
-		$mensaje .= '</tr>';
+//		$mensaje .= '<tr>';
+//			$mensaje .= '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
+//				$mensaje .= '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
+//				$mensaje .= '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs.';
+//					if ($subtotal>2000000) { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
+//					else { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
+//				$mensaje .= '.</p>';
+//			$mensaje .= '</td>';
+//		$mensaje .= '</tr>';
 	$mensaje .= '</table>';
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
 	$cabeceras = 'Content-type: text/html;';

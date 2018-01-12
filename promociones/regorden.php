@@ -35,7 +35,7 @@ while($ro2 = mysql_fetch_array($resul2)) {
 	$totmp += $cantidad*$promo_puntos;
 }
 
-$quer3 = "INSERT INTO ordenes_promocion (promo_id, ticket, codigo, cedula, fecha, monto, promo_puntos) VALUES (".$promo_id.",'".trim($ticket)."','".trim($codigo)."','".trim($cedula)."','".$fecha."',".$total.",".$totmp.")";
+$quer3 = "INSERT INTO ordenes_promocion (promo_id, ticket, codigo, cedula, fecha, monto, saldo, promo_puntos) VALUES (".$promo_id.",'".trim($ticket)."','".trim($codigo)."','".trim($cedula)."','".$fecha."',".$total.",".$total.",".$totmp.")";
 $resul3 = mysql_query($quer3,$link);
 
 $quer4 = "SELECT * FROM ordenes_promocion where promo_id=".$promo_id." and ticket='".trim($ticket)."' and codigo='".trim($codigo)."' and cedula='".trim($cedula)."' and fecha='".$fecha."'";

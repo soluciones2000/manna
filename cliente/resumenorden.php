@@ -96,10 +96,12 @@
 						 	<td colspan="4" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>
 						 	<td align="right"><b><?php echo 'Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.'); ?></b></td>
 						 </tr>
+					</table>
+					<table border="0" width="auto" align="center">
 						 <tr>
-						 	<td colspan="4" style="padding-right:2%;padding-left:2%;">
-						 		<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>
-						 		<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. <?php 
+						 	<!-- <td colspan="4" style="padding-right:2%;padding-left:2%;"> -->
+						 		<!-- <p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p> -->
+						 		<!-- <p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. <?php
 									$_SESSION["monto"] = $subtotal;
 									$_SESSION["comisionable"] = $valorcom;
 									$_SESSION["puntos"] = $ptsorden;
@@ -108,11 +110,11 @@
 									} else {
 										echo number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.');
 									}
-								?></p>
-						 	</td>
+								?></p> -->
+						 	<!-- </td> -->
 						 	<td align="center">
 						 		<form method="post" action="confirmaorden.php">
-							 		<input type="submit" name="ordenar" value="Confirmar orden">
+							 		<p><input type="submit" name="ordenar" value="Confirmar orden"></p>
 						 		</form>
 						 	</td>
 						 </tr>

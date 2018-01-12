@@ -86,16 +86,16 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 				echo '</tr>';
 				echo '<tr>';
 					echo '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
-						echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.<br>';
-						echo 'En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
-							if ($subtotal>2000000) { echo number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
-							else { echo number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
-						echo '</p>';
+						// echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.<br>';
+						// echo 'En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
+						// 	if ($subtotal>2000000) { echo number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
+						// 	else { echo number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
+						// echo '</p>';
 						echo '<p align="justify"><b>(**)</b> Al cancelar esta compra usted acumulará '.number_format($totpts,2,',','.').' PM.</p>';
 					echo '</td>';
 					echo '<td align="center">';
 						echo '<form method="post" action="resumenorden.php">';
-							echo '<input type="submit" name="ordenar" value="Completar orden">';
+							echo '<p><input type="submit" name="ordenar" value="Completar orden"></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';

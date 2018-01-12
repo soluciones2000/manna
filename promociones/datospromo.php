@@ -7,7 +7,7 @@ $cedula = isset($_GET['cedula']) ? $_GET['cedula'] : '';
 ?>
 <div id="cuerpo">
 	<div style="text-align:center">
-		<h3>PEDIDOS CON TICKETS DE PROMOCIÓN</h3>
+		<h3>PEDIDOS DE PROMOCIÓN</h3>
 	</div>
 	<div style="text-align:center">
 		<h4><font color="red">DATOS DEL PARTICIPANTE</font></h4>

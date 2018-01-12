@@ -1,7 +1,7 @@
 <?php 
 
-//$scope = "local";
-$scope = "pruebas";
+$scope = "local";
+//$scope = "pruebas";
 /*
 if (strpos(base_url(),'localhost')!==FALSE) {
 	$scope = "local";
