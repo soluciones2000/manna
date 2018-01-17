@@ -906,7 +906,7 @@ class Aliados extends CI_Controller {
 	       	'bancoorigen' => $bancoorigen,
 	       	'status_comision' => 'Pendiente'
         );
-		$this->Auth_model->transaccion($registro);
+//		$this->Auth_model->transaccion($registro);
 	}
 
 // Comentario
@@ -1022,7 +1022,7 @@ class Aliados extends CI_Controller {
 	       	'id_transaccion' => 0,
 	       	'status_orden' => 'Cancelada por conciliar'
         );
-		$orden_id =	$this->Auth_model->orden($registro);
+//		$orden_id =	$this->Auth_model->orden($registro);
 		$detalle = array(
 	       	'orden_id' => $orden_id,
 	       	'id_pro' => $codigo,
@@ -1031,9 +1031,9 @@ class Aliados extends CI_Controller {
 	       	'valor_comisionable' => $monto,
 	       	'puntos' => $puntos
 		);
-		$this->Auth_model->det_orden($detalle);
+//		$this->Auth_model->det_orden($detalle);
 
-		if (strpos(base_url(),'localhost')==FALSE) {	           	
+/*		if (strpos(base_url(),'localhost')==FALSE) {	           	
 			$hoy = date("Y-m-d");
 			$mensaje = "Orden de pedido No. ".$orden_id."<br>";
 			$mensaje .= "Fecha: ".date('d/m/Y')."<br>";
@@ -1055,6 +1055,7 @@ class Aliados extends CI_Controller {
 			mail("ordenesmanna@gmail.com",$asunto,$mensaje,$cabeceras);
 			mail("soluciones2000@gmail.com",$asunto,$mensaje,$cabeceras);
 		}
+*/
 	}
 
 // Comentario
@@ -1201,7 +1202,7 @@ class Aliados extends CI_Controller {
 								'id_trans' => 0,
 								'status_bono' => 'Pendiente'
 							);
-							$this->Auth_model->detbonoafiliacion($registro);
+//							$this->Auth_model->detbonoafiliacion($registro);
 						}
 					}
 				}
