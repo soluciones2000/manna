@@ -17,7 +17,7 @@
                         <a id="pagos" class="" href="#" onclick="refresca(this,'reportapago.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Reportar pago</a>
                         <a id="tracking" class="" href="#" onclick="refresca(this,'tracking.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Status órdenes</a>
                         <a id="mensajes" class="" href="#" onclick="refresca(this,'mensajes.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Mensajes</a>
-                        <a id="academia" class="" href="#" onclick="refresca(this,'inicio.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Academia</a>
+                        <a id="academia" class="" href="#" onclick="refresca(this,'academia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Academia</a>
                         <a id="salir" class="" href="logout.php">Salir</a>
 <!--
                         <a id="pedidos" class="" href="#" onclick="refresca(this,'pedidos.html',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Pedidos</a>

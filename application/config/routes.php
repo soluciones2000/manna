@@ -82,18 +82,15 @@ $route['contrato'] = 'aliados/contrato'; //aqui es el controlador y el metodo
 $route['upgrade'] = 'aliados/upgrade'; //aqui es el controlador y el metodo
 $route['cambionivel'] = 'aliados/cambionivel'; //aqui es el controlador y el metodo
 
-
 $route['medico'] = 'especialistas/medico'; //aqui es el controlador y el metodo
 $route['regmedico'] = 'especialistas/regmedico'; //aqui es el controlador y el metodo
 $route['crea_medico'] = 'especialistas/crea_medico'; //aqui es el controlador y el metodo
 $route['contmedico'] = 'especialistas/contmedico'; //aqui es el controlador y el metodo
 
-
 $route['cliente_pref'] = 'cliente/cliente_pref'; //aqui es el controlador y el metodo
 $route['reg_cliente'] = 'cliente/reg_cliente'; //aqui es el controlador y el metodo
 $route['crea_user'] = 'aliados/crea_user'; //aqui es el controlador y el metodo
 $route['contrato'] = 'aliados/contrato'; //aqui es el controlador y el metodo
-
 
 $route['fechas'] = 'ayuda/fechas'; //aqui es el controlador y el metodo
 
