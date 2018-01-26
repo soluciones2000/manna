@@ -22,10 +22,10 @@
 					</td>
 					<td align="center" width="10%" style="padding-left:1%;padding-right:1%;">
 						<font face="arial" size="2">
-							<?php if ($menu=="parametros"): ?>
-								Parámetros del sistema
+							<?php if ($menu=="opciones"): ?>
+								Opciones del sistema
 							<?php else: ?>
-								<a href="parametros.php">Parámetros del sistema</a>
+								<a href="opciones.php">Opciones del sistema</a>
 							<?php endif; ?>
 						</font>
 					</td>
