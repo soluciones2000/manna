@@ -7,7 +7,8 @@ include_once("menu.php");
 $men2 = "parametros";
 include_once("opciones.php");
 //	$query = "select * from information_schema.columns where table_schema='corpmann_manna' and table_name='afiliados'";
-	$query = "select * from information_schema.columns where table_schema='manna' and table_name='empresa'";	
+	$query = "select * from information_schema.columns where table_schema='sgcconsu_manna' and table_name='empresa'";	
+//	$query = "select * from information_schema.columns where table_schema='manna' and table_name='empresa'";	
 	$result = mysql_query($query,$link);
 
 
