@@ -4,43 +4,87 @@ include_once("conexion.php");
 include_once("cabecera.php");
 $menu = "opciones";
 include_once("menu.php");
-$men2 = "parametros";
+$men2 = "bonosuni";
 include_once("opciones.php");
+$tabla = 'unilevel';
+$titulo = 'BONOS UNILEVEL';
+$actualiza = 'actuabonosuni.php';
 //	$query = "select * from information_schema.columns where table_schema='corpmann_manna' and table_name='afiliados'";
-	$query = "select * from information_schema.columns where table_schema='manna' and table_name='empresa'";	
-	$result = mysql_query($query,$link);
+	// $query = "select * from information_schema.columns where table_schema='manna' and table_name='".$tabla."'";	
+	// $result = mysql_query($query,$link);
 
 
-	$quer2 = "select * from empresa";
+	$quer2 = "select * from ".$tabla." order by n8,n7,n6,n5,n4,n3,n2,n1";
 	$resul2 = mysql_query($quer2,$link);
-	$ro2 = mysql_fetch_array($resul2);
+//	$ro2 = mysql_fetch_array($resul2);
 
 	echo '<div style="text-align:center">';
-		echo "<h3>PARÁMETROS DE LA EMPRESA</h3>";
+		echo "<h3>".$titulo."</h3>";
 	echo '</div>';
 //	echo '<div style="text-align:center">';
-	echo '<form name="param" method="post" action="actuaparam.php">';
-		echo '<table align="center" border="1" cellpadding="5" width="60%">';
-			while($row = mysql_fetch_array($result)) {
-				$campo = $row["COLUMN_COMMENT"];
-				$indice = $row["COLUMN_NAME"];
-				$type = $row["DATA_TYPE"];
-				if ($type == 'varchar' || $type == 'char') {
-					$tam = $row["CHARACTER_MAXIMUM_LENGTH"];
-				} else {
-					if ($type == 'date') {
-						$tam = 10;
-					} else {
-						$tam = $row["NUMERIC_PRECISION"];
-					}
-				}
-				if ($campo<>"") {
-					echo '<tr>';
-						echo '<td width="25%"><b>'.utf8_encode($campo).'</b></td>';
-//						echo '<td width="65%">'.utf8_encode($ro2[$indice]).'</td>';
-						echo '<td width="65%"><input type="text" name="'.trim($indice).'" value="'.$ro2[$indice].'" size="100%" maxlength="'.$tam.'" /></td>';
-					echo '</tr>';
-				}
+	echo '<form name="'.$men2.'" method="post" action="'.$actualiza.'">';
+		echo '<table align="center" border="1" cellpadding="4" width="85%">';
+			echo '<tr>';
+				// echo '<th width="15%">';
+				// 	echo 'Rango actual';
+				// echo '</th>';
+				echo '<th width="15%">';
+					echo 'Rango a calificar';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'PM Requeridos';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'PMO Requeridos';
+				echo '</th>';
+				echo '<th width="20%">';
+					echo 'Piernas calificadas (y rango)';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 1';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 2';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 3';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 4';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 5';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 6';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 7';
+				echo '</th>';
+				echo '<th width="5%">';
+					echo 'Porcentaje nivel 8';
+				echo '</th>';
+			echo '</tr>';
+
+			while($row = mysql_fetch_array($resul2)) {
+				echo '<tr>';
+					// echo '<td width="15%" align="center"><input type="text" name="rango_ant_#_'.trim($row["id"]).'" value="'.$row["rango_ant"].'" size="23" maxlength="23" /></td>';
+					echo '<td width="15%" align="center"><input type="text" name="rango_#_'.trim($row["id"]).'" value="'.$row["rango"].'" size="23" maxlength="23" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="pm_#_'.trim($row["id"]).'" value="'.$row["pm"].'" size="3" maxlength="3" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="pmo_#_'.trim($row["id"]).'" value="'.$row["pmo"].'" size="5" maxlength="5" style="text-align:center;" /></td>';
+					echo '<td width="20%" align="center">';
+						echo '<input type="text" name="piernas_#_'.trim($row["id"]).'" value="'.$row["piernas"].'" size="2" maxlength="2" style="text-align:center;" />';
+						echo '<input type="text" name="calif_piernas_#_'.trim($row["id"]).'" value="'.$row["calif_piernas"].'" size="7" maxlength="7" style="text-align:center;" />';
+					echo '</td>';
+					echo '<td width="5%" align="center"><input type="text" name="n1_#_'.trim($row["id"]).'" value="'.$row["n1"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n2_#_'.trim($row["id"]).'" value="'.$row["n2"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n3_#_'.trim($row["id"]).'" value="'.$row["n3"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n4_#_'.trim($row["id"]).'" value="'.$row["n4"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n5_#_'.trim($row["id"]).'" value="'.$row["n5"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n6_#_'.trim($row["id"]).'" value="'.$row["n6"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n7_#_'.trim($row["id"]).'" value="'.$row["n7"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+					echo '<td width="5%" align="center"><input type="text" name="n8_#_'.trim($row["id"]).'" value="'.$row["n8"].'" size="2" maxlength="2" style="text-align:center;" /></td>';
+				echo '</tr>';
 			}
 		echo '</table>';
 		echo '<br>';

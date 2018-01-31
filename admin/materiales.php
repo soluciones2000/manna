@@ -22,7 +22,7 @@ $actualiza = 'actuamaterial.php';
 		echo "<h3>".$titulo."</h3>";
 	echo '</div>';
 //	echo '<div style="text-align:center">';
-	echo '<form name="material" method="post" action="'.$actualiza.'">';
+	echo '<form name="material" method="post" action="'.$actualiza.'" enctype="multipart/form-data">';
 		echo '<table align="center" border="1" cellpadding="6" width="85%">';
 			echo '<tr>';
 				echo '<th width="15%">';
@@ -67,6 +67,7 @@ $actualiza = 'actuamaterial.php';
 				echo '<td width="60%" colspan="3">Descripción del material<br><textarea  rows="2" cols="80" name="descripcion_#_new" size="100%" /></textarea></td>';
 			echo '</tr>';
 			echo '<tr>';
+				echo '<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />';
 				echo '<td width="100%" colspan="5"><input type="file" name="archivo_#_new" value="Archivo" /></td>';
 
 			echo '</tr>';
