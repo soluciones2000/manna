@@ -341,10 +341,10 @@ class Aliados extends CI_Controller {
            	
 			if($this->Auth_model->registro($registro)){
 				$this->crea_organizacion($registro['tit_codigo'],$registro['enrol_codigo']);
-				$this->transaccion($fechapago,$tit_codigo,$tipo_afiliado,$tipo_kit,$numcomprobante,$bancoorigen);
-				$this->orden($tit_codigo,$tipo_afiliado,$tipo_kit,$direccion_envio,trim($tit_nombres).' '.trim($tit_apellidos),trim($tit_cedula),trim($tel_local).' / '.trim($tel_celular),trim($numcomprobante),trim($email),$fechapago);
+//				$this->transaccion($fechapago,$tit_codigo,$tipo_afiliado,$tipo_kit,$numcomprobante,$bancoorigen);
+//				$this->orden($tit_codigo,$tipo_afiliado,$tipo_kit,$direccion_envio,trim($tit_nombres).' '.trim($tit_apellidos),trim($tit_cedula),trim($tel_local).' / '.trim($tel_celular),trim($numcomprobante),trim($email),$fechapago);
 				$this->patrocinio($patroc_codigo,$tit_codigo,date("Y-m-d"));
-				$this->generabono($patroc_codigo,$tit_codigo);
+//				$this->generabono($patroc_codigo,$tit_codigo);
 
 	            $user = $this->Auth_model->getUser($email);
 	           	$_SESSION['userid'] = $user->id;
