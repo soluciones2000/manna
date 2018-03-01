@@ -39,6 +39,11 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$precio_pro = $row["pvp_dist"];
 						$valor_comisionable_pro = $row["com_dist"];
 						$puntos_pro = $row["pts_dist"];
+						if ($_SESSION["iva2"]<>0.00) {
+							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
+						} else {
+							$precio_pro = $row["pvp_dist"];
+						}						
 						$_SESSION["precio_pro"][$prod] = $precio_pro;
 						$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 						$_SESSION["puntos_pro"][$prod] = $puntos_pro;
@@ -91,8 +96,13 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						echo '<p align="justify"><b>(**)</b> Al cancelar esta compra usted acumulará '.number_format($ptsorden,2,',','.').' PM.</p>';
 					echo '</td>';
 					echo '<td align="center">';
+						// echo '<form method="post" action="pagoenlinea.html">';
+						echo '<form method="post" action="formapagoenlinea.php">';
+							echo '<input type="hidden" name="orden" value="" />';
+							echo '<p><input type="submit" name="ordenar" value="Pagar en línea"></p>';
+						echo '</form>';
 						echo '<form method="post" action="confirmaorden.php">';
-							echo '<p><input type="submit" name="ordenar" value="Confirmar orden"></p>';
+							echo '<p><input type="submit" name="ordenar" value="pagar después"></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';

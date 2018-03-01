@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Pago en línea</title>
+    <link rel="stylesheet" href="../skeuocard/styles/skeuocard.reset.css" />
+    <link rel="stylesheet" href="../skeuocard/styles/skeuocard.css" />
+    <link rel="stylesheet" href="../skeuocard/styles/demo.css">
+    <script src="../skeuocard/javascripts/vendor/cssua.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+      <header>
+        <h1>Pago en línea</h1>
+        <p>Usted está pagando la <b>orden No. XXXX</b></p>
+        <p>El monto a cancelar es de <b>Bs. 999.999.999,99</b></p>
+        <p>Complete los datos de la tarjeta de crédito que se muestra a la derecha y pulse el botón enviar para procesar el pago.</p>
+      </header>
+      <section>
+        <!-- START FORM -->
+          <form  method="post" action="pagoenlinea.php">
+            <div class="credit-card-input no-js" id="skeuocard">
+              <p class="no-support-warning">
+                Either you have Javascript disabled, or you're using an unsupported browser, amigo! That's why you're seeing this old-school credit card input form instead of a fancy new Skeuocard. On the other hand, at least you know it gracefully degrades...
+              </p>
+                <label for="cc_type">Tipo de tarjeta</label>
+                <select name="cc_type">
+                  <option value="">...</option>
+                  <option value="visa">Visa</option>
+                  <!-- <option value="discover">Discover</option> -->
+                  <option value="mastercard">MasterCard</option>
+                  <option value="maestro">Maestro</option>
+                  <!-- <option value="jcb">JCB</option> -->
+                  <!-- <option value="unionpay">China UnionPay</option> -->
+                  <option value="amex">American Express</option>
+                  <option value="dinersclubintl">Diners Club</option>
+                </select>
+                <label for="cc_number">Número de tarjeta</label>
+                <input type="text" name="cc_number" id="cc_number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" size="19">
+                <label for="cc_exp_month">Mes de expiración</label>
+                <input type="text" name="cc_exp_month" id="cc_exp_month" placeholder="00">
+                <label for="cc_exp_year">Año de expiración (2 dig.)</label>
+                <input type="text" name="cc_exp_year" id="cc_exp_year" placeholder="00">
+                <label for="cc_name">Nombre del tarjetahabiente</label>
+                <input type="text" name="cc_name" id="cc_name" placeholder="Su nombre">
+                <label for="cc_cvc">Codigo de verificación</label>
+                <input type="text" name="cc_cvc" id="cc_cvc" placeholder="123" maxlength="3" size="3">
+            </div>
+            <div style="padding-left:130px;">
+              <br>
+              <input type="submit" name="boton" value="Procesar pago">
+            </div>
+          </form>
+
+        <!-- END FORM -->
+      </section>
+<!-- 
+<pre>
+Visa: 4111111111111111
+Discover: 6011111111111117
+MasterCard: 5111111111111118
+Maestro: 5018111111111112
+JCB: 3511111111111119
+Union Pay: 6211111111111111
+American Express: 371111111111114
+Diners Club: 38111111111119
+</pre>
+ -->
+    <script src="../skeuocard/javascripts/vendor/demo.fix.js"></script>
+    <script src="../skeuocard/javascripts/vendor/jquery-2.0.3.min.js"></script>
+    <script src="../skeuocard/javascripts/skeuocard.js"></script>
+    <script>
+
+      $(document).ready(function(){
+        var isBrowserCompatible = 
+          $('html').hasClass('ua-ie-10') ||
+          $('html').hasClass('ua-webkit') ||
+          $('html').hasClass('ua-firefox') ||
+          $('html').hasClass('ua-opera') ||
+          $('html').hasClass('ua-chrome');
+
+        if(isBrowserCompatible){
+          window.card = new Skeuocard($("#skeuocard"), {
+            debug: false
+          });
+        }
+      });
+
+    </script>
+  </body>
+</html>

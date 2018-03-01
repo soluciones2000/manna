@@ -37,7 +37,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$desc_corta = utf8_encode($row["desc_corta"]);
 						$puntos_pro = $row["pts_dist"];
 						if ($_SESSION["iva2"]<>0.00) {
-							$precio_pro = $row["pvp_dist"]/(1+($_SESSION["iva2"]/100));
+							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
 						} else {
 							$precio_pro = $row["pvp_dist"];
 						}
@@ -95,7 +95,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo '</td>';
 					echo '<td align="center">';
 						echo '<form method="post" action="resumenorden.php">';
-							echo '<p><input type="submit" name="ordenar" value="Completar orden"></p>';
+							echo '<p><input type="submit" name="ordenar" value="Confirmar orden"></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';
