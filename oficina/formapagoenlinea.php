@@ -62,7 +62,7 @@ if ($error) {
 	$urlCallbacks = "https://pruebas.sgc-consultores.com.ve/oficina";
 	$key_public = "GLVCQ44WPZMRT46FPI6O";
 	$key_secret = "WG6YAFNH5AVN7AZKGAOTUGLV8DQ78A";
-	$api = new apiPagoflash($key_public,$key_secret, $urlCallbacks,true);
+	$api = new apiPagoflash($key_public,$key_secret, $urlCallbacks,false);
 
 	$cabeceraDeCompra = array(
 		    "pc_order_number"   => trim(strval($orden_id)),
