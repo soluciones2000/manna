@@ -3,8 +3,10 @@ session_start();
 
 $prod = isset($_GET['prd']) ? strtoupper($_GET['prd']) : '';
 
-$_SESSION["orden"][$prod] -= 1;
-$_SESSION["cantidad"] -= 1;
+if (($_SESSION["orden"][$prod]-1)>0) {
+	$_SESSION["orden"][$prod] -= 1;
+	$_SESSION["cantidad"] -= 1;
+}
 
 //unset($_SESSION["orden"]);
 //unset($_SESSION["cantidad"]);

@@ -1,4 +1,6 @@
 <?php 
+ini_set("session.cookie_lifetime","7200");
+ini_set("session.gc_maxlifetime","7200");
 session_start();
 $query = "SELECT * from empresa";
 $result = mysql_query($query,$link);
@@ -229,7 +231,7 @@ if ($row = mysql_fetch_array($result)) {
                         $nombre = isset($_SESSION['user']) ? utf8_encode($_SESSION['user']) : '';
                         if ($usuario) {
                            echo '<label id="user">Buen día: '.trim($nombre).'</label><br>';
-                           echo '<label id="afiliado">Afiliado '.trim($_SESSION["tipo_afiliado"]).'</label><br>';
+                           // echo '<label id="afiliado">Afiliado '.trim($_SESSION["tipo_afiliado"]).'</label><br>';
                            echo '<label id="rango">Rango: '.$_SESSION["rango"].'</label><br>';
                            echo '<label id="pm">PM del mes: '.number_format($_SESSION["pm"],0,',','.').'</label><br>';
                            echo '<label id="pmo">PMO: '.number_format($_SESSION["pmo"],0,',','.').'</label><br>';

@@ -9,7 +9,8 @@ unset($_SESSION["orden"][$prod]);
 //unset($_SESSION["orden"]);
 //unset($_SESSION["cantidad"]);
 
-$cadena = 'Location: verificaorden.php';
+$cadena = ($_SESSION["cantidad"]==0) ? 'Location: catalogo.php' : 'Location: verificaorden.php' ;
+
 /*
 echo '<pre>'; 
 var_dump($_SESSION);

@@ -1,11 +1,13 @@
 <?php 
 include_once("conexion.php");
 //$fecha = date("Y")."-".date("m")."-".sprintf("%'02d",(date("d")-1));
+
 $query = "SELECT familia,id_pro FROM productos order by familia,id_pro";
 $result = mysql_query($query,$link);
 while ($row = mysql_fetch_array($result)) {
 	$id_pro = $row["id_pro"];
-	$quer2 = "UPDATE productos set precio_pro=".$_POST[$id_pro."#-#precio_pro"].", valor_comisionable_pro=".$_POST[$id_pro."#-#valor_comisionable_pro"].", puntos_pro=".$_POST[$id_pro."#-#puntos_pro"].", pvp_dist=".$_POST[$id_pro."#-#pvp_dist"].", com_dist=".$_POST[$id_pro."#-#com_dist"].", pts_dist=".$_POST[$id_pro."#-#pts_dist"].", pvp_clipref=".$_POST[$id_pro."#-#pvp_clipref"].", com_clipref=".$_POST[$id_pro."#-#com_clipref"].", pts_clipref=".$_POST[$id_pro."#-#pts_clipref"]." where id_pro='".trim($id_pro)."'";
+	$quer2 = "UPDATE productos set precio_pro=".$_POST["precio_pro_#_".$id_pro].", valor_comisionable_pro=".$_POST["valor_comisionable_pro_#_".$id_pro].", puntos_pro=".$_POST["puntos_pro_#_".$id_pro].", pvp_dist=".$_POST["pvp_dist_#_".$id_pro].", com_dist=".$_POST["com_dist_#_".$id_pro].", pts_dist=".$_POST["pts_dist_#_".$id_pro].", pvp_clipref=".$_POST["pvp_clipref_#_".$id_pro].", com_clipref=".$_POST["com_clipref_#_".$id_pro].", pts_clipref=".$_POST["pts_clipref_#_".$id_pro]." where id_pro='".trim($id_pro)."'";
+//	echo $quer2;
 	$resul2 = mysql_query($quer2,$link);
 }
 $cadena = 'Location: preciospro.php'; 

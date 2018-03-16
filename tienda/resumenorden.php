@@ -10,10 +10,10 @@
 							$direccion = $row["direccion"];
 							$direccion_envio = $row["direccion_envio"];
 							$_SESSION["direccion_envio"] = $direccion_envio;
-							echo 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
+							echo 'Cliente: '.trim($cliente).' C.I. '.number_format($cedula,0,',','.').'<br>';
 							echo 'Teléfono: '.trim($telefono).'<br>';
-							echo 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
-							echo 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
+							echo 'Dirección: '.utf8_decode(trim($direccion)).'<br>';
+							echo 'Enviar a: '.utf8_decode(trim($direccion_envio)).'<br>';
 						}
 					?>
 					<table border="1" width="auto" align="center">

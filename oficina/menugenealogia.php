@@ -43,7 +43,8 @@ if ($result = mysql_query($query,$link)) {
 		$internacional += ($rango == "Embajador Internacional") ? 1 : 0 ;
 	}
 }
-echo number_format($todos,0,',','.').' miembros, de los cuales '.number_format($premium,0,',','.').' son Premium, '.number_format($vip,0,',','.').' son VIP y '.number_format($oro,0,',','.').' Gold. La calificación de tus miembros es la siguiente:</p>';
+// echo number_format($todos,0,',','.').' miembros, de los cuales '.number_format($premium,0,',','.').' son Premium, '.number_format($vip,0,',','.').' son VIP y '.number_format($oro,0,',','.').' Gold. La calificación de tus miembros es la siguiente:</p>';
+echo number_format($todos,0,',','.').' miembros y la calificación de tus miembros es la siguiente:</p>';
 echo '<ul>';
 if ($ascenso<>0) { echo '<li>En Ascenso: '.number_format($ascenso,0,',','.').'</li>'; }
 if ($gerente<>0) { echo '<li>Gerente: '.number_format($gerente,0,',','.').'</li>'; }
@@ -58,7 +59,7 @@ if ($presidencia<>0) { echo '<li>Embajador Presidencial: '.number_format($presid
 if ($internacional<>0) { echo '<li>Embajador Internacional: '.number_format($internacional,0,',','.').'</li>'; }
 echo '</ul>';
 
-echo '<p>En el siguiente diagrama puedes ver el detalle de tu organización y podrás identificar los distintos tipos de afiliado con sus PMO.</p>';
+echo '<p>En el siguiente diagrama puedes ver el detalle de tu organización con tus PMO.</p>';
 echo '<form method="post" action="genealogia.php?c='.$_SESSION["codigo"].'">';
 	echo '<p align="center"><input type="submit" name="ordenar" value="Ver diagrama de organización"></p>';
 echo '</form>';

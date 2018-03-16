@@ -59,7 +59,7 @@ include_once("reportes.php");
 }
 </style>
 <?php
-switch (substr($_POST['fecha'],3,3)) {
+switch (substr($_POST['fecha'],5,2)) {
 	case 'Ene':
 		$mes = '01';
 		break;
@@ -97,8 +97,8 @@ switch (substr($_POST['fecha'],3,3)) {
 		$mes = '12';
 		break;
 }
-$fecha = isset($_POST['fecha']) ? substr($_POST['fecha'],7,4).'-'.$mes.'-'.substr($_POST['fecha'],0,2) : date("Y")."-".date("m")."-".sprintf("%'02d",(date("d")-1));
-$diatr = substr($_POST['fecha'],0,2).'-'.$mes.'-'.substr($_POST['fecha'],7,4);
+$fecha = isset($_POST['fecha']) ? substr($_POST['fecha'],0,4).'-'.substr($_POST['fecha'],5,2).'-'.substr($_POST['fecha'],8,2) : date("Y")."-".date("m")."-".sprintf("%'02d",(date("d")-1));
+$diatr = substr($_POST['fecha'],8,2).'-'.substr($_POST['fecha'],5,2).'-'.substr($_POST['fecha'],0,4);
 
 $query = "SELECT transacciones.fecha,transacciones.afiliado,afiliados.tit_nombres,afiliados.tit_apellidos,transacciones.tipo,transacciones.precio,transacciones.documento,transacciones.bancoorigen FROM transacciones inner join afiliados on transacciones.afiliado=afiliados.tit_codigo where transacciones.fecha='".$fecha."'";
 $result = mysql_query($query,$link);

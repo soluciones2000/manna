@@ -24,7 +24,7 @@ include_once("reportes.php");
 					            			Fecha:
 					            		</td>
 					            		<td>
-											<input type="date" name="fecha" id="datepicker" readonly="readonly" size="10" />
+											<input type="date" name="fecha" id="datepicker" size="10" />
 					            		</td>
 					            	</tr>
 					            </table>

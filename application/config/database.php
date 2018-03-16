@@ -1,4 +1,4 @@
-<?php
+-<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
@@ -79,10 +79,10 @@ if (strpos(base_url(),'localhost')!==FALSE) {
 	$pass = 'sgcpasarela12345**';
 	$dtbs = 'sgcconsu_manna';
 } else {
-	$host = 'host';
-	$user = 'corpmann_root';
-	$pass = 'manna12345##';
-	$dtbs = 'corpmann_manna';
+	$host = 'localhost:3306';
+	$user = 'corporac_root';
+	$pass = 'plataforma12345##';
+	$dtbs = 'corporac_manna';
 }
 
 $db['default'] = array(

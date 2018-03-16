@@ -9,7 +9,7 @@ if ($row = mysql_fetch_array($result)) {
 $tipo_orden = 'Cliente';
 $patroc_codigo = $_SESSION["codigo"];
 $fecha = date('Y-m-d H:i:s');
-$monto = $_SESSION["monto"];
+$monto = $_SESSION["monto"]*(1+($_SESSION["iva2"]/100));
 $valor_comisionable = $_SESSION["comisionable"];
 $puntos = $_SESSION["puntos"];
 $direccion_envio = $_SESSION["direccion_envio"];
@@ -27,7 +27,7 @@ if ($result = mysql_query($query,$link)) {
 		foreach ($_SESSION["orden"] as $prod => $value) {
 			$id_pro = $prod;
 			$cantidad = $_SESSION["orden"][$prod];
-			$precio = $_SESSION["precio_pro"][$prod];
+			$precio = $_SESSION["precio_pro"][$prod]*(1+($_SESSION["iva2"]/100));
 			$valor_comisionable = $_SESSION["valor_comisionable_pro"][$prod];
 			$puntos = $_SESSION["puntos_pro"][$prod];
 			$query = "INSERT INTO det_orden (orden_id, id_pro, cantidad, precio, valor_comisionable, puntos) VALUES (".$orden_id.",'".$id_pro."',".$cantidad.",".$precio.",".$valor_comisionable.",".$puntos.")";
@@ -61,15 +61,15 @@ if ($error) {
 	$direccion_envio = $row["direccion_envio"];
 	$_SESSION["direccion_envio"] = $direccion_envio;
 	$mensaje = '';
-	$mensaje .= 'Número de Orden: <b>'.trim($orden_id).'</b><br>';
-	$mensaje .= 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
-	$mensaje .= 'Teléfono: '.trim($telefono).'<br>';
-	$mensaje .= 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
-	$mensaje .= 'Referido por: '.trim($_SESSION['referido']).'<br>';
-	$mensaje .= 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
+	$mensaje .= '<b>'.utf8_decode('Número de Orden: ').trim($orden_id).'</b><br>';
+	$mensaje .= '<b>Cliente: '.utf8_decode(trim($cliente)).'</b>, C.I. '.number_format($cedula,0,',','.').'<br>';
+	$mensaje .= '<b>'.utf8_decode('Teléfono: ').'</b>'.trim($telefono).'<br>';
+	$mensaje .= '<b>'.utf8_decode('Dirección: ').'</b>'.utf8_decode(trim($direccion)).'<br><br>';
+	$mensaje .= '<b>Referido por: '.trim($patroc_codigo).' - '.trim($_SESSION['referido']).'</b><br><br>';
+	$mensaje .= '<b>Enviar a: </b>'.utf8_decode(trim($direccion_envio)).'<br><br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
-			$mensaje .= '<th align="center" width="380px">Descripción</th>';
+			$mensaje .= '<th align="center" width="380px">'.utf8_decode('Descripción').'</th>';
 			$mensaje .= '<th align="center" width="100px">Cantidad</th>';
 			$mensaje .= '<th align="center" width="105px">Precio</th>';
 			$mensaje .= '<th align="center" width="120px">A pagar</th>';
@@ -81,7 +81,7 @@ if ($error) {
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
 				$desc_corta = utf8_encode($row["desc_corta"]);
-				$precio_pro = $row["precio_pro"];
+				$precio_pro = $row["precio_pro"]/round(1+($_SESSION["iva1"]/100),2);
 				$valor_comisionable_pro = $row["valor_comisionable_pro"];
 				$puntos_pro = $row["puntos_pro"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;
@@ -115,15 +115,15 @@ if ($error) {
 //			$mensaje .= '<td colspan="3" align="right"><b>TOTAL ORDEN</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
-		$mensaje .= '<tr>';
-			$mensaje .= '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
-				$mensaje .= '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
-				$mensaje .= '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs.';
-					if ($subtotal>2000000) { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
-					else { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
-				$mensaje .= '.</p>';
-			$mensaje .= '</td>';
-		$mensaje .= '</tr>';
+//		$mensaje .= '<tr>';
+//			$mensaje .= '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
+//				$mensaje .= '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
+//				$mensaje .= '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs.';
+//					if ($subtotal>2000000) { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
+//					else { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
+//				$mensaje .= '.</p>';
+//			$mensaje .= '</td>';
+//		$mensaje .= '</tr>';
 	$mensaje .= '</table>';
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
 	$cabeceras = 'Content-type: text/html;';

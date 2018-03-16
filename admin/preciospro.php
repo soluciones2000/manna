@@ -16,7 +16,7 @@ echo '<table border="1" align="center" width="100%">';
 			echo '<td colspan=4"><br><b><u>Familia: '.$familia.'</u></b></td>';
 			echo '</tr>';
 			echo '<tr>';
-				echo '<th width="40%">';
+				echo '<th width="40%" colspan="2">';
 					echo 'Producto';
 				echo '</th>';
 				echo '<th width="20%">';
@@ -34,28 +34,102 @@ echo '<table border="1" align="center" width="100%">';
 		$id_pro = $row["id_pro"];
 		$prod["id_pro"];
 		echo '<tr>';
-			echo '<td>';
-				echo $row["id_pro"].' - '.$row["desc_corta"];
+			echo '<td align="center">';
+				$imagen = $row["imagen"];
+				if (file_exists('../tienda/img/'.trim($imagen).'.jpg')) {
+					$nomima = trim($imagen);
+					$imagen = '../tienda/img/'.trim($imagen).'.jpg';
+				} else {
+					$nomima = 'sin_imagen';
+					$imagen = '../tienda/img/sin_imagen.jpg';
+				}
+				echo ' <a id="'.trim($row["id_pro"]).'" href="" onclick="Abrir_ventana(this.id)"><img src="'.trim($imagen).'" title="Haga click para cambiar esta imagen" alt="'.utf8_encode($row["desc_corta"]).'" height="100" width="100"></a> ';
+//				echo ' <a id="'.trim($nomima).'" href="" onclick="Abrir_ventana(this.id,'.$row["id_pro"].')"><img src="'.trim($imagen).'" alt="'.utf8_encode($row["desc_corta"]).'" height="100" width="100"></a> ';
+//				echo ' <a id="'.trim($nomima).'" href="" onclick="Abrir_ventana(this.id)"><img src="'.trim($imagen).'" alt="'.utf8_encode($row["desc_corta"]).'" height="100" width="100"></a> ';
+//				echo ' <a id="'.trim($nomima).'" href="cambiaimagen.php?nomima='.trim($nomima).'" target="_blank"><img src="'.trim($imagen).'" alt="'.utf8_encode($row["desc_corta"]).'" height="100" width="100"></a> ';
 			echo '</td>';
-			echo '<td align="right">';
-				echo 'Precio: '.'<input type="currency" name="'.trim($id_pro).'#-#pvp_dist" value="'.$row["pvp_dist"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Valor comisionable: '.'<input type="currency" name="'.trim($id_pro).'#-#com_dist" value="'.$row["com_dist"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Puntos : '.'<input type="currency" name="'.trim($id_pro).'#-#pts_dist" value="'.$row["pts_dist"].'" size="10" style="text-align:right;" />'.'<br>';
+			echo '<td style="padding-left:1%;">';
+				echo $row["id_pro"].'<br>'.utf8_encode($row["desc_corta"]);
 			echo '</td>';
-			echo '<td align="right">';
-				echo 'Precio: '.'<input type="currency" name="'.trim($id_pro).'#-#pvp_clipref" value="'.$row["pvp_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Valor comisionable: '.'<input type="currency" name="'.trim($id_pro).'#-#com_clipref" value="'.$row["com_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Puntos : '.'<input type="currency" name="'.trim($id_pro).'#-#pts_clipref" value="'.$row["pts_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
+			echo '<td align="right" style="padding-right:1%;">';
+				echo 'Precio: '.'<input type="currency" name="pvp_dist_#_'.trim($id_pro).'" value="'.$row["pvp_dist"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Valor comisionable: '.'<input type="currency" name="com_dist_#_'.trim($id_pro).'" value="'.$row["com_dist"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Puntos : '.'<input type="currency" name="pts_dist_#_'.trim($id_pro).'" value="'.$row["pts_dist"].'" size="10" style="text-align:right;" />'.'<br>';
 			echo '</td>';
-			echo '<td align="right">';
-				echo 'Precio: '.'<input type="currency" name="'.trim($id_pro).'#-#precio_pro" value="'.$row["precio_pro"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Valor comisionable: '.'<input type="currency" name="'.trim($id_pro).'#-#valor_comisionable_pro" value="'.$row["valor_comisionable_pro"].'" size="10" style="text-align:right;" />'.'<br>';
-				echo 'Puntos : '.'<input type="currency" name="'.trim($id_pro).'#-#puntos_pro" value="'.$row["puntos_pro"].'" size="10" style="text-align:right;" />'.'<br>';
+			echo '<td align="right" style="padding-right:1%;">';
+				echo 'Precio: '.'<input type="currency" name="pvp_clipref_#_'.trim($id_pro).'" value="'.$row["pvp_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Valor comisionable: '.'<input type="currency" name="com_clipref_#_'.trim($id_pro).'" value="'.$row["com_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Puntos : '.'<input type="currency" name="pts_clipref_#_'.trim($id_pro).'" value="'.$row["pts_clipref"].'" size="10" style="text-align:right;" />'.'<br>';
+			echo '</td>';
+			echo '<td align="right" style="padding-right:1%;">';
+				echo 'Precio: '.'<input type="currency" name="precio_pro_#_'.trim($id_pro).'" value="'.$row["precio_pro"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Valor comisionable: '.'<input type="currency" name="valor_comisionable_pro_#_'.trim($id_pro).'" value="'.$row["valor_comisionable_pro"].'" size="10" style="text-align:right;" />'.'<br>';
+				echo 'Puntos : '.'<input type="currency" name="puntos_pro_#_'.trim($id_pro).'" value="'.$row["puntos_pro"].'" size="10" style="text-align:right;" />'.'<br>';
 			echo '</td>';
 		echo '</tr>';
 	}
 echo '</table>';
-echo '<p align="center"><INPUT type="submit" value="Enviar"></p>';
+echo '
+<script>
+function Abrir_ventana(cod){
+	propiedades="top=50, left=300, width=600, height=580";
+	window.open("cambiaimagen.php?nomima="+cod,"_blank",propiedades);
+} 
+</script>
+';
+
+/*
+echo '<div style="text-align:center">';
+	echo "<h3>Agregar un nuevo producto</h3>";
+echo '</div>';
+
+echo '<table border="1" align="center" width="100%">';
+	echo '<tr>';
+		echo '<th width="40%" colspan="2">';
+			echo 'Producto';
+		echo '</th>';
+		echo '<th width="20%">';
+			echo 'Aliado comercial';
+		echo '</th>';
+		echo '<th width="20%">';
+			echo 'Cliente Preferencial';
+		echo '</th>';
+		echo '<th width="20%">';
+			echo 'Público';
+		echo '</th>';
+	echo '</tr>';
+	echo '<tr>';
+		echo '<td align="center" valign="center" width="9%">';
+			echo 'x';
+		echo '</td>';
+		echo '<td align="right" valign="center" style="padding-right:1%;">';
+			echo '<label>Código: </label><input type="text" name="id_pro_#_new" value="" size="45" maxlength="20" />'.'<br>';
+			echo '<label>Descripción: </label><input type="text" name="desc_pro_#_new" value="" size="45" maxlength="200" /><br>';
+			echo '<label>Descr. corta: </label><input type="text" name="desc_corta_#_new" value="" size="45" maxlength="50" />'.'<br>';
+			echo '<label>Familia: </label><input type="text" name="familia_#_new" value="" size="45" maxlength="27" />'.'<br>';
+		echo '</td>';
+		echo '<td align="right" valign="center" style="padding-right:1%;">';
+			echo 'Precio: '.'<input type="currency" name="pvp_dist_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+			echo 'Valor comisionable: '.'<input type="currency" name="com_dist_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+			echo 'Puntos : '.'<input type="currency" name="pts_dist_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+		echo '</td>';
+		echo '<td align="right" valign="center" style="padding-right:1%;">';
+			echo 'Precio: '.'<input type="currency" name="pvp_clipref_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+			echo 'Valor comisionable: '.'<input type="currency" name="com_clipref_#_new" value="" size="10" style="text-align:right;" /><br>';
+			echo 'Puntos : '.'<input type="currency" name="pts_clipref_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+		echo '</td>';
+		echo '<td align="right" valign="center" style="padding-right:1%;">';
+			echo 'Precio: '.'<input type="currency" name="precio_pro_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+			echo 'Valor comisionable: '.'<input type="currency" name="valor_comisionable_pro_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+			echo 'Puntos : '.'<input type="currency" name="puntos_pro_#_new" value="" size="10" style="text-align:right;" />'.'<br>';
+		echo '</td>';
+	echo '</tr>';
+echo '</table>';
+*/
+echo '<br>';
+echo '<div align="center">';
+	echo '<INPUT type="submit" value="Enviar">';
+echo '</div>';
 echo '</form>';
 ?>
 <!--

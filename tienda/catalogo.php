@@ -20,21 +20,23 @@
 								} else {
 									$imagen = 'img/sin_imagen.jpg';
 								}
-								if ($contador==1) {
-									echo '<tr>';
+								if ($precio_pro>0.00) {
+									if ($contador==1) {
+										echo '<tr>';
+									}
+									echo '<td align="center" width="25%" style="padding:2%">';
+										echo  '<img SRC="'.trim($imagen).'" width="150px" height="150px" title="'.$desc_pro.'"><br>';
+										echo trim($id_pro).'<br>';
+										echo trim($desc_corta).'<br>';
+										echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
+										echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
+									echo '</td>';
+									if ($contador==4) {
+										echo '</tr>';
+										$contador = 0;
+									}
+									$contador++;
 								}
-								echo '<td align="center" width="25%" style="padding:2%">';
-									echo  '<img SRC="'.trim($imagen).'" width="150px" height="150px" title="'.$desc_pro.'"><br>';
-									echo trim($id_pro).'<br>';
-									echo trim($desc_corta).'<br>';
-									echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
-									echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
-								echo '</td>';
-								if ($contador==4) {
-									echo '</tr>';
-									$contador = 0;
-								}
-								$contador++;
 							}
 						 ?>
 					</table>					

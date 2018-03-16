@@ -10,8 +10,8 @@ include_once("reportes.php");
 $codigo = isset($_POST['codigo']) ? $_POST['codigo'] : '';
 
 if ($_POST['codigo']<>'') {
-//	$query = "select * from information_schema.columns where table_schema='corpmann_manna' and table_name='afiliados'";
-	$query = "select * from information_schema.columns where table_schema='manna' and table_name='afiliados'";	
+	$query = "select * from information_schema.columns where table_schema='corporac_manna' and table_name='afiliados'";
+//	$query = "select * from information_schema.columns where table_schema='manna' and table_name='afiliados'";	
 	$result = mysql_query($query,$link);
 
 

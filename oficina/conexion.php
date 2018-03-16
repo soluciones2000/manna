@@ -3,7 +3,7 @@ if (strpos($_SERVER["SERVER_NAME"],'localhost')!==FALSE) {
 	// local
 	$servidor = "localhost";
 	$cuenta = "root";
-	$password = "myapm";
+	$password = "rootmyapm";
 //	$password = "rootmyapm";
 	$database = "manna";
 } elseif (strpos($_SERVER["SERVER_NAME"],'pruebas')!==FALSE) {

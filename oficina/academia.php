@@ -79,7 +79,7 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
               ?>
               {
                 title: '<?php echo $row["evento"]; ?>', 
-                description: '<?php echo utf8_encode($row["descripcion"]); ?>', 
+                description: '<?php echo $row["descripcion"]; ?>', 
                 datetime: new Date(<?php echo substr($row["inicio"],0,4); ?>, <?php echo strval(substr($row["inicio"],5,2))-1; ?>, <?php echo substr($row["inicio"],8,2); ?>, <?php echo substr($row["inicio"],11,2); ?>) 
               }
               <?php

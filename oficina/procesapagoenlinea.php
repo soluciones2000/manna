@@ -1,6 +1,13 @@
 <?php 
 include_once("conexion.php");
-
+echo '<pre>';
+var_dump($_POST);
+echo '<br>';
+var_dump($_GET);
+echo '<br>';
+var_dump($_REQUEST);
+echo '</pre>';
+/*
 include_once('../apis/pagoflash.api.client.php');
 
 $urlCallbacks = "https://pruebas.sgc-consultores.com.ve/oficina";
@@ -35,7 +42,7 @@ $cabeceraDeCompra = array(
 	}
 */
 	//La información conjunta para ser procesada
-	$pagoFlashRequestData = array(
+/*	$pagoFlashRequestData = array(
 	    'cabecera_de_compra'    => $cabeceraDeCompra, 
 	    'productos_items'       => $ProductItems,
 	    "additional_parameters" => array(
@@ -58,4 +65,5 @@ $cabeceraDeCompra = array(
 	}else{
 	    //manejo del error.
 	}
+*/
 ?>

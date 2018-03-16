@@ -2,33 +2,6 @@
 include_once("conexion.php");
 include_once("funciones.php");
 set_time_limit(300);
-// Verificación de transacciones
-/*
-$query = "SELECT * FROM afiliados order by tit_codigo";
-$result = mysql_query($query,$link);
-echo 'transacciones<br>';
-while($row = mysql_fetch_array($result)) {
-	$tit_codigo = $row["tit_codigo"];
-
-	$quer2 = "SELECT count(afiliado) as trans FROM transacciones where afiliado='".$tit_codigo."' and tipo='01'";
-	$resul2 = mysql_query($quer2,$link);
-	if ($ro2 = mysql_fetch_array($resul2)) {
-		$trans = $ro2["trans"];
-	}
-	echo $tit_codigo." -> ".$trans."<br>";
-}
-
-echo "<br>Afiliados<br>";
-$query = "SELECT * FROM transacciones order by afiliado";
-$result = mysql_query($query,$link);
-while($row = mysql_fetch_array($result)) {
-	$afiliado = $row["afiliado"];
-
-	$quer2 = "SELECT * FROM afiliados where tit_codigo='".$afiliado."'";
-	if ($resul2 = mysql_query($quer2,$link)) { $trans = 1; } else { $trans = 0; }
-	echo $afiliado." -> ".$trans."<br>";
-}	
-*/
 
 // Borrar tablas
 $query = "DELETE FROM genealogia WHERE 1";

@@ -7,16 +7,17 @@ if ($row = mysql_fetch_array($result)) {
 	if ($envio) {
 		$direccion_envio = $row["direccion_envio"];
 	} else {
-		$direccion_envio = 'Calle '.trim($row["calle"]).',cruce '.trim($row["cruce"]).', casa No. '.trim($row["casa"]).', piso '.trim($row["piso"]).', apto. '.trim($row["apto"]).', sector '.trim($row["sector"]).', referencia '.trim($row["referencia"]).', parroquia '.trim($row["parroquia"]).', ciudad '.trim($row["ciudad"]).', municipio '.trim($row["municipio"]).', estado '.trim($row["estado"]).', Código postal '.trim($row["cod_postal"]).', país '.trim($row["pais"]);
+		$direccion_envio = 'Calle '.trim($row["calle"]).',cruce '.trim($row["cruce"]).', casa No. '.trim($row["casa"]).', piso '.trim($row["piso"]).', apto. '.trim($row["apto"]).', sector '.trim($row["sector"]).', referencia '.trim($row["referencia"]).', parroquia '.trim($row["parroquia"]).', ciudad '.trim($row["ciudad"]).', municipio '.trim($row["municipio"]).', estado '.trim($row["estado"]).utf8_decode(', código postal ').trim($row["cod_postal"]).utf8_decode(', país ').trim($row["pais"]);
 	}	
 } 
 $codigo = $_SESSION["codigo"];
 $tipo_orden = 'Afiliado';
 $patroc_codigo = $_SESSION["codigo"];
 $fecha = date('Y-m-d H:i:s');
-$monto = $_SESSION["monto"];
+$monto = $_SESSION["monto"]*(1+($_SESSION["iva2"]/100));
 $valor_comisionable = $_SESSION["comisionable"];
 $puntos = $_SESSION["puntos"];
+
 
 $error = false;
 $query = "INSERT INTO ordenes (codigo, tipo_orden, patroc_codigo, fecha, monto, valor_comisionable, puntos, direccion_envio,id_transaccion,status_orden) VALUES ('".$codigo."','".$tipo_orden."','".$patroc_codigo."','".$fecha."',".$monto.",".$valor_comisionable.",".$puntos.",'".$direccion_envio."',0,'Pendiente')";
@@ -30,7 +31,7 @@ if ($result = mysql_query($query,$link)) {
 		foreach ($_SESSION["orden"] as $prod => $value) {
 			$id_pro = $prod;
 			$cantidad = $_SESSION["orden"][$prod];
-			$precio = $_SESSION["precio_pro"][$prod];
+			$precio = $_SESSION["precio_pro"][$prod]*(1+($_SESSION["iva2"]/100));
 			$valor_comisionable = $_SESSION["valor_comisionable_pro"][$prod];
 			$puntos = $_SESSION["puntos_pro"][$prod];
 			$query = "INSERT INTO det_orden (orden_id, id_pro, cantidad, precio, valor_comisionable, puntos) VALUES (".$orden_id.",'".$id_pro."',".$cantidad.",".$precio.",".$valor_comisionable.",".$puntos.")";
@@ -60,18 +61,19 @@ if ($error) {
 	$cliente = trim($row["tit_nombres"]).' '.trim($row["tit_apellidos"]);
 	$cedula = $row["tit_cedula"];
 	$telefono = trim($row["tel_local"]).' / '.trim($row["tel_celular"]);
-	$direccion = 'Calle '.trim($row["calle"]).',cruce '.trim($row["cruce"]).', casa No. '.trim($row["casa"]).', piso '.trim($row["piso"]).', apto. '.trim($row["apto"]).', sector '.trim($row["sector"]).', referencia '.trim($row["referencia"]).', parroquia '.trim($row["parroquia"]).', ciudad '.trim($row["ciudad"]).', municipio '.trim($row["municipio"]).', estado '.trim($row["estado"]).', Código postal '.trim($row["cod_postal"]).', país '.trim($row["pais"]);
+	$direccion = 'Calle '.trim($row["calle"]).',cruce '.trim($row["cruce"]).', casa No. '.trim($row["casa"]).', piso '.trim($row["piso"]).', apto. '.trim($row["apto"]).', sector '.trim($row["sector"]).', referencia '.trim($row["referencia"]).', parroquia '.trim($row["parroquia"]).', ciudad '.trim($row["ciudad"]).', municipio '.trim($row["municipio"]).', estado '.trim($row["estado"]).utf8_decode(', código postal ').trim($row["cod_postal"]).utf8_decode(', país ').trim($row["pais"]);
 	$direccion_envio = $direccion_envio;
 	$_SESSION["direccion_envio"] = $direccion_envio;
 	$mensaje = '';
-	$mensaje .= 'Número de Orden: <b>'.trim($orden_id).'</b><br>';
-	$mensaje .= 'Cliente: '.utf8_encode(trim($cliente)).' C.I. '.number_format($cedula,0,',','.').'<br>';
-	$mensaje .= 'Teléfono: '.trim($telefono).'<br>';
-	$mensaje .= 'Dirección: '.utf8_encode(trim($direccion)).'<br>';
-	$mensaje .= 'Enviar a: '.utf8_encode(trim($direccion_envio)).'<br>';
+	$mensaje .= '<b>'.utf8_decode('Número de Orden: ').trim($orden_id).'</b><br>';
+	$mensaje .= '<b>Cliente: '.trim($codigo).' - '.utf8_decode(trim($cliente)).'</b>, C.I. '.number_format($cedula,0,',','.').'<br>';
+	$mensaje .= '<b>'.utf8_decode('Teléfono: ').'</b>'.trim($telefono).'<br>';
+	$mensaje .= '<b>'.utf8_decode('Dirección: ').'</b>'.trim($direccion).'<br><br>';
+	$mensaje .= '<b>Enviar a: </b>'.trim($direccion_envio).'<br><br>';
+	$mensaje .= '<b>'.utf8_decode('Puntos en esta órden: ').number_format($puntos,0,',','.').'</b><br><br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
-			$mensaje .= '<th align="center" width="380px">Descripción</th>';
+			$mensaje .= '<th align="center" width="380px">'.utf8_decode('Descripción').'</th>';
 			$mensaje .= '<th align="center" width="100px">Cantidad</th>';
 			$mensaje .= '<th align="center" width="105px">Precio</th>';
 			$mensaje .= '<th align="center" width="120px">A pagar</th>';
@@ -82,13 +84,13 @@ if ($error) {
 			$result = mysql_query($query,$link);
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
-				$desc_corta = utf8_encode($row["desc_corta"]);
-				$precio_pro = $row["pvp_dist"];
+				$desc_corta = utf8_decode($row["desc_corta"]);
+				$precio_pro = $row["pvp_dist"]/round(1+($_SESSION["iva1"]/100),2);
 				$valor_comisionable_pro = $row["com_dist"];
 				$puntos_pro = $row["pts_dist"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;
 				$mensaje .= '<tr>';
-					$mensaje .= '<td align="left" width="380px">'.trim($id_pro).' - '.trim($desc_corta).'</td>';
+					$mensaje .= '<td align="left" width="380px">'.trim($id_pro).' - '.utf8_encode(trim($desc_corta)).'</td>';
 					$mensaje .= '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
 					$mensaje .= '<td align="right" width="105px">Bs. '.number_format($precio_pro,2,',','.').'</td>';
 					$mensaje .= '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'</td>';

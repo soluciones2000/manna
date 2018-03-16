@@ -60,9 +60,11 @@ if ($error) {
 	include_once('../apis/pagoflash.api.client.php');
 
 	$urlCallbacks = "https://pruebas.sgc-consultores.com.ve/oficina";
-	$key_public = "GLVCQ44WPZMRT46FPI6O";
-	$key_secret = "WG6YAFNH5AVN7AZKGAOTUGLV8DQ78A";
-	$api = new apiPagoflash($key_public,$key_secret, $urlCallbacks,true);
+	// Llaves de Manna ------------------ O J O
+	$key_public = "6JV0CJRKD0Z6KDHA2TCB";
+	$key_secret = "YKR7I8L63Y85D6GE7BKIP3F3WUPKP7";
+	// ------------------ O J O
+	$api = new apiPagoflash($key_public,$key_secret, $urlCallbacks, false);
 
 	$cabeceraDeCompra = array(
 		    "pc_order_number"   => trim(strval($orden_id)),

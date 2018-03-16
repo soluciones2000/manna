@@ -360,7 +360,7 @@ class Aliados extends CI_Controller {
 				} elseif (strpos(base_url(),'pruebas')!==FALSE) {
 					$campos = $this->Auth_model->getStructure('information_schema.columns','sgcconsu_manna','afiliados');
 				} else {
-					$campos = $this->Auth_model->getStructure('information_schema.columns','corpmann_manna','afiliados');
+					$campos = $this->Auth_model->getStructure('information_schema.columns','corporac_manna','afiliados');
 				}
 	            $datos = $this->Auth_model->getCampos($tit_codigo);
 
@@ -406,8 +406,7 @@ class Aliados extends CI_Controller {
 					);
 					$this->email->initialize($config);
 					$this->email->from($_SESSION['emp_email'],$_SESSION['emp_nombre']);
-					$this->email->to('ordenesmanna@gmail.com');
-					$this->email->to('soluciones2000@gmail.com');
+					$this->email->to('ordenesmanna@gmail.com,soluciones2000@gmail.com');
 					$this->email->subject('Datos de la planilla de nuevo afiliado');
 					$this->email->message($cadena);
 					if ($this->email->send()) {

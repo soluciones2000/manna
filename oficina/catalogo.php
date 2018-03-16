@@ -51,22 +51,26 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 				} else {
 					$imagen = 'img/sin_imagen.jpg';
 				}
-				if ($contador==1) {
-					echo '<tr>';
+				if ($precio_pro>0.00) {
+					if ($contador==1) {
+						echo '<tr>';
+					}
+					echo '<td align="center" width="25%" style="padding:2%">';
+						echo  '<img SRC="'.trim($imagen).'" width="150px" height="150px" title="'.$desc_pro.'"><br>';
+						echo trim($id_pro).'<br>';
+						echo trim($desc_corta).'<br>';
+						echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
+						echo 'I.V.A. '.number_format($precio_pro*($_SESSION["iva1"]/100),2,',','.').'<br>';
+						echo 'Total Bs. '.number_format($precio_pro*(1+($_SESSION["iva1"]/100)),2,',','.').'<br>';
+						echo 'Puntos Manna: '.trim(number_format($puntos_pro,0,',','.')).'<br>';
+						echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
+					echo '</td>';
+					if ($contador==4) {
+						echo '</tr>';
+						$contador = 0;
+					}
+					$contador++;
 				}
-				echo '<td align="center" width="25%" style="padding:2%">';
-					echo  '<img SRC="'.trim($imagen).'" width="150px" height="150px" title="'.$desc_pro.'"><br>';
-					echo trim($id_pro).'<br>';
-					echo trim($desc_corta).'<br>';
-					echo 'Precio Bs. '.number_format($precio_pro,2,',','.').'<br>';
-					echo 'Puntos Manna: '.trim(number_format($puntos_pro,2,',','.')).'<br>';
-					echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
-				echo '</td>';
-				if ($contador==4) {
-					echo '</tr>';
-					$contador = 0;
-				}
-				$contador++;
 			}
 			echo '</table>';
 		echo '</td>';
