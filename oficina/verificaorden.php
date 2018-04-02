@@ -1,6 +1,5 @@
 <?php 
 include_once("conexion.php");
-session_start();
 echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '<tr>';
 		echo '<td width="20%">';
@@ -36,10 +35,18 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$id_pro = $row["id_pro"];
 						$desc_corta = utf8_encode($row["desc_corta"]);
 						$puntos_pro = $row["pts_dist"];
-						if ($_SESSION["iva2"]<>0.00) {
-							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
+						if ($_SESSION["rango"]=="ACI Potencial") {
+							if ($_SESSION["iva2"]<>0.00) {
+								$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
+							} else {
+								$precio_pro = $row["pvp_clipref"];
+							}
 						} else {
-							$precio_pro = $row["pvp_dist"];
+							if ($_SESSION["iva2"]<>0.00) {
+								$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
+							} else {
+								$precio_pro = $row["pvp_dist"];
+							}
 						}
 						$imagen = $row["imagen"];
 						if (file_exists('img/'.trim($imagen).'.jpg')) {

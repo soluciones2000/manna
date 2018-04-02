@@ -49,7 +49,14 @@ echo '<table border="1" align="center" width="100%">';
 //				echo ' <a id="'.trim($nomima).'" href="cambiaimagen.php?nomima='.trim($nomima).'" target="_blank"><img src="'.trim($imagen).'" alt="'.utf8_encode($row["desc_corta"]).'" height="100" width="100"></a> ';
 			echo '</td>';
 			echo '<td style="padding-left:1%;">';
-				echo $row["id_pro"].'<br>'.utf8_encode($row["desc_corta"]);
+				echo 'Código: '.$row["id_pro"].'<br>';
+				echo 'Descripcion: '.'<input type="text" name="desc_corta_#_'.trim($id_pro).'" value="'.$row["desc_corta"].'" size="40" maxlength="50" />'.'<br>';
+				if ($row["aviso"]) {
+					echo 'Aviso de despacho en otra fecha: '.'<input type="checkbox" name="aviso_#_'.trim($id_pro).'" value="'.$row["aviso"].'" checked /> SI'.'<br>';
+				} else {
+					echo 'Aviso de despacho en otra fecha: '.'<input type="checkbox" name="aviso_#_'.trim($id_pro).'" value="'.$row["aviso"].'" /> SI'.'<br>';
+				}
+				echo 'Fecha de despacho: '.'<input type="date" name="fecha_aviso_#_'.trim($id_pro).'" value="'.$row["fecha_aviso"].'" size="10" />';
 			echo '</td>';
 			echo '<td align="right" style="padding-right:1%;">';
 				echo 'Precio: '.'<input type="currency" name="pvp_dist_#_'.trim($id_pro).'" value="'.$row["pvp_dist"].'" size="10" style="text-align:right;" />'.'<br>';

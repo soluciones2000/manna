@@ -326,7 +326,7 @@ class Especialistas extends CI_Controller {
 	           	'envio' => $sienvia,
 	           	'direccion_envio' => $direccion_envio,
 	           	'status_afiliado' => "Activo",
-	           	'rango' => 'En Ascenso',
+	           	'rango' => 'ACI Potencial',
 	           	'pm' => 0,
 	           	'pmo' => 0,
 	           	'flag' => false

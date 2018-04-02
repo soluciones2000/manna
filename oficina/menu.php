@@ -14,7 +14,7 @@
                         <!-- <a id="c180" class="" href="#" onclick="refresca(this,'club_180.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Club 180</a> -->
                         <a id="billetera" class="" href="#" onclick="refresca(this,'billetera.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Billetera</a>
                         <a id="ordenes" class="" href="#" onclick="refresca(this,'catalogo.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Ordenar prod.</a>
-                        <a id="pagos" class="" href="#" onclick="refresca(this,'reportapago.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Reportar pago</a>
+                        <a id="pagos" class="" href="#" onclick="refresca(this,'ordenespendientes.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Pagos</a>
                         <a id="tracking" class="" href="#" onclick="refresca(this,'tracking.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Status órdenes</a>
                         <a id="mensajes" class="" href="#" onclick="refresca(this,'mensajes.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Mensajes</a>
                         <a id="academia" class="" href="#" onclick="refresca(this,'academia.php',<?php echo "'".$_SESSION["codigo"]."'"; ?>)">Academia</a>

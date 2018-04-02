@@ -39,11 +39,21 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$precio_pro = $row["pvp_dist"];
 						$valor_comisionable_pro = $row["com_dist"];
 						$puntos_pro = $row["pts_dist"];
-						if ($_SESSION["iva2"]<>0.00) {
-							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
+						$precioreal = ($_SESSION["iva2"]<>0.00) ? $row["pvp_dist"]/(1+($_SESSION["iva2"]/100)) : $row["pvp_dist"] ;
+						if ($_SESSION["rango"]=="ACI Potencial") {
+							if ($_SESSION["iva2"]<>0.00) {
+								$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
+							} else {
+								$precio_pro = $row["pvp_clipref"];
+							}
 						} else {
-							$precio_pro = $row["pvp_dist"];
-						}						
+							if ($_SESSION["iva2"]<>0.00) {
+								$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
+							} else {
+								$precio_pro = $row["pvp_dist"];
+							}						
+						}
+						$_SESSION["precioreal"][$prod] = $precioreal;
 						$_SESSION["precio_pro"][$prod] = $precio_pro;
 						$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 						$_SESSION["puntos_pro"][$prod] = $puntos_pro;
@@ -63,6 +73,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 							echo '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
 							echo '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'<br>';
 							echo '<font size="2">(PM. '.number_format($_SESSION["orden"][$prod]*$puntos_pro,0,',','.').')</font>';
+							$subtreal += $_SESSION["orden"][$prod]*$precioreal;
 							$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
 							$valorcom += $_SESSION["orden"][$prod]*$valor_comisionable_pro;
 							$ptsorden += $_SESSION["orden"][$prod]*$puntos_pro;
@@ -87,6 +98,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
 						// echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.<br>';
 						// echo 'En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
+							$_SESSION["treal"] = $subtreal;
 							$_SESSION["monto"] = $subtotal;
 							$_SESSION["comisionable"] = $valorcom;
 							$_SESSION["puntos"] = $ptsorden;
@@ -97,12 +109,15 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo '</td>';
 					echo '<td align="center">';
 						// echo '<form method="post" action="pagoenlinea.html">';
-						echo '<form method="post" action="formapagoenlinea.php">';
+						// echo '<form method="post" action="formapagoenlinea.php">';
 //							echo '<input type="hidden" name="orden" value="" />';
-							echo '<p><input type="submit" name="ordenar" value="Pagar en línea" disabled></p>';
+							// echo '<p><input type="submit" name="ordenar" formtarget="_blank" value="Pagar en línea" /></p>';
+						// echo '</form>';
+						echo '<form>';
+							echo '<p><input type="submit" name="ordenar" onclick="Abrir_ventana()" value="Pagar en linea" /></p>';		
 						echo '</form>';
 						echo '<form method="post" action="confirmaorden.php">';
-							echo '<p><input type="submit" name="ordenar" value="pagar después"></p>';
+							echo '<p><input type="submit" name="ordenar" value="pagar después" /></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';
@@ -110,3 +125,11 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 		echo '</td>';
 	echo '</tr>';
 echo '</table>';
+echo '
+<script>
+function Abrir_ventana(){
+	propiedades="top=50, left=200, width=800, height=600";
+	window.open("formapagoenlinea.php","_blank",propiedades);
+} 
+</script>
+';

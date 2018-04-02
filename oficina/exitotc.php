@@ -1,6 +1,7 @@
 <?php 
 include_once("conexion.php");
 session_start();
+
 $query = "Select * from afiliados where tit_codigo='".trim($_SESSION["codigo"])."'";
 $result = mysql_query($query,$link);
 if ($row = mysql_fetch_array($result)) {
@@ -14,49 +15,45 @@ $codigo = $_SESSION["codigo"];
 $tipo_orden = 'Afiliado';
 $patroc_codigo = $_SESSION["codigo"];
 $fecha = date('Y-m-d H:i:s');
-$treal = $_SESSION["treal"]*(1+($_SESSION["iva2"]/100));
+$fectr = date('Y-m-d');
 $monto = $_SESSION["monto"]*(1+($_SESSION["iva2"]/100));
 $valor_comisionable = $_SESSION["comisionable"];
 $puntos = $_SESSION["puntos"];
+$tipo = '06';
 
+// OJOJOJOJOJO REGISTRAR TRANSACCIÓN
+$query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, valor_punto, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fectr."','".$codigo."','','','".$tipo."',".$monto.", 0.00,".$puntos.",".$_SESSION["valor_punto"].",'".$_GET["tk"]."','Pago flash','Pendiente',".$_GET["orden"].")";
+echo $query;
+echo '<br>';
 
-$error = false;
-$query = "INSERT INTO ordenes (codigo, tipo_orden, patroc_codigo, fecha, montodoc, monto, valor_comisionable, puntos, montoreal, direccion_envio, id_transaccion, status_orden) VALUES ('".$codigo."','".$tipo_orden."','".$patroc_codigo."','".$fecha."',".$monto.",".$monto.",".$valor_comisionable.",".$puntos.",".$treal.",'".$direccion_envio."',0,'Pendiente')";
 if ($result = mysql_query($query,$link)) {
-	$mensaje3 = "no falló";
-	$query = "select orden_id from ordenes where codigo='".$codigo."' and fecha='".$fecha."'";
-	$result = mysql_query($query,$link);
-	if ($row = mysql_fetch_array($result)) {
-		$mensaje2 = "no falló";
-		$orden_id = $row["orden_id"];
-		foreach ($_SESSION["orden"] as $prod => $value) {
-			$id_pro = $prod;
-			$cantidad = $_SESSION["orden"][$prod];
-			$prreal = $_SESSION["precioreal"][$prod]*(1+($_SESSION["iva2"]/100));
-			$precio = $_SESSION["precio_pro"][$prod]*(1+($_SESSION["iva2"]/100));
-			$valor_comisionable = $_SESSION["valor_comisionable_pro"][$prod];
-			$puntos = $_SESSION["puntos_pro"][$prod];
-			$query = "INSERT INTO det_orden (orden_id, id_pro, cantidad, precio, valor_comisionable, puntos, precioreal) VALUES (".$orden_id.",'".$id_pro."',".$cantidad.",".$precio.",".$valor_comisionable.",".$puntos.",".$prreal.")";
-			if ($result = mysql_query($query,$link)) {
-				$mensaje1 = "no falló";
-				$error = false;
-			} else {
-				$error = true;
-				$mensaje1 = "falló";
-				break;
-			}
-		}
+	$quer2 = "select id from transacciones where orden_id=".trim($_GET["orden"])." and fecha='".$fectr."'";
+	echo $quer2;
+	echo '<br>';
+
+	$resul2 = mysql_query($quer2,$link);
+	if ($row = mysql_fetch_array($resul2)) {
+		$idtran = $row["id"];
 	} else {
-		$mensaje2 = "falló";
-		$error = true;
+		$idtran = 0;
 	}
-} else {
-	$mensaje3 = "falló";
-	$error = true;
-}
-if ($error) {
-	$cadena = 'Location: error.php'; 
-} else {
+
+	$quer4 = "select monto from ordenes WHERE orden_id=".trim($_GET["orden"]);
+	echo $quer4;
+	echo '<br>';
+	$resul4 = mysql_query($quer4,$link);
+	$saldo = ($ro4 = mysql_fetch_array($resul4)) ? $ro4["monto"] : $monto ;
+	$saldo -= $monto;
+
+	$quer3 = "UPDATE ordenes SET id_transaccion=".trim($idtran).",monto=".$saldo.",status_orden='Cancelada por conciliar' WHERE orden_id=".trim($_GET["orden"]);
+	echo $quer3;
+	echo '<br>';
+
+	$resul3 = mysql_query($quer3,$link);
+
+// OJOJOJOJOJO HASTA AQUI, faltan los puntos y los bonos
+
+	$orden_id = $_GET["orden"];
 	$query = "SELECT * from afiliados WHERE tit_codigo='".trim($_SESSION["codigo"])."'";
 	$result = mysql_query($query,$link);
 	$row = mysql_fetch_array($result);
@@ -66,6 +63,7 @@ if ($error) {
 	$direccion = 'Calle '.trim($row["calle"]).',cruce '.trim($row["cruce"]).', casa No. '.trim($row["casa"]).', piso '.trim($row["piso"]).', apto. '.trim($row["apto"]).', sector '.trim($row["sector"]).', referencia '.trim($row["referencia"]).', parroquia '.trim($row["parroquia"]).', ciudad '.trim($row["ciudad"]).', municipio '.trim($row["municipio"]).', estado '.trim($row["estado"]).utf8_decode(', código postal ').trim($row["cod_postal"]).utf8_decode(', país ').trim($row["pais"]);
 	$direccion_envio = $direccion_envio;
 	$_SESSION["direccion_envio"] = $direccion_envio;
+
 	$mensaje = '';
 	$mensaje .= '<b>'.utf8_decode('Número de Orden: ').trim($orden_id).'</b><br>';
 	$mensaje .= '<b>Cliente: '.trim($codigo).' - '.utf8_decode(trim($cliente)).'</b>, C.I. '.number_format($cedula,0,',','.').'<br>';
@@ -73,6 +71,9 @@ if ($error) {
 	$mensaje .= '<b>'.utf8_decode('Dirección: ').'</b>'.trim($direccion).'<br><br>';
 	$mensaje .= '<b>Enviar a: </b>'.trim($direccion_envio).'<br><br>';
 	$mensaje .= '<b>'.utf8_decode('Puntos en esta órden: ').number_format($puntos,0,',','.').'</b><br><br>';
+	$mensaje .= '<b>'.utf8_decode('Cancelada con tarjeta de crédito.').'</b><br>';
+	$mensaje .= '<b>'.utf8_decode('Número de token: ').$_GET["tk"].'</b><br>';
+	$mensaje .= '<b>'.utf8_decode('Número de transacción: ').$idtran.'</b><br><br>';
 	$mensaje .= '<table border="1" width="auto">';
 		$mensaje .= '<tr>';
 			$mensaje .= '<th align="center" width="380px">'.utf8_decode('Descripción').'</th>';
@@ -104,32 +105,20 @@ if ($error) {
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
-//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>SUBTOTAL</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
-//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>I.V.A. '.number_format($_SESSION["iva1"],2,',','.').'% (*)</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal*$_SESSION["iva1"]/100,2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
 		$mensaje .= '<tr>';
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td> </td>';
 			$mensaje .= '<td align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
-//			$mensaje .= '<td colspan="3" align="right" style="padding:2%;"><b>TOTAL ORDEN</b></td>';
 			$mensaje .= '<td align="right"><b>Bs. '.number_format($subtotal+($subtotal*$_SESSION["iva1"]/100),2,',','.').'</b></td>';
 		$mensaje .= '</tr>';
-//		$mensaje .= '<tr>';
-//			$mensaje .= '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
-//				$mensaje .= '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.</p>';
-//				$mensaje .= '<p align="justify">En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs.';
-//					if ($subtotal>2000000) { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva3"]/100),2,',','.'); }
-//					else { $mensaje .= number_format($subtotal+($subtotal*$_SESSION["iva2"]/100),2,',','.'); }
-//				$mensaje .= '.</p>';
-//			$mensaje .= '</td>';
-//		$mensaje .= '</tr>';
 	$mensaje .= '</table>';
 	$asunto = "Orden de pedido No.: ".trim($orden_id);
 	$cabeceras = 'Content-type: text/html;';
@@ -148,8 +137,16 @@ if ($error) {
 	$_SESSION["monto"] = 0.00;
 	$_SESSION["comisionable"] = 0.00;
 	$_SESSION["puntos"] = 0;
-//	$cadena = 'Location: exito.php';
-	$cadena = 'Location: exito.php?orden='.trim($orden_id); 
+	$cadena = 'exito.php?orden='.trim($orden_id); 
+} else {
+	$mensaje = "error 4";
+	$cadena = 'error.php?error='.$mensaje; 
 }
-header($cadena);
+
+echo '
+<script>
+	parent.opener.location.assign("'.$cadena.'");
+	window.close();
+</script>
+';
 ?>

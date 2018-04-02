@@ -39,6 +39,8 @@ $navegador = getBrowser($_SERVER['HTTP_USER_AGENT']);
 
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 
+var_dump($_GET);
+
 echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '<tr>';
 		echo '<td valign="top" align="center" colspan="3">';
