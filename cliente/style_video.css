@@ -1,0 +1,234 @@
+@import url("animations.css");
+/*
+* Template: Uniquebiz
+* Author: TrendyTheme
+* Version: 1.0
+* Design and Developed by: TrendyTheme
+*/
+
+.content-section .video-section{
+	background-size: cover;
+	overflow: hidden;
+	background-color: #000;
+    }
+.video-section .pattern-overlay {
+background-color: rgba(0, 0, 0, 0);
+padding: 0px 0 32px;
+min-height: 550px;
+ }
+ .video-section .buttonBar{display:none;}
+.player {font-size: 1px;}
+
+#mivideo_2{
+	background-size: cover;
+	position: relative;
+	max-height: 660px;
+	}
+	
+#mivideo_contenedor{
+	position: absolute;
+	width: auto%;
+    height: auto%;
+	}
+	
+.fullscreen-bg {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+	background-color: #000;
+
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate(-50%, -50%);
+       -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+		z-index: -1;
+		background-color: #000;
+}
+
+@media (max-width: 991px) {
+    .fullscreen-bg {
+        background: url('assets/images/1.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+@media (max-width: 970px) {
+    .fullscreen-bg {
+        background: url('assets/images/1.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .fullscreen-bg {
+        background: url('assets/images/2.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+@media (max-width: 750px) {
+    .fullscreen-bg {
+        background: url('assets/images/2.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .fullscreen-bg {
+        background: url('assets/images/3.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    .fullscreen-bg {
+        background: url('assets/images/3.jpg') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
+}
+
+.dark_video {
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+	background-size: cover;
+  overflow: hidden;
+	 }
+	 
+	 .dark_video2 {
+   content: "";
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+	z-index: 1;
+	 }
+	 
+	 .img-texto {
+   	position: relative;
+   	float: left;
+   }
+   .img-texto span {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	background: rgba(0, 0, 0, 0);
+	padding: 5px;
+	color: #fff;
+	font-family: inherit;
+	text-align: center;
+	font-weight: 400;
+	font-size: 18px;
+	letter-spacing: normal;
+   }
+   
+   div.avatar {
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 100px;
+    width: 100px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 100%;
+    border-radius: 100%;
+    background-size: 100% auto;
+}
+
+.borde_redondeados {
+	-moz-border-radius: 13px 13px 13px 13px;
+	-webkit-border-radius: 13px 13px 13px 13px;
+   }
+   
+.borde_redondeados2 {
+	-moz-border-radius: 0px 0px 10px 10px;
+	-webkit-border-radius: 0px 0px 10px 10px;
+   }
+   
+.borde_redondeados3 {
+	-moz-border-radius: 10px 10px 0px 0px;
+	-webkit-border-radius: 10px 10px 0px 0px;
+   }
+   
+.borde_redondeados .sombra_borde {
+	box-shadow: inset 0 0 0 16px rgba(0,0,0,0.3);
+   }
+   
+.texto_gris {
+	font-size: 16px;
+	color: #666;
+   }
+   
+   .texto_gris2 {
+	font-size: 18px;
+	color: #CCC;
+	text-align: center;
+	font-weight: 400;
+   }
+.img_centrada {
+	margin: 0 auto 0px auto
+	text-align: center;
+   }
+#login-nav input { margin-bottom: 15px; }
+
+
+.fullscreen-bg__mapa {
+    
+	width: 50%;
+    height: 50%;
+    min-width: 50%;
+    min-height: 50%;
+    -webkit-transform: translate(-50%, -50%);
+       -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+	    transform: translate(-50%, -50%);
+		z-index: -1;
+}
+
+@media (max-width: 1100px) {
+    .fullscreen-map {
+        display: none;
+    }
+	}
+
+@media (min-width: 1100px) {
+    .fullscreen-map2 {
+        display: none;
+    }
+	}
+@media all and (max-width: 1100px) {
+    .boton_oculto { display:none; }
+}

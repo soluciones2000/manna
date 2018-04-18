@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -225,3 +235,11 @@ while($row = mysql_fetch_array($result)) {
 	echo $txt;
 //}
 ?>
+<p align="center"><button class="btn btn-primary btn-block" style="font-family: Helvetica;" onclick="volver('menubonos.php?c=<?php echo $_SESSION["codigo"]; ?>')">Volver</button></p>
+
+<script type="text/javascript">
+	function volver(ruta) {
+      window.location.replace(ruta);
+	}
+</script>
+

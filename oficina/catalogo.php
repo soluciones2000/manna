@@ -1,5 +1,19 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+	
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	
 <?php 
-echo '<!doctype html>';
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 
@@ -19,7 +33,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '</tr>';
 	echo '<tr>';
 		echo '<td colspan="3">';
-			echo '<table border="1" width="100%">';
+			echo '<table border="0" width="100%">';
 			$query = "SELECT tipo_persona FROM afiliados where tit_codigo='".$codigo."'";
 			$result = mysql_query($query,$link);
 			if($row = mysql_fetch_array($result)) {
@@ -43,18 +57,10 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 				$puntos_pro = $row["pts_dist"];
 				$aviso = $row["aviso"];
 				$fecha_aviso = $row["fecha_aviso"];
-				if ($_SESSION["rango"]=="ACI Potencial") {
-					if ($_SESSION["iva2"]<>0.00) {
-						$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
-					} else {
-						$precio_pro = $row["pvp_clipref"];
-					}
+				if ($_SESSION["iva2"]<>0.00) {
+					$precio_pro = $row["pvp_dist"]/(1+($_SESSION["iva2"]/100));
 				} else {
-					if ($_SESSION["iva2"]<>0.00) {
-						$precio_pro = $row["pvp_dist"]/(1+($_SESSION["iva2"]/100));
-					} else {
-						$precio_pro = $row["pvp_dist"];
-					}
+					$precio_pro = $row["pvp_dist"];
 				}
 				$imagen = $row["imagen"];
 				if (file_exists('img/'.trim($imagen).'.jpg')) {
@@ -77,9 +83,9 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						if ($aviso and $fecha_aviso>date("Y-m-d")) {
 							settype($fecha_aviso,"string");
 							settype($id_pro,"string");
-							echo '<a id="'.$fecha_aviso.'*-*'.$id_pro.'" href="" onclick="agregar(this.id)">Agregar a la orden</a>';
+							echo '<a id="'.$fecha_aviso.'*-*'.$id_pro.'" class="btn btn-primary btn-raised btn-round btn-lg" href="" onclick="agregar(this.id)"><i class="material-icons">add_shopping_cart</i>&nbsp;&nbsp;Agregar a la Orden</a>';
 						} else {
-							echo '<a href="agrega.php?prd='.$id_pro.'">Agregar a la orden</a>';
+    						echo '<a class="btn btn-primary btn-raised btn-round btn-lg" href="agrega.php?prd='.$id_pro.'"><i class="material-icons">add_shopping_cart</i>&nbsp;&nbsp;Agregar a la Orden</a>';
 						}
 					echo '</td>';
 					if ($contador==4) {
@@ -102,7 +108,6 @@ function agregar(idpro) {
 }
 </script>';
 ?>
-
 <!--
 	<div id="paginas">
 		<table border="0" align="center" width="100%">

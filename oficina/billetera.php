@@ -1,3 +1,14 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
+
 <?php 
 session_start();
 include_once("conexion.php");
@@ -61,7 +72,7 @@ echo '<p align="center">Créditos del mes <b>Bs. '.number_format($creditos,2,','
 echo 'Débitos del mes <b>Bs. '.number_format($debitos,2,',','.').'</b></p>';
 
 echo '<h3 align="center">Resumen por tipo de movimiento</h3>';
-echo '<table align="center" border="1">';
+echo '<table align="center" border="0">';
 	echo '<tr>';
 		echo '<th width="45%">Créditos</th>';
 		echo '<th width="45%">Débitos</th>';	
@@ -118,25 +129,25 @@ echo '</table>';
 echo '<br>';
 echo '<table align="center"><tr><td>';
 	echo '<form method="post" action="detbilletera.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="detalle" value="Ver detalle del mes">';
+		echo '<input type="submit" name="detalle" class="btn btn-primary" value="Ver detalle del mes">';
 	echo '</form>';
 	echo '<form method="post" action="periodo.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="historico" value="Ver meses anteriores">';
+		echo '<input type="submit" name="historico" class="btn btn-primary" value="Ver meses anteriores">';
 	echo '</form>';
 	echo '<form method="post" action="pagobilletera.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="pagar" value="Pagar órdenes con la biletera">';
+		echo '<input type="submit" name="pagar" class="btn btn-primary" value="Pagar órdenes con la biletera">';
 	echo '</form>';
 	echo '<form method="post" action="abonobilletera.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="abono" value="Abono a cuenta">';
+		echo '<input type="submit" name="abono" class="btn btn-primary" value="Abono a cuenta">';
 	echo '</form>';
 	echo '<form method="post" action="transferbiletera.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="transferencia" value="Transferir a otro aliado">';
+		echo '<input type="submit" name="transferencia" class="btn btn-primary" value="Transferir a otro aliado">';
 	echo '</form>';
 	echo '<form method="post" action="retiro.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="retiro" value="Retirar comisiones">';
+		echo '<input type="submit" name="retiro" class="btn btn-primary" value="Retirar comisiones">';
 	echo '</form>';
 	echo '<form method="post" action="inicio.php?c='.$_SESSION["codigo"].'" style="display:inline;">';
-		echo '<input type="submit" name="volver" value="Volver al inicio">';
+		echo '<input type="submit" name="volver" class="btn btn-primary" value="Volver al inicio">';
 	echo '</form>';
 echo '</td></tr></table>';
 ////echo '</p>';

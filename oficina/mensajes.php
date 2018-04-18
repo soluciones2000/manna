@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 include_once("funciones.php");
@@ -53,18 +63,18 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 <body>
 	<!-- <h3>Bienvenido <b><?php echo $_SESSION["user"]; ?></b>,</h3> -->
 	<div class="tab">
-		<button class="tablinks" onclick="opentab(event, 'destinatarios')" id="defaultOpen">1) Seleccionar destinatarios</button>
-		<button class="tablinks" onclick="opentab(event, 'mensaje')" id="btnmensaje" disabled>2) Redactar Mensaje</button>
-		<button class="tablinks" onclick="opentab(event, 'confirmar')"  id="btnconfirmar" disabled>3) Confirmar y enviar</button>
+		<button class="tablinks" onClick="opentab(event, 'destinatarios')" id="defaultOpen">1) Seleccionar destinatarios</button>
+		<button class="tablinks" onClick="opentab(event, 'mensaje')" id="btnmensaje" disabled>2) Redactar Mensaje</button>
+		<button class="tablinks" onClick="opentab(event, 'confirmar')"  id="btnconfirmar" disabled>3) Confirmar y enviar</button>
 	</div>
 
 	<div id="destinatarios" class="tabcontent">
 		<h3>
 			Seleccionar destinatarios:
-			<button onclick="enabletab('btnmensaje')" align="right" inline>Continuar al paso 2</button>
+			<button onClick="enabletab('btnmensaje')" align="right" class="btn btn-primary btn-block" inline>Continuar al paso 2</button>
 		</h3>
-		<input type="radio" name="seleccionar" id="todalared" value="Toda la red" onclick="todalared(event)">Toda mi red 
-		<input type="radio" name="seleccionar" id="seleccionar" value="Destinatarios filtrados" onclick="todalared(event)" checked>Filtrar destinatarios
+		<input type="radio" name="seleccionar" id="todalared" value="Toda la red" onClick="todalared(event)">Toda mi red 
+		<input type="radio" name="seleccionar" id="seleccionar" value="Destinatarios filtrados" onClick="todalared(event)" checked>Filtrar destinatarios
 		<p align="justify">Seleccione los destinatarios del mensaje, puede ser toda la red o puede filtrarlos por alguno de los siguientes criterios:</p>
 <!--
  		<div id="grupos" style="display:inline;">
@@ -73,76 +83,76 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		</div>
  -->
 		<fieldset style="width:97%;" id="frango"><legend>Por Rango:</legend>
-			<input type="checkbox" id="rngall" onclick="todoslosrangos(event)">Todos<br>
-			<input class="rangos" type="checkbox" name="ascenso" value="En Ascenso" id="rngascenso" onclick="unrango(event)">En Ascenso
-			<input class="rangos" type="checkbox" name="gerente" value="Gerente" id="rnggerente" onclick="unrango(event)">Gerente
-			<input class="rangos" type="checkbox" name="gtesenior" value="Gerente Senior" id="rnggtesenior" onclick="unrango(event)">Gte. Senior
-			<input class="rangos" type="checkbox" name="oro" value="Oro" id="rngoro" onclick="unrango(event)">Oro
-			<input class="rangos" type="checkbox" name="platino" value="Platino" id="rngplatino" onclick="unrango(event)">Platino
-			<input class="rangos" type="checkbox" name="rubi" value="Rubí" id="rngrubi" onclick="unrango(event)">Rubí
-			<input class="rangos" type="checkbox" name="diamante" value="Diamante" id="rngdiamante" onclick="unrango(event)">Diamante
-			<input class="rangos" type="checkbox" name="embajador" value="Embajador" id="rngembajador" onclick="unrango(event)">Embajador
-			<input class="rangos" type="checkbox" name="embajejec" value="Embajador Ejecutivo" id="rngembajejec" onclick="unrango(event)">Embaj. Ejec.
-			<input class="rangos" type="checkbox" name="embajpres" value="Embajador Presidencial" id="rngembajpres" onclick="unrango(event)">Embaj. Presid.
-			<input class="rangos" type="checkbox" name="embajinter" value="Embajador Internacional" id="rngembajinter" onclick="unrango(event)">Embaj. Internacional
+			<input type="checkbox" id="rngall" onClick="todoslosrangos(event)">Todos<br>
+			<input class="rangos" type="checkbox" name="ascenso" value="En Ascenso" id="rngascenso" onClick="unrango(event)">En Ascenso
+			<input class="rangos" type="checkbox" name="gerente" value="Gerente" id="rnggerente" onClick="unrango(event)">Gerente
+			<input class="rangos" type="checkbox" name="gtesenior" value="Gerente Senior" id="rnggtesenior" onClick="unrango(event)">Gte. Senior
+			<input class="rangos" type="checkbox" name="oro" value="Oro" id="rngoro" onClick="unrango(event)">Oro
+			<input class="rangos" type="checkbox" name="platino" value="Platino" id="rngplatino" onClick="unrango(event)">Platino
+			<input class="rangos" type="checkbox" name="rubi" value="Rubí" id="rngrubi" onClick="unrango(event)">Rubí
+			<input class="rangos" type="checkbox" name="diamante" value="Diamante" id="rngdiamante" onClick="unrango(event)">Diamante
+			<input class="rangos" type="checkbox" name="embajador" value="Embajador" id="rngembajador"  onClick="unrango(event)">Embajador
+			<input class="rangos" type="checkbox" name="embajejec" value="Embajador Ejecutivo" id="rngembajejec" onClick="unrango(event)">Embaj. Ejec.
+			<input class="rangos" type="checkbox" name="embajpres" value="Embajador Presidencial" id="rngembajpres" onClick="unrango(event)">Embaj. Presid.
+			<input class="rangos" type="checkbox" name="embajinter" value="Embajador Internacional" id="rngembajinter" onClick="unrango(event)">Embaj. Internacional
 		</fieldset>
 		<div>
 			<fieldset style="width:24%;display:inline;" id="ftipo"><legend>Por Tipo de afiliado:</legend>
-				<input type="checkbox" name="tiptodos" id="tipall" onclick="todoslostipos(event)">Todos<br>
-				<input class="tipos" type="checkbox" name="tippremium" value="Premium" id="tippremium" onclick="untipo(event)">Premium
-				<input class="tipos" type="checkbox" name="tipvip" value="VIP" id="tipvip" onclick="untipo(event)">V.I.P.
-				<input class="tipos" type="checkbox" name="tiporo" value="Oro" id="tiporo" onclick="untipo(event)">Oro
+				<input type="checkbox" name="tiptodos" id="tipall" onClick="todoslostipos(event)">Todos<br>
+				<input class="tipos" type="checkbox" name="tippremium" value="Premium" id="tippremium" class="form-control" onClick="untipo(event)">Premium
+				<input class="tipos" type="checkbox" name="tipvip" value="VIP" id="tipvip" onClick="untipo(event)">V.I.P.
+				<input class="tipos" type="checkbox" name="tiporo" value="Oro" id="tiporo" onClick="untipo(event)">Oro
 			</fieldset>
 			<fieldset style="width:70%;display:inline;" id="fnivel"><legend>Por nivel en la organización:</legend>
-				<input type="checkbox" name="nivtodos" id="nivall" onclick="todosniveles(event)">Todos<br>
-				<input class="niveles" type="checkbox" name="niv1" value="Nivel 1" id="niv1" onclick="unnivel(event)">Nivel 1
-				<input class="niveles" type="checkbox" name="niv2" value="Nivel 2" id="niv2" onclick="unnivel(event)">Nivel 2
-				<input class="niveles" type="checkbox" name="niv3" value="Nivel 3" id="niv3" onclick="unnivel(event)">Nivel 3
-				<input class="niveles" type="checkbox" name="niv4" value="Nivel 4" id="niv4" onclick="unnivel(event)">Nivel 4
-				<input class="niveles" type="checkbox" name="niv5" value="Nivel 5" id="niv5" onclick="unnivel(event)">Nivel 5
-				<input class="niveles" type="checkbox" name="niv6" value="Nivel 6" id="niv6" onclick="unnivel(event)">Nivel 6
-				<input class="niveles" type="checkbox" name="niv7" value="Nivel 7" id="niv7" onclick="unnivel(event)">Nivel 7
-				<input class="niveles" type="checkbox" name="niv8" value="Nivel 8" id="niv8" onclick="unnivel(event)">Nivel 8
-				<input class="niveles" type="checkbox" name="niv9" value="Niveles inferiores al 8" id="niv9" onclick="unnivel(event)">Nivel 9 en adelante
+				<input type="checkbox" name="nivtodos" id="nivall" onClick="todosniveles(event)">Todos<br>
+				<input class="niveles" type="checkbox" name="niv1" value="Nivel 1" id="niv1" onClick="unnivel(event)">Nivel 1
+				<input class="niveles" type="checkbox" name="niv2" value="Nivel 2" id="niv2" onClick="unnivel(event)">Nivel 2
+				<input class="niveles" type="checkbox" name="niv3" value="Nivel 3" id="niv3" onClick="unnivel(event)">Nivel 3
+				<input class="niveles" type="checkbox" name="niv4" value="Nivel 4" id="niv4" onClick="unnivel(event)">Nivel 4
+				<input class="niveles" type="checkbox" name="niv5" value="Nivel 5" id="niv5" onClick="unnivel(event)">Nivel 5
+				<input class="niveles" type="checkbox" name="niv6" value="Nivel 6" id="niv6" onClick="unnivel(event)">Nivel 6
+				<input class="niveles" type="checkbox" name="niv7" value="Nivel 7" id="niv7" onClick="unnivel(event)">Nivel 7
+				<input class="niveles" type="checkbox" name="niv8" value="Nivel 8" id="niv8" onClick="unnivel(event)">Nivel 8
+				<input class="niveles" type="checkbox" name="niv9" value="Niveles inferiores al 8" id="niv9" onClick="unnivel(event)">Nivel 9 en adelante
 			</fieldset>
 		</div>
 		<div>
 			<fieldset style="width:24%;display:inline;" id="fsexo"><legend>Por sexo:</legend>
-				<input type="checkbox" name="sextodos" id="sexall" onclick="todoslossexos(event)">Todos<br>
-				<input class="sexos" type="checkbox" name="masculino" value="Masculino" id="masculino" onclick="unsexo(event)">Masculino
-				<input class="sexos" type="checkbox" name="femenino" value="Femenino" id="femenino" onclick="unsexo(event)">Femenino
+				<input type="checkbox" name="sextodos" id="sexall" onClick="todoslossexos(event)">Todos<br>
+				<input class="sexos" type="checkbox" name="masculino" value="Masculino" id="masculino" onClick="unsexo(event)">Masculino
+				<input class="sexos" type="checkbox" name="femenino" value="Femenino" id="femenino" onClick="unsexo(event)">Femenino
 			</fieldset>
 			<fieldset style="width:70%;display:inline;" id="fedad"><legend>Por edad:</legend>
-				<input type="checkbox" name="edtodos" id="edtodos" onclick="todosedades(event)">Todos<br>
-				<input class="edades" type="checkbox" name="d00h20" value="Hasta los 20 años" id="d00h20" onclick="unaedad(event)">Hasta los 20 años
-				<input class="edades" type="checkbox" name="d21h30" value="Entre 21 y 30 años" id="d21h30" onclick="unaedad(event)">De 21 a 30 años
-				<input class="edades" type="checkbox" name="d31h40" value="Entre 31 y 40 años" id="d31h40" onclick="unaedad(event)">De 31 a 40 años
-				<input class="edades" type="checkbox" name="d41h50" value="Entre 41 y 50 años" id="d41h50" onclick="unaedad(event)">De 41 a 50 años
-				<input class="edades" type="checkbox" name="d51h00" value="De 51 años en adelante" id="d51h00" onclick="unaedad(event)">De 51 años en adelante
+				<input type="checkbox" name="edtodos" id="edtodos" onClick="todosedades(event)">Todos<br>
+				<input class="edades" type="checkbox" name="d00h20" value="Hasta los 20 años" id="d00h20" onClick="unaedad(event)">Hasta los 20 años
+				<input class="edades" type="checkbox" name="d21h30" value="Entre 21 y 30 años" id="d21h30" onClick="unaedad(event)">De 21 a 30 años
+				<input class="edades" type="checkbox" name="d31h40" value="Entre 31 y 40 años" id="d31h40" onClick="unaedad(event)">De 31 a 40 años
+				<input class="edades" type="checkbox" name="d41h50" value="Entre 41 y 50 años" id="d41h50" onClick="unaedad(event)">De 41 a 50 años
+				<input class="edades" type="checkbox" name="d51h00" value="De 51 años en adelante" id="d51h00" onClick="unaedad(event)">De 51 años en adelante
 			</fieldset>
 		</div>
 		<div>
 			<fieldset style="width:34%;display:inline;" id="fpersona"><legend>Por tipo de persona:</legend>
-				<input type="checkbox" name="perstodos" id="persall" onclick="todospersonas(event)">Todos<br>
-				<input class="personas" type="checkbox" name="persnatural" value="Persona Natural" id="persnatural" onclick="unapers(event)">Persona Natural
-				<input class="personas" type="checkbox" name="persjuridica" value="Persona Juridica" id="persjuridica" onclick="unapers(event)">Persona Jurídica
-				<input class="personas" type="checkbox" name="persesepcialista" value="Especialista" id="persespecialista" onclick="unapers(event)">Especialista
+				<input type="checkbox" name="perstodos" id="persall" onClick="todospersonas(event)">Todos<br>
+				<input class="personas" type="checkbox" name="persnatural" value="Persona Natural" id="persnatural" onClick="unapers(event)">Persona Natural
+				<input class="personas" type="checkbox" name="persjuridica" value="Persona Juridica" id="persjuridica" onClick="unapers(event)">Persona Jurídica
+				<input class="personas" type="checkbox" name="persesepcialista" value="Especialista" id="persespecialista" onClick="unapers(event)">Especialista
 			</fieldset>
 			<fieldset style="width:22%;display:inline;" id="fnacionalidad"><legend>Por nacionalidad:</legend>
-				<input type="checkbox" name="nactodos" id="nactodos" onclick="todosnacionalidad(event)">Todos<br>
-				<input class="nacionalidades" type="checkbox" name="local" value="Local (VE)" id="local" onclick="unacion(event)">Local (VE)
-				<input class="nacionalidades" type="checkbox" name="extranjero" value="Extranjero" id="extranjero" onclick="unacion(event)">Extranjero
+				<input type="checkbox" name="nactodos" id="nactodos" onClick="todosnacionalidad(event)">Todos<br>
+				<input class="nacionalidades" type="checkbox" name="local" value="Local (VE)" id="local" onClick="unacion(event)">Local (VE)
+				<input class="nacionalidades" type="checkbox" name="extranjero" value="Extranjero" id="extranjero" onClick="unacion(event)">Extranjero
 			</fieldset>
 			<fieldset style="width:35%;display:inline;" id="fedocivil"><legend>Por Estado civil:</legend>
-				<input type="checkbox" name="edoctodos" id="edocall" onclick="todosedocivil(event)">Todos<br>
-				<input class="edociviles" type="checkbox" name="soltero" value="Soltero" id="soltero" onclick="unedociv(event)">Soltero
-				<input class="edociviles" type="checkbox" name="casado" value="Casado" id="casado" onclick="unedociv(event)">Casado
-				<input class="edociviles" type="checkbox" name="divorciado" value="Divorciado" id="divorciado" onclick="unedociv(event)">Divorciado
-				<input class="edociviles" type="checkbox" name="edocotro" value="Otro estado civil" id="edocotro" onclick="unedociv(event)">Otro estado civil
+				<input type="checkbox" name="edoctodos" id="edocall" onClick="todosedocivil(event)">Todos<br>
+				<input class="edociviles" type="checkbox" name="soltero" value="Soltero" id="soltero" onClick="unedociv(event)">Soltero
+				<input class="edociviles" type="checkbox" name="casado" value="Casado" id="casado" onClick="unedociv(event)">Casado
+				<input class="edociviles" type="checkbox" name="divorciado" value="Divorciado" id="divorciado" onClick="unedociv(event)">Divorciado
+				<input class="edociviles" type="checkbox" name="edocotro" value="Otro estado civil" id="edocotro" onClick="unedociv(event)">Otro estado civil
 			</fieldset>
 		</div>
 		<fieldset style="width:97%;" id="festado"><legend>Por Estado geográfico:</legend>
-			<input type="checkbox" id="estall" onclick="todosestados(event)">Todos<br>
+			<input type="checkbox" id="estall" onClick="todosestados(event)">Todos<br>
 			<?php
 				$query = "SELECT * from estados order by estado";
 				$result = mysql_query($query,$link);
@@ -155,31 +165,31 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		</fieldset>
 		<fieldset style="width:97%;" id="fcorreos"><legend>Cuentas individuales:</legend>
 			Agregue cuentas de correo individuales separadas por comas (,):<br>
-			<textarea rows="4" cols="127" name="correos" id="correos" ></textarea>
+			<textarea rows="4" cols="127" name="correos" id="correos" class="form-control" placeholder="Agregue las Cuentas..."></textarea>
 		</fieldset>
 		<br>
-		<button onclick="enabletab('btnmensaje')">Continuar al paso 2</button>
+		<button onClick="enabletab('btnmensaje')" class="btn btn-primary btn-block">Continuar al paso 2</button>
 	</div>
 
 	<div id="mensaje" class="tabcontent">
 		<h3>
 			Redactar Mensaje:
-			<button onclick="enabletab('defaultOpen')" inline>Regresar al paso 1</button>
-			<button onclick="enabletab('btnconfirmar')" inline>Continuar al paso 3</button>
+			<button onClick="enabletab('defaultOpen')" class="btn btn-primary btn-block" inline>Regresar al paso 1</button>
+			<button onClick="enabletab('btnconfirmar')" class="btn btn-primary btn-block" inline>Continuar al paso 3</button>
 		</h3>
 		Asunto:<br>
-		<input type="text" id="asunto" name="asunto" size="169" maxlength="169"><br>
+		<input type="text" id="asunto" name="asunto" size="169" maxlength="169" class="form-control" placeholder="Indique el Asunto..."><br>
 		Cuerpo del mensaje:<br>
-		<textarea rows="10" cols="127" id="cuerpo" name="cuerpo"></textarea>
-		<button onclick="enabletab('defaultOpen')">Regresar al paso 1</button>
-		<button onclick="enabletab('btnconfirmar')">Continuar al paso 3</button>
+		<textarea rows="10" cols="127" id="cuerpo" name="cuerpo" class="form-control" placeholder="Indique el Mensaje..."></textarea>
+		<button onClick="enabletab('defaultOpen')" class="btn btn-primary btn-block">Regresar al paso 1</button>
+		<button onClick="enabletab('btnconfirmar')" class="btn btn-primary btn-block">Continuar al paso 3</button>
 	</div>
 
 	<div id="confirmar" class="tabcontent">
 		<h3>
 			Confirmar y enviar
-			<button onclick="enabletab('btnmensaje')" inline>Regresar al paso 2</button>
-			<button onclick="enviarmensaje('<?php echo $codigo ?>',todalared.checked)" inline>Enviar</button>
+			<button onClick="enabletab('btnmensaje')" class="btn btn-primary btn-block" inline>Regresar al paso 2</button>
+			<button onClick="enviarmensaje('<?php echo $codigo ?>',todalared.checked)" class="btn btn-primary btn-block" inline>Enviar</button>
 		</h3>
 		<b>Destinatarios:</b>
 		<p id="to"></p>
@@ -190,8 +200,8 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		<b>Mensaje:</b>
 		<p id="message"></p>
 
-		<button onclick="enabletab('btnmensaje')">Regresar al paso 2</button>
-		<button onclick="enviarmensaje('<?php echo $codigo; ?>',todalared.checked)">Enviar</button>
+		<button onClick="enabletab('btnmensaje')" class="btn btn-primary btn-block">Regresar al paso 2</button>
+		<button onClick="enviarmensaje('<?php echo $codigo; ?>',todalared.checked)" class="btn btn-primary btn-block">Enviar</button>
 	</div>
 
 	<script src="//code.jquery.com/jquery-1.12.4.js"></script>

@@ -1,3 +1,18 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
 <?php 
 include_once("conexion.php");
 session_start();
@@ -9,7 +24,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 			echo '</font>';
 		echo '</td>';
 		echo '<td align="center" width="60%">';
-			echo '<h3>RESUMEN DE LA ORDEN</h3>';
+			echo '<h4>RESUMEN DE LA ORDEN</h4>';
 		echo '</td>';
 		echo '<td align="right" valign="middle" width="20%" style="padding-right:2%">';
 			echo '<font face="arial">';
@@ -19,7 +34,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '</tr>';
 	echo '<tr>';
 		echo '<td valign="top" align="center" colspan="3">';
-			echo '<table border="1" width="auto" align="center">';
+			echo '<table border="0" width="90%" align="center">';
 				echo '<tr>';
 					echo '<th align="center" width="100px">Producto</th>';
 					echo '<th align="center" width="380px" style="padding:2%">Descripción</th>';
@@ -39,21 +54,11 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$precio_pro = $row["pvp_dist"];
 						$valor_comisionable_pro = $row["com_dist"];
 						$puntos_pro = $row["pts_dist"];
-						$precioreal = ($_SESSION["iva2"]<>0.00) ? $row["pvp_dist"]/(1+($_SESSION["iva2"]/100)) : $row["pvp_dist"] ;
-						if ($_SESSION["rango"]=="ACI Potencial") {
-							if ($_SESSION["iva2"]<>0.00) {
-								$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
-							} else {
-								$precio_pro = $row["pvp_clipref"];
-							}
+						if ($_SESSION["iva2"]<>0.00) {
+							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
 						} else {
-							if ($_SESSION["iva2"]<>0.00) {
-								$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
-							} else {
-								$precio_pro = $row["pvp_dist"];
-							}						
-						}
-						$_SESSION["precioreal"][$prod] = $precioreal;
+							$precio_pro = $row["pvp_dist"];
+						}						
 						$_SESSION["precio_pro"][$prod] = $precio_pro;
 						$_SESSION["valor_comisionable_pro"][$prod] = $valor_comisionable_pro;
 						$_SESSION["puntos_pro"][$prod] = $puntos_pro;
@@ -73,7 +78,6 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 							echo '<td align="center" width="100px">'.number_format($_SESSION["orden"][$prod],0,',','.').'</td>';
 							echo '<td align="right" width="120px">Bs. '.number_format($_SESSION["orden"][$prod]*$precio_pro,2,',','.').'<br>';
 							echo '<font size="2">(PM. '.number_format($_SESSION["orden"][$prod]*$puntos_pro,0,',','.').')</font>';
-							$subtreal += $_SESSION["orden"][$prod]*$precioreal;
 							$subtotal += $_SESSION["orden"][$prod]*$precio_pro;
 							$valorcom += $_SESSION["orden"][$prod]*$valor_comisionable_pro;
 							$ptsorden += $_SESSION["orden"][$prod]*$puntos_pro;
@@ -98,7 +102,6 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo '<td colspan="4" style="padding-right:2%;padding-left:2%;">';
 						// echo '<p align="justify"><b>(*)</b> Si el pago de esta orden se realiza utilizando un medio electrónico (transferencia bancaria) se calculará el I.V.A. utilizando una tasa del 9% cuando la compra sea inferior a Bs. 2.000.001,00. Si supera los Bs. 2.000.000,00 se utilizará la tasa del 7%.<br>';
 						// echo 'En tal sentido, si usted realiza el pago por medio electrónico usted deberá cancelar la cantidad de Bs. ';
-							$_SESSION["treal"] = $subtreal;
 							$_SESSION["monto"] = $subtotal;
 							$_SESSION["comisionable"] = $valorcom;
 							$_SESSION["puntos"] = $ptsorden;
@@ -114,10 +117,10 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 							// echo '<p><input type="submit" name="ordenar" formtarget="_blank" value="Pagar en línea" /></p>';
 						// echo '</form>';
 						echo '<form>';
-							echo '<p><input type="submit" name="ordenar" onclick="Abrir_ventana()" value="Pagar en linea" /></p>';		
-						echo '</form>';
+							echo '<p><input type="submit" name="ordenar" onclick="Abrir_ventana()" class="btn btn-primary btn-block" value="Pagar en linea" /></p>';		
+						echo '</form>'; 
 						echo '<form method="post" action="confirmaorden.php">';
-							echo '<p><input type="submit" name="ordenar" value="pagar después" /></p>';
+							echo '<p><input type="submit" name="ordenar" value="pagar después" class="btn btn-primary btn-block" /></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';

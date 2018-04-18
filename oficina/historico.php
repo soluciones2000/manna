@@ -75,6 +75,16 @@ $linea = 1;
 ?>
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
 <html>
 <head> 
 </head>
@@ -89,7 +99,7 @@ $linea = 1;
 			<th width="15%">Créditos</th>
 			<th width="15%">Débitos</th>
 		</tr>
-		<tr bgcolor="#A4A4A4">
+		<tr>
 			<td align="center">01/<?php echo $mes; ?>/<?php echo $ano; ?></td>
 			<td> </td>
 			<td>Saldo Inicial</td>
@@ -134,7 +144,7 @@ $linea = 1;
 				}
 			}
 		?>
-		<tr bgcolor="#A4A4A4">
+		<tr>
 			<td align="center"><?php echo substr($fech2,8,2).'/'.substr($fech2,5,2).'/'.substr($fech2,0,4); ?></td>
 			<td> </td>
 			<td>Saldo Final</td>
@@ -144,7 +154,7 @@ $linea = 1;
 	</table>
 	<form method="post" action="billetera.php?c=<?php echo $codigo ?>">
 		<p align="center">
-			<input type="submit" name="volver" value="Regresar">
+			<input type="submit" name="volver" value="Regresar" class="btn btn-primary btn-block">
 		</p>
 	</form>
 </body>

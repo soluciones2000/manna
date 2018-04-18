@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 include_once("funciones.php");
@@ -54,8 +64,8 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
   </head>
   <body>
     <div class="tab">
-      <button class="tablinks" onclick="opentab(event, 'almanaque')" id="defaultOpen">Calendario de eventos</button>
-      <button class="tablinks" onclick="opentab(event, 'material')" id="descargas">Material para descargar</button>
+      <button class="tablinks" onClick="opentab(event, 'almanaque')" id="defaultOpen">Calendario de eventos</button>
+      <button class="tablinks" onClick="opentab(event, 'material')" id="descargas">Material para descargar</button>
     </div>
 
     <div id="almanaque" class="tabcontent">

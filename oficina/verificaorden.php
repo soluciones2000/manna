@@ -1,5 +1,21 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+
 <?php 
 include_once("conexion.php");
+session_start();
 echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '<tr>';
 		echo '<td width="20%">';
@@ -8,7 +24,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 			echo '</font>';
 		echo '</td>';
 		echo '<td align="center" width="60%">';
-			echo '<h3>AGREGAR O ELIMINAR PRODUCTOS</h3>';
+			echo '<h4>AGREGAR O ELIMINAR PRODUCTOS</h4>';
 		echo '</td>';
 		echo '<td align="right" valign="middle" width="20%" style="padding-right:2%">';
 			echo '<font face="arial">';
@@ -18,7 +34,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 	echo '</tr>';
 	echo '<tr>';
 		echo '<td colspan="3">';
-			echo '<table border="1" width="auto" align="center">';
+			echo '<table border="0" width="90%" align="center">';
 				echo '<tr>';
 					echo '<th align="center" width="100px">Producto</th>';
 					echo '<th align="center" width="380px" style="padding:2%">Descripción</th>';
@@ -35,18 +51,10 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						$id_pro = $row["id_pro"];
 						$desc_corta = utf8_encode($row["desc_corta"]);
 						$puntos_pro = $row["pts_dist"];
-						if ($_SESSION["rango"]=="ACI Potencial") {
-							if ($_SESSION["iva2"]<>0.00) {
-								$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
-							} else {
-								$precio_pro = $row["pvp_clipref"];
-							}
+						if ($_SESSION["iva2"]<>0.00) {
+							$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
 						} else {
-							if ($_SESSION["iva2"]<>0.00) {
-								$precio_pro = round($row["pvp_dist"]/(1+($_SESSION["iva2"]/100)),2);
-							} else {
-								$precio_pro = $row["pvp_dist"];
-							}
+							$precio_pro = $row["pvp_dist"];
 						}
 						$imagen = $row["imagen"];
 						if (file_exists('img/'.trim($imagen).'.jpg')) {
@@ -102,7 +110,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 					echo '</td>';
 					echo '<td align="center">';
 						echo '<form method="post" action="resumenorden.php">';
-							echo '<p><input type="submit" name="ordenar" value="Confirmar orden"></p>';
+							echo '<p><input type="submit" name="ordenar" value="Confirmar orden" class="btn btn-primary btn-block"></p>';
 						echo '</form>';
 					echo '</td>';
 				echo '</tr>';

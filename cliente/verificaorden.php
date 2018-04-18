@@ -1,6 +1,6 @@
 			<tr>
 				<td colspan="3">
-					<table border="1" width="auto" align="center">
+					<table border="0" width="auto" align="center">
 						<?php 
 							echo '<tr>';
 								echo '<th align="center" width="100px">';

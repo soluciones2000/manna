@@ -1,0 +1,151 @@
+@charset "utf-8";
+/* CSS Document */
+
+.parallax { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo.jpg");
+
+    /* Set a specific height */
+    height: 399px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 960px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}
+
+
+.parallax_2 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo2.jpg");
+
+    /* Set a specific height */
+    height: 399px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax_4 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo4.jpg");
+
+    /* Set a specific height */
+    height: 399px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 960px) {
+    .parallax_2 {
+        background-attachment: scroll;
+    }
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 960px) {
+    .parallax_4 {
+        background-attachment: scroll;
+    }
+}
+
+.parallax_3 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo.jpg");
+
+    /* Set a specific height */
+    height: auto; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 960px) {
+    .parallax_3 {
+        background-attachment: scroll;
+    }
+}
+
+.parallax_5 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo5.jpg");
+
+    /* Set a specific height */
+    height: auto; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.parallax_8 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo8.jpg");
+
+    /* Set a specific height */
+    height: auto; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax_9 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo9.jpg");
+
+    /* Set a specific height */
+    height: auto; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallax_10 { 
+    /* The image used */
+    background-image: url("assets/images/video-fycotelecomunicaciones-fondo10.jpg");
+
+    /* Set a specific height */
+    height: auto; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (max-device-width: 960px) {
+    .parallax_5 {
+        background-attachment: scroll;
+    }
+}

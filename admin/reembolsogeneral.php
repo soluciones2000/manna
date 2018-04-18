@@ -4,7 +4,7 @@ include_once("funciones.php");
 include_once("cabecera.php");
 $menu = "pagos";
 include_once("menu.php");
-$men2 = "totuni";
+$men2 = "totree";
 include_once("pagos.php");
 ?>
 <style>

@@ -1,7 +1,7 @@
 			<tr>
 				<td valign="top" align="center" colspan="3">
 					<div style="vertical-align:top;">
-						<h3 align="center">Seguimiento de órdenes activas</h3>
+						
 						<?php
 							$query = "select * from cliente_preferencial where clte_email='".$_SESSION["email"]."'";
 							$result = mysql_query($query,$link);

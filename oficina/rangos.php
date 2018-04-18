@@ -1,3 +1,14 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
+
 <?php 
 include_once("conexion.php");
 include_once("funciones.php");
@@ -94,7 +105,12 @@ while($row = mysql_fetch_array($result)) {
 
 	$ppm = $pm/$cpm*100;
 
-	$ppmo = $pmo/$cpmo*100;
+	if ($cpmo<>0) {
+		$ppmo = $pmo/$cpmo*100;
+	} else {
+		$ppmo = 0;
+	}
+	
 
 	$suma = 0;
 	if ($cpiernas<>0) {
@@ -110,8 +126,10 @@ while($row = mysql_fetch_array($result)) {
 	if ($pm/$cpm>=1) {
 		$suma++;
 	}
-	if ($pmo/$cpmo>=1) {
-		$suma++;
+	if ($cpmo<>0) {
+		if ($pmo/$cpmo>=1) {
+			$suma++;
+		}
 	}
 	
 	$preq = $suma/$cuenta*100;
@@ -431,3 +449,11 @@ while($row = mysql_fetch_array($result)) {
 }
 */
 ?>
+<p align="center"><button class="btn btn-primary btn-block" style="font-family: Helvetica;" onclick="volver('calificaciones.php?c=<?php echo $_SESSION["codigo"]; ?>')">Volver</button></p>
+
+<script type="text/javascript">
+	function volver(ruta) {
+      window.location.replace(ruta);
+	}
+</script>
+

@@ -1,0 +1,59 @@
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+
+.titulocli {
+	font-family: "Calibri";
+	font-size: 10px;
+	color: #666666;
+	font-weight: bold;
+}
+.enlace1 {
+	font-family: "Calibri";
+	font-size: 11px;
+	color: #666666;
+	text-decoration: none;
+}
+.nombretit {
+	font-family: "Calibri";
+	font-size: 11px;
+	color: #0066CC;
+	font-weight: normal;
+}
+.submenu {
+	font-family: "Calibri";
+	font-size: 10px;
+	font-weight: normal;
+	color: #666666;
+	text-decoration: none;
+}
+
+a:link {
+	font-family: Calibri, Verdana, Arial, Helvetica;
+	font-size: 11px;
+	text-decoration: none;
+	color: #666666;
+}
+a:hover {
+	font-family: Calibri, Verdana, Arial, Helvetica;
+	font-size: 11px;
+	color: #666666;
+}
+a:visited {
+	font-family: Calibri, Verdana, Arial, Helvetica;
+	font-size: 11px;
+	text-decoration: none;
+	color: #666666;
+}
+
+.Estilo10 {color: #FF7112}
+.Estilo11 {font-size: 12px; color: #666666; font-family: "Calibri";}
+.Estilo3 {	font-family: "Calibri";
+	font-size: 12px;
+	color: #FF0000;
+}
+.Estilo5 {font-family: "Calibri"; font-size: 11px; color: #666666; }
+.Estilo9 {color: #0066CC}

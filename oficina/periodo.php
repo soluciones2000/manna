@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -7,20 +17,20 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		<h3>CONSULTA DE MOVIMIENTOS HISTÓRICOS</h3>
 	</div>
 	<div>
-		<table border="1" align="center" width="36%">
+		<table border="0" align="center" width="100%">
 			<tr>
 				<td valign="top" align="center">
 					<br>
 					<div style="vertical-align:top;">
-						<div style="margin: 0% 15% 0% 15%">
+						<div>
 					        <form name="admin" method="post" action="historico.php">
-					            <table border=0>
+					            <table border=0 width="50%">
 					            	<tr>
 					            		<td>
 					            			Mes y año:
 					            		</td>
 					            		<td>
-       										<select name="mes" value="mes">
+       										<select name="mes" value="mes" class="form-control">
 												<option value="01">Enero</option>
 												<option value="02">Febrero</option>
 												<option value="03">Marzo</option>
@@ -34,8 +44,12 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 												<option value="11">Noviembre</option>
 												<option value="12">Diciembre</option>
 											</select>
-											/
-       										<select name="ano" value="ano">
+											</td>
+										<td>
+					            			&nbsp;/&nbsp;
+					            		</td>
+					            		<td>
+       										<select name="ano" value="ano" class="form-control">
 												<option value="2017">2017</option>
 												<option value="2018">2018</option>
 												<option value="2019">2019</option>
@@ -52,7 +66,7 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 					            </table>
 					            <br>
 					            <input type="hidden" name="c" value="<?php echo $codigo; ?>">
-					            <INPUT type="submit" value="Enviar">
+					            <INPUT type="submit" value="Enviar" class="btn btn-primary btn-block">
 	        				</form>
 							<br>
 						</div>

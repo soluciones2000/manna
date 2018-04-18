@@ -81,7 +81,11 @@ if ($error) {
 			if ($row = mysql_fetch_array($result)) {
 				$id_pro = $row["id_pro"];
 				$desc_corta = utf8_encode($row["desc_corta"]);
-				$precio_pro = $row["pvp_clipref"];
+				if ($_SESSION["iva2"]<>0.00) {
+					$precio_pro = $row["pvp_clipref"]/(1+($_SESSION["iva2"]/100));
+				} else {
+					$precio_pro = $row["pvp_clipref"];
+				}
 				$valor_comisionable_pro = $row["com_clipref"];
 				$puntos_pro = $row["pts_clipref"];
 				$_SESSION["precio_pro"][$prod] = $precio_pro;

@@ -1,3 +1,12 @@
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 session_start();
 include_once("conexion.php");
@@ -118,7 +127,7 @@ echo '</ul>';
 echo '<p>En el siguiente diagrama puedes ver el detalle de tu organización y podrás identificar los distintos tipos de afiliado con sus PMO.</p>';
 */
 echo '<form method="post" action="afiliacion.php?c='.$_SESSION["codigo"].'">';
-	echo '<p align="center"><input type="submit" name="ordenar" value="Ver detalles del bono de patrocinio"></p>';
+	echo '<p align="center"><input type="submit" name="ordenar" class="btn btn-primary btn-block" value="Ver detalles del bono de patrocinio"></p>';
 echo '</form>';
 
 //////////////////////////  BONO UNILEVEL ////////////////
@@ -215,7 +224,7 @@ if ($_SESSION["rango"]=="En Ascenso") {
 	}
 	echo '</p>';
 	echo '<form method="post" action="unilevel.php?c='.$_SESSION["codigo"].'">';
-		echo '<p align="center"><input type="submit" name="ordenar" value="Ver detalles del bono unilevel"></p>';
+		echo '<p align="center"><input type="submit" name="ordenar" class="btn btn-primary btn-block" value="Ver detalles del bono unilevel"></p>';
 	echo '</form>';
 }
 echo '<wbr>';
@@ -228,7 +237,7 @@ $reembolso = $row["reembolso"];
 
 echo '<p>Este bono corresponde al '.number_format($reembolso,0,',','.').'% de todo lo consumido personalmente en el mes actual.</p>';
 echo '<form method="post" action="reembolso.php?c='.$_SESSION["codigo"].'">';
-	echo '<p align="center"><input type="submit" name="ordenar" value="Ver detalles del bono de reembolso por consumo"></p>';
+	echo '<p align="center"><input type="submit" name="ordenar" class="btn btn-primary btn-block" value="Ver detalles del bono de reembolso por consumo"></p>';
 echo '</form>';
 
 $query = "select fecha_afiliacion from afiliados where tit_codigo='".trim($_SESSION["codigo"])."'";

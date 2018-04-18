@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -33,7 +43,7 @@ if ($result = mysql_query($query,$link)) {
 							<form method="post" action="confirmapagobilletera.php">
 					            <input type="hidden" name="c" value="<?php echo $codigo; ?>">
 					            <input type="hidden" name="ord" value="<?php echo $orden; ?>">
-								<input type="submit" name="pagar" value="De acuerdo, pagar">
+								<input type="submit" name="pagar" value="De acuerdo, pagar" class="btn btn-primary btn-block">
 							</form>
 						</div>
 						<br>

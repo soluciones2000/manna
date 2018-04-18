@@ -145,7 +145,7 @@ while($row = mysql_fetch_array($result)) {
 					$icon = 'padre.gif';
 				    $expandedIcon = 'padre.gif';
 	//				$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(0,1000),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-					$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_padre, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nodos[$padre] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_padre, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => 'aviso('.$padre.')')));
 					$first = false;
 					$continuar = true;
 				} else {
@@ -221,7 +221,7 @@ while($row = mysql_fetch_array($result)) {
 							break;
 					}
 	//				$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombr2.' - PM: '.strval(trim(number_format(rand(0,1000),0,',','.'))).' - PMO: '.strval(trim(number_format(rand(500,1500),0,',','.'))), 'link' => "test.php", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-					$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nodos[$hijo] = &$nodos[$padre]->addItem(new HTML_TreeNode(array('text' => $hijo.' - '.$nombre_hijo, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => 'aviso(this)')));
 				}
 			}
 		}
@@ -234,6 +234,16 @@ while($row = mysql_fetch_array($result)) {
 ?>
 <html>
 <head>
+
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
     <style type="text/css">
         body {
             font-family: Georgia;
@@ -255,14 +265,40 @@ while($row = mysql_fetch_array($result)) {
 
 <h3><u>Genealogía de <?php echo utf8_encode($_SESSION['user']); ?></u></h3>
 <!-- <p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p> -->
-<p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Miembros de tu organización</p>
+<!-- <p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Miembros de tu organización</p> -->
+<p>Haga click sobre cualquier nombre para ver sus detalles de contacto.</p>
 <!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
 
+<p align="center"><button class="btn btn-primary btn-block" style="font-family: Helvetica;" onclick="volver('menugenealogia.php?c=<?php echo $_SESSION["codigo"]; ?>')">Volver</button></p>
 
 <script type="text/javascript">
-	function aviso(){
-		alert('PM: XXXX\nPMO: YYY');		
+	function volver(ruta) {
+      window.location.replace(ruta);
+	}
+
+	function aviso(texto){
+		var codigo = texto.innerText.substr(0,5);
+		var datos = '';
+		var mensaje = '';
+ 		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(typeof this.responseText);
+				console.log(this.responseText);
+				console.log(JSON.parse(this.responseText));
+				datos = JSON.parse(this.responseText);
+				console.log(datos);
+				if (datos.tipo_persona=='Especialista') {
+					mensaje = datos.codigo+' - '+datos.nombre+'\nTipo de afiliado: '+datos.tipo_persona+'\n\nAfiliado en: '+datos.ciudad+'\nTeléfonos: '+datos.telefonos+'\ne-mail: '+datos.email+'\n\nEnrolado por: '+datos.enrolador+'\nPatrocinado por: '+datos.patrocinador+'\n\nRango en la organización: '+datos.rango+'\n\nStatus: '+datos.status+'\n\n';
+				} else {
+					mensaje = datos.codigo+' - '+datos.nombre+'\n\nAfiliado en: '+datos.ciudad+'\nTeléfonos: '+datos.telefonos+'\ne-mail: '+datos.email+'\n\nEnrolado por: '+datos.enrolador+'\nPatrocinado por: '+datos.patrocinador+'\n\nRango en la organización: '+datos.rango+'\n\nStatus: '+datos.status+'\n\n';
+				}
+				alert(mensaje);
+			}
+		};
+		xmlhttp.open("GET", "buscadatos.php?cod=" + codigo, true);
+		xmlhttp.send();
 	}
 </script>
 

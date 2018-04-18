@@ -6,11 +6,21 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 ?>
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <html>
 <head> 
 </head>
 <body>
-	<h3>Bienvenido <b><?php echo $_SESSION["user"]; ?></b>,</h3>
+	<h3>Bienvenido <b><?php echo utf8_encode($_SESSION["user"]); ?></b>,</h3>
 	<p>Actualmente tu rango es: <b><?php echo $_SESSION["rango"] ?>.</b></p>
 	<p align="justify">Tienes acumulados en este mes <b><?php echo number_format($_SESSION["pm"],0,',','.') ?>
 	<?php 
@@ -30,6 +40,7 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 			echo "<p><b><i>Sigue construyendo tu negocio, busca calificar al siguiente nivel.</i></b></p>";
 		}
 	?>
+<!-- 
 	<h4><u>Resumen de bonos y comisiones</u></h4>
 	<?php 
 		$query = "select sum(comision) as bono from detbonoafiliacion where patroc_codigo='".trim($codigo)."' and status_bono='Pendiente'";
@@ -122,5 +133,6 @@ $codigo = isset($_GET['c']) ? $_GET['c'] : '';
 		}
 	}
 	?>
+ -->
 </body>
 </html>

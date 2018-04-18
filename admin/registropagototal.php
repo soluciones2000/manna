@@ -11,7 +11,7 @@ foreach ($_POST as $key => $value) {
 	$row = mysql_fetch_array($result);
 	$id_trans = $row["id"];
 
-	$query = "UPDATE detbonoafiliacion SET id_trans=".trim($id_trans).", status_bono='Pagado' WHERE status_bono='Pendiente' and patroc_codigo='".trim($key)."'";
+	$query = "UPDATE detbonoafiliacion SET id_trans=".trim($id_trans).", status_bono='Pagado' WHERE status_bono='Pendiente' and tit_codigo='".trim($key)."'";
 	echo $query.'<br>';
 	$result = mysql_query($query,$link);
 

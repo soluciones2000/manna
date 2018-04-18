@@ -33,6 +33,14 @@ $(document).ready(function() {
 });
 </script>
 
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 
@@ -100,7 +108,7 @@ echo '<table border="0" align="center" width="100%" height="10%">';
 						echo '</table>';
 						echo '<br>';
 //						echo '<INPUT id="boton" type="submit" value="Enviar" onclick="abrir_ventana('.$_GET["ord"].')" />';
-						echo '<INPUT id="boton" type="submit" value="Enviar" />';
+						echo '<INPUT id="boton" class="btn btn-primary btn-block" type="submit" value="Enviar" />';
 					echo '</form>';
 				echo '</div>';
 				echo '<br>';

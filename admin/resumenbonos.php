@@ -63,7 +63,7 @@ echo '<div id="cuerpo">';
 		echo '<h3>RESUMEN DE BONOS Y COMISIONES POR PAGAR<br>';
 	echo '</div>';
 
-$query = "SELECT patroc_codigo as codigo, sum(detbonoafiliacion.comision) as patrocinio,0 as unilevel, 0 as reembolso FROM detbonoafiliacion where status_bono='Pendiente' group by patroc_codigo union SELECT organizacion as codigo, 0 as patrocinio,sum(detunilevel.comision) as unilevel, 0 as reembolso FROM detunilevel where status_unilevel='Pendiente' group by organizacion union SELECT afiliado as codigo, 0 as patrocinio,0 as unilevel, sum(reembolso.monto) as reembolso FROM reembolso where status_comision='Pendiente' group by afiliado order by codigo";
+$query = "SELECT tit_codigo as codigo, sum(detbonoafiliacion.comision) as patrocinio,0 as unilevel, 0 as reembolso FROM detbonoafiliacion WHERE status_bono='Pendiente' and nivel>0 group by tit_codigo union SELECT organizacion as codigo, 0 as patrocinio,sum(detunilevel.comision) as unilevel, 0 as reembolso FROM detunilevel where status_unilevel='Pendiente' group by organizacion union SELECT afiliado as codigo, 0 as patrocinio,0 as unilevel, sum(reembolso.monto) as reembolso FROM reembolso where status_comision='Pendiente' group by afiliado order by codigo";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_uni = 0.00;

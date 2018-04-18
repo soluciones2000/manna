@@ -1,3 +1,12 @@
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 
 function piernas($codigo,$calif_pierna,$link){
@@ -155,7 +164,7 @@ function actualiza_saldo_orden($link,$idtran,$precio,$precio_orden,$orden_id) {
 }
 
 function billetera($link,$afiliado,$fecha,$mes,$tipmov,$documento,$tipo_trans,$concepto,$creditos,$debitos) {
-	$query = "INSERT INTO billetera (afiliado, fecmov, mesmov, tipmov, numdoc, tipo_trans, concepto, creditos, debitos) VALUES ('".$afiliado."', '".$fecha."', '".$mes."', '".$tipmov."', '".$documento."', '".$tipo_trans."', '".$concepto."', ".$creditos.", ".$debitos.")";
+	$query = "INSERT INTO billetera (afiliado, fecmov, mesmov, tipmov, numdoc, tipo_trans, concepto, creditos, debitos) VALUES ('".$afiliado."', '".$fecha."', '".$mes."', '".utf8_encode($tipmov)."', '".$documento."', '".$tipo_trans."', '".$concepto."', ".$creditos.", ".$debitos.")";
 	$result = mysql_query($query,$link);
 	return true;
 }
@@ -187,11 +196,11 @@ function bono_patrocinio($link,$afiliado,$monto,$fecha_afiliacion,$fecha_fin_bon
 	$query = "SELECT * from redpatrocinios where afiliado='".$afiliado."' and nivel>'0' AND nivel<='3' order by nivel";
 	$result = mysql_query($query,$link);
 	while($row = mysql_fetch_array($result)) {
-		$patroc_codigo = $row["patroc_codigo"];
+		$tit_codigo = $row["patroc_codigo"];
 		$nivel = $row["nivel"];
 
 		// Ubica los datos del patrocinado (ubica tambien el tipo de afiliado, pero todos son premium)
-		$quera = "select tit_nombres,tit_apellidos,tipo_afiliado from afiliados where tit_codigo='".$patroc_codigo."'";
+		$quera = "select tit_nombres,tit_apellidos,tipo_afiliado from afiliados where tit_codigo='".$tit_codigo."'";
 		$resula = mysql_query($quera,$link);
 		$roa = mysql_fetch_array($resula);
 		$tit_nombre_completo = trim($roa["tit_nombres"])." ".trim($roa["tit_apellidos"]);
@@ -218,8 +227,15 @@ function bono_patrocinio($link,$afiliado,$monto,$fecha_afiliacion,$fecha_fin_bon
 		$tipo_trans = 'Consumo aliados';
 		$id_trans = 0;
 		$status_bono = 'Pendiente';
-		$quer6 = "INSERT INTO detbonoafiliacion (patroc_codigo, tit_codigo, fecha_afiliacion, fecha_fin_bono, nivel, afiliado, tipo_patroc, tipo_afil, tipo_trans, fectr, monto, porcentaje, comision, patroc_nombres, tit_nombre_completo, afil_nombres, id_trans_origen, id_trans, status_bono) VALUES ('".$patroc_codigo."','".$patroc_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_patroc."','".$tipo_afil."','".$tipo_trans."','".$fecha."',".$monto.",".$porcentaje.",".$comision.",'".$patroc_nombres."','".$tit_nombre_completo."','".$afil_nombres."',".$id_transaccion.",".$id_trans.",'".$status_bono."');";
+		$quer6 = "INSERT INTO detbonoafiliacion (patroc_codigo, tit_codigo, fecha_afiliacion, fecha_fin_bono, nivel, afiliado, tipo_patroc, tipo_afil, tipo_trans, fectr, monto, porcentaje, comision, patroc_nombres, tit_nombre_completo, afil_nombres, id_trans_origen, id_trans, status_bono) VALUES ('".$patroc_codigo."','".$tit_codigo."','".$fecha_afiliacion."','".$fecha_fin_bono."',".$nivel.",'".$afiliado."','".$tipo_patroc."','".$tipo_afil."','".$tipo_trans."','".$fecha."',".$monto.",".$porcentaje.",".$comision.",'".$patroc_nombres."','".$tit_nombre_completo."','".$afil_nombres."',".$id_transaccion.",".$id_trans.",'".$status_bono."')";
+//		echo $quer6;
 		$resul6 = mysql_query($quer6,$link);
+/*		if ($resul6) {
+			echo " SI<br><br><br>";
+		} else {
+			echo " NO<br><br><br>";
+		}
+*/		
 	}
 	return true;
 }

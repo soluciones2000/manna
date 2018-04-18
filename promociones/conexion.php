@@ -1,7 +1,7 @@
 <?php 
 
-$scope = "local";
-//$scope = "pruebas";
+//$scope = "local";
+$scope = "produccion";
 /*
 if (strpos(base_url(),'localhost')!==FALSE) {
 	$scope = "local";
@@ -27,10 +27,10 @@ if ($scope=="pruebas") {
 
 if ($scope=="produccion") {
 	// Produccion
-	$servidor = "host";
-	$cuenta = "corpmann_root";
-	$password = "manna12345##";
-	$database = "corpmann_manna";
+	$servidor = "localhost:3306";
+	$cuenta = "corporac_root";
+	$password = "plataforma12345##";
+	$database = "corporac_manna";
 }
 
 $link = @mysql_connect($servidor, $cuenta, $password) or die ("Error al conectar al servidor.");

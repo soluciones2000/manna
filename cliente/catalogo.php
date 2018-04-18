@@ -1,6 +1,6 @@
 			<tr>
 				<td colspan="3">
-					<table border="1" width="100%">
+					<table border="0" width="100%">
 						<?php 
 							$query = "SELECT * FROM productos where publico='General' order by familia,id_pro";
 							$result = mysql_query($query,$link);

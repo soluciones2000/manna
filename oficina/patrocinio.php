@@ -1,3 +1,5 @@
+
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -123,7 +125,7 @@ while($row = mysql_fetch_array($result)) {
 
 					$arbol = trim($nombre_patroc);
 					$nombre_afil = utf8_encode(trim($row["nombre_afil"]).' '.trim($row["apellido_afil"]));
-					$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
+					$nodos[$patroc_codigo] = &$menu->addItem(new HTML_TreeNode(array('text' => $nombre_patroc, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => 'aviso('.$patroc_codigo.')')));
 					$first = false;
 					$continuar = true;
 				} else {
@@ -188,9 +190,9 @@ while($row = mysql_fetch_array($result)) {
 						    $expandedIcon = 'folder-expanded.gif';
 							break;
 					}
-					if ($fecha_fin_bono>date("Y-m-d")) {
-						$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => $nombre_afil, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon)));
-					}
+//					if ($fecha_fin_bono>date("Y-m-d")) {
+						$nodos[$tit_codigo] = &$nodos[$patroc_codigo]->addItem(new HTML_TreeNode(array('text' => $tit_codigo.' - '.$nombre_afil, 'link' => "", 'icon' => $icon, 'expandedIcon' => $expandedIcon), array('onclick' => 'aviso(this)')));
+//					}
 				}
 			}
 		}
@@ -203,6 +205,15 @@ while($row = mysql_fetch_array($result)) {
 ?>
 <html>
 <head>
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
     <style type="text/css">
         body {
             font-family: Georgia;
@@ -224,13 +235,39 @@ while($row = mysql_fetch_array($result)) {
 
 <h3><u>Red de patrocinados de <?php echo utf8_encode($_SESSION['user']); ?></u></h3>
 <!-- <p>Leyenda: <img src="html_tree_menu/images/padre.gif" style="vertical-align:-55%;"> Organización | <img src="html_tree_menu/images/premium.gif" style="vertical-align:-50%;"> Premium | <img src="html_tree_menu/images/vip.gif" style="vertical-align:-50%;"> VIP | <img src="html_tree_menu/images/oro.gif" style="vertical-align:-50%;"> Oro</p> -->
+<p>Haga click sobre cualquier nombre para ver sus detalles de contacto.</p>
 <!--<?$listBox->printMenu()?>-->
 <?$treeMenu->printMenu()?><br /><br />
 
+<p align="center"><button class="btn btn-primary btn-block" style="font-family: Helvetica;" onclick="volver('menugenealogia.php?c=<?php echo $_SESSION["codigo"]; ?>')">Volver</button></p>
 
 <script type="text/javascript">
-	function aviso(){
-		alert('PM: XXXX\nPMO: YYY');		
+	function volver(ruta) {
+      window.location.replace(ruta);
+	}
+
+	function aviso(texto){
+		var codigo = texto.innerText.substr(0,5);
+		var datos = '';
+		var mensaje = '';
+ 		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(typeof this.responseText);
+				console.log(this.responseText);
+				console.log(JSON.parse(this.responseText));
+				datos = JSON.parse(this.responseText);
+				console.log(datos);
+				if (datos.tipo_persona=='Especialista') {
+					mensaje = datos.codigo+' - '+datos.nombre+'\nTipo de afiliado: '+datos.tipo_persona+'\n\nAfiliado en: '+datos.ciudad+'\nTeléfonos: '+datos.telefonos+'\ne-mail: '+datos.email+'\n\nEnrolado por: '+datos.enrolador+'\nPatrocinado por: '+datos.patrocinador+'\n\nRango en la organización: '+datos.rango+'\n\nStatus: '+datos.status+'\n\n';
+				} else {
+					mensaje = datos.codigo+' - '+datos.nombre+'\n\nAfiliado en: '+datos.ciudad+'\nTeléfonos: '+datos.telefonos+'\ne-mail: '+datos.email+'\n\nEnrolado por: '+datos.enrolador+'\nPatrocinado por: '+datos.patrocinador+'\n\nRango en la organización: '+datos.rango+'\n\nStatus: '+datos.status+'\n\n';
+				}
+				alert(mensaje);
+			}
+		};
+		xmlhttp.open("GET", "buscadatos.php?cod=" + codigo, true);
+		xmlhttp.send();
 	}
 </script>
 

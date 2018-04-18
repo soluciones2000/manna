@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -22,7 +32,7 @@ if ($result = mysql_query($query,$link)) {
 							if (mysql_num_rows($result) > 0){
 								echo '<p align="center">El saldo disponible para realizar pagos es de <b>Bs. '.number_format($saldo,2,',','.').'</b> y las órdenes pendientes que pueden ser pagadas con esta opción son las siguientes:</p>';
 								echo '<div>';
-									echo '<table border=1 align="center">';
+									echo '<table border=0 align="center" width="50%">';
 										echo '<tr>';
 											echo '<th>Orden</th>';
 											echo '<th>Fecha</th>';
@@ -48,7 +58,7 @@ if ($result = mysql_query($query,$link)) {
 										$query = "select * from ordenes where codigo='".$_SESSION['codigo']."' and status_orden<>'' and status_orden='Pendiente'";
 										$result = mysql_query($query,$link);
 										if (mysql_num_rows($result) > 0){
-											echo '<table border=1 align="center">';
+											echo '<table border=0 align="center" width="50%">';
 												echo '<tr>';
 													echo '<th>Orden</th>';
 													echo '<th>Fecha</th>';
@@ -73,7 +83,7 @@ if ($result = mysql_query($query,$link)) {
 						<br>
 						<div align="center">
 							<form method="post" action="billetera.php?c=<?php echo $codigo ?>">
-								<input type="submit" name="volver" value="Regresar">
+								<input type="submit" name="volver" value="Regresar" class="btn btn-primary btn-block">
 							</form>
 						</div>
 						<br>

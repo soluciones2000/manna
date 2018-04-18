@@ -18,7 +18,7 @@ $email = trim($row["email"]);
 
 $mensaj1 = '<p>Buen día administrador, '.$nombre.', código de afiliado '.$codigo.' ha solicitado el retiro de Bs. '.number_format($monto,2,',','.').' de sus comisiones, por favor ejecuta la transferencia a la siguiente cuenta:</p>';
 
-$mensaj2 = '<p>Buen día '.$nombre.', se ha enviado una solcitud de retiro por Bs. '.number_format($monto,2,',','.').' de tus comisiones, se realizará una transferencia lo antes posible a la siguiente cuenta:</p>';
+$mensaj2 = '<p>Buen día '.$nombre.', se ha enviado una solicitud de retiro por Bs. '.number_format($monto,2,',','.').' de tus comisiones, se realizará una transferencia lo antes posible a la siguiente cuenta:</p>';
 
 $mensaje .= 'Banco: '.$banco.'<br>';
 $mensaje .= 'Cuenta: '.$cuenta.'<br>';
@@ -30,7 +30,7 @@ if ($tipo_persona=="Natural" or $tipo_persona=="Especialista") {
 }
 $mensaje .= 'email: '.$email.'<br>';
 
-$asunto = "Solicitud de canje de puntos del club 180";
+$asunto = "Solicitud de retiro de la billetera";
 $cabeceras = 'Content-type: text/html;';
 if (strpos($_SERVER["HTTP_HOST"],'localhost')===FALSE) {
 	$texto = $mensaj1.$mensaje;	           	

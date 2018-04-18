@@ -1,3 +1,17 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 <?php 
 include_once("conexion.php");
 session_start();
@@ -56,6 +70,7 @@ if ($result = mysql_query($query,$link)) {
 }
 if ($error) {
 	$cadena = 'Location: error.php'; 
+	$ruta = 'error.php';
 } else {
 	$query = "SELECT * from afiliados WHERE tit_codigo='".trim($_SESSION["codigo"])."'";
 	$result = mysql_query($query,$link);
@@ -149,7 +164,11 @@ if ($error) {
 	$_SESSION["comisionable"] = 0.00;
 	$_SESSION["puntos"] = 0;
 //	$cadena = 'Location: exito.php';
-	$cadena = 'Location: exito.php?orden='.trim($orden_id); 
+	$cadena = 'Location: exito.php?orden='.trim($orden_id);
+	$ruta = 'exito.php?orden='.trim($orden_id);
 }
 header($cadena);
 ?>
+<script type="text/javascript">
+      window.location.replace("<?= $ruta ?>");
+</script>

@@ -1,4 +1,13 @@
-<?php 
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+	<?php 
 session_start();
 $orden = isset($_GET['orden']) ? $_GET['orden'] : '';
 echo '<script type="text/javascript">
@@ -28,6 +37,6 @@ if ($_SESSION["flag"]) {
 }
 
 echo '<form method="post" action="inicio.php?c='.$_SESSION["codigo"].'">';
-	echo '<p align="center"><input type="submit" name="ordenar" value="Volver al inicio"></p>';
+	echo '<p align="center"><input type="submit" name="ordenar" value="Volver al inicio" class="btn btn-primary btn-block"></p>';
 echo '</form>';
 ?>

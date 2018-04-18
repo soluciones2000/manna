@@ -22,7 +22,7 @@ $puntos = $_SESSION["puntos"];
 $tipo = '06';
 
 // OJOJOJOJOJO REGISTRAR TRANSACCIÓN
-$query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, valor_punto, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fectr."','".$codigo."','','','".$tipo."',".$monto.", 0.00,".$puntos.",".$_SESSION["valor_punto"].",'".$_GET["tk"]."','Pago flash','Pendiente',".$_GET["orden"].")";
+$query = "INSERT INTO transacciones (fecha, afiliado, cliente, cliente_pref, tipo, precio, monto, puntos, valor_punto, documento, bancoorigen, status_comision, orden_id) VALUES ('".$fectr."','".$codigo."','','','".$tipo."',".$monto.", ".$valor_comisionable.",".$puntos.",".$_SESSION["valor_punto"].",'".$_GET["tk"]."','Pago flash','Pendiente',".$_GET["orden"].")";
 echo $query;
 echo '<br>';
 

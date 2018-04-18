@@ -4,6 +4,17 @@ include_once("funciones.php");
 ?>
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+
+
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
 <html>
 <head> 
 </head>
@@ -105,7 +116,7 @@ include_once("funciones.php");
 
 			echo '<p>En el siguiente reporte podrás ver los rangos de tus afiliados y su porcentaje de calificación, esto te ayudará a planificar estrategias en conjunto para el crecimiento de tu organización.';
 			echo '<form method="post" action="rangos.php?c='.$_SESSION["codigo"].'">';
-				echo '<p align="center"><input type="submit" name="ordenar" value="Ver rangos de la organización"></p>';
+				echo '<p align="center"><input type="submit" name="ordenar" class="btn btn-primary btn-block" value="Ver rangos de la organización"></p>';
 			echo '</form>';
 		} else {
 			echo ".</p>";

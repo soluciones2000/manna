@@ -1,3 +1,12 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
 <?php 
 include_once("conexion.php");
 $codigo = isset($_POST['c']) ? $_POST['c'] : '';
@@ -35,7 +44,7 @@ if ($result = mysql_query($query,$link)) {
 					            <input type="hidden" name="c" value="<?php echo $codigo; ?>">
 					            <input type="hidden" name="target" value="<?php echo $target; ?>">
 					            <input type="hidden" name="monto" value="<?php echo $monto; ?>">
-								<input type="submit" name="transf" value="De acuerdo, transferir">
+								<input type="submit" name="transf" value="De acuerdo, transferir" class="btn btn-primary btn-block">
 							</form>
 						</div>
 					</div>

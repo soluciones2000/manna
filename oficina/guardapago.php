@@ -1,4 +1,12 @@
 
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
 <?php 
 include_once("conexion.php");
 include_once("funciones.php");
@@ -118,5 +126,10 @@ if ($precio>=$precio_orden) {
 }
 
 $cadena = 'Location: exito.php';
+$ruta = 'exito.php';
 header($cadena);
 ?>
+<script type="text/javascript">
+      window.location.replace("<?= $ruta ?>");
+</script>
+

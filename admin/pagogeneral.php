@@ -65,7 +65,7 @@ echo '<div id="cuerpo">';
 		echo '<h3>TOTAL DE BONOS DE PATROCINIO POR PAGAR<br>';
 	echo '</div>';
 
-$query = "SELECT * FROM detbonoafiliacion where status_bono='Pendiente' and nivel>0 order by patroc_codigo,tit_codigo,afiliado";
+$query = "SELECT * FROM detbonoafiliacion where status_bono='Pendiente' and nivel>0 order by tit_codigo,afiliado";
 $result = mysql_query($query,$link);
 $first = true;
 $tot_tit = 0.00;
@@ -75,8 +75,8 @@ $grupo = 1;
 echo '<form name="gestion" method="post" action="totpago.php">';
 while($row = mysql_fetch_array($result)) {
 	if ($first) {
-		$patroc_codigo = $row['patroc_codigo'];
-		$patroc_nombres = $row['patroc_nombres'];
+		$tit_codigo = $row['tit_codigo'];
+		$tit_nombre_completo = $row['tit_nombre_completo'];
 		$first = false;
 
 		echo "<b><u>";
@@ -93,7 +93,7 @@ while($row = mysql_fetch_array($result)) {
 		$tot_pat = 0.00;
 		$tot_gen = 0.00;
 	}
-	if ($patroc_codigo<>$row['patroc_codigo']) {
+	if ($tit_codigo<>$row['tit_codigo']) {
 		if ($grupo==1) {
 			$txt = '<div class="grupo1">';
 			$grupo = 2;
@@ -103,21 +103,21 @@ while($row = mysql_fetch_array($result)) {
 		}
 
 		$txt .= '<div class="sangria"></div>';
-		$txt .= '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+		$txt .= '<div class="nombre">'.$tit_codigo." ".trim($tit_nombre_completo).'</div>';
 
 		$txt .= '<div class="sangria"></div>';
 		$txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat,2,',','.')).'</div>';
 
 		$txt .= '<div class="sangria"></div>';
-		$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$patroc_codigo.'"/> Pagar</div>'."<br>";
+		$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$tit_codigo.'"/> Pagar</div>'."<br>";
 
 		$txt .= "</div>";
 		echo $txt;
-		$patroc_codigo = $row['patroc_codigo'];
-		$patroc_nombres = $row['patroc_nombres'];
+		$tit_codigo = $row['tit_codigo'];
+		$tit_nombre_completo = $row['tit_nombre_completo'];
 		$tot_pat = 0.00;
 	}
-	$patroc_codigo = $row['patroc_codigo'];
+	$tit_codigo = $row['tit_codigo'];
 	$comision = $row['comision'];
 
 	$tot_pat += $comision;
@@ -133,13 +133,13 @@ if ($grupo==1) {
 }
 
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="nombre">'.$patroc_codigo." ".trim($patroc_nombres).'</div>';
+$txt .= '<div class="nombre">'.$tit_codigo." ".trim($tit_nombre_completo).'</div>';
 
 $txt .= '<div class="sangria"></div>';
 $txt .= '<div class="detalle" style="text-align:right;">'.trim(number_format($tot_pat,2,',','.')).'</div>';
 
 $txt .= '<div class="sangria"></div>';
-$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$patroc_codigo.'"/> Pagar</div>'."<br>";
+$txt .= '<div class="detalle" style="text-align:right;">'.'<input type="checkbox" name="'.$tit_codigo.'"/> Pagar</div>'."<br>";
 $txt .= "</div><br>";
 
 //$txt .= '<div style="text-align:right;padding-right:55%;">'.str_repeat('=', 20)."</div>";

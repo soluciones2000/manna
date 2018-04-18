@@ -1,3 +1,13 @@
+
+	<!-- CSS Files -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/material-kit.css" rel="stylesheet"/>
+	
+	
+
+	<!-- CSS -->
+	<link href="assets/css/allneat.css" rel="stylesheet" />
+
 <?php 
 include_once("conexion.php");
 $codigo = isset($_GET['c']) ? $_GET['c'] : '';
@@ -143,3 +153,11 @@ echo '<div style="text-align:right;padding-right:28%;">'.str_repeat('=', 20)."</
 echo '<div style="text-align:right;padding-right:28%;"><b>TOTAL GENERAL: '.number_format($tot_gen,2,',','.')."</b></div>";
 echo '<br>';
 ?>
+<p align="center"><button class="btn btn-primary btn-block" style="font-family: Helvetica;" onclick="volver('menubonos.php?c=<?php echo $_SESSION["codigo"]; ?>')">Volver</button></p>
+
+<script type="text/javascript">
+	function volver(ruta) {
+      window.location.replace(ruta);
+	}
+</script>
+

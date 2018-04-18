@@ -67,15 +67,15 @@ $quer0 = "DELETE FROM repbonoafilindiv WHERE 1";
 $resul0 = mysql_query($quer0,$link);
 
 foreach ($_POST as $key => $value) {
-	$query = "SELECT patroc_codigo,patroc_nombres,comision FROM detbonoafiliacion where id=".trim($key)." and status_bono='Pendiente'";
+	$query = "SELECT tit_codigo,tit_nombre_completo,comision FROM detbonoafiliacion where id=".trim($key)." and status_bono='Pendiente'";
 	$result = mysql_query($query,$link);
 
 	$row = mysql_fetch_array($result);
-	$patroc_codigo = $row['patroc_codigo'];
-	$patroc_nombres = $row['patroc_nombres'];
+	$tit_codigo = $row['tit_codigo'];
+	$tit_nombre_completo = $row['tit_nombre_completo'];
 	$comision = $row['comision'];
 
-	$quer2 = "INSERT INTO repbonoafilindiv VALUES ('".$patroc_codigo."','".$patroc_nombres."',".$comision.",".trim($key).");";
+	$quer2 = "INSERT INTO repbonoafilindiv VALUES ('".$tit_codigo."','".$tit_nombre_completo."',".$comision.",".trim($key).");";
 	$resul2 = mysql_query($quer2,$link);
 }
 
